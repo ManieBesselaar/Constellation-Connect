@@ -34,6 +34,12 @@ namespace Constellation.Gameplay
         /// <inheritdoc />
         public bool IsFilled { get; private set; }
 
+        /// <inheritdoc />
+        public bool AcceptsRepeats => false;
+
+        /// <inheritdoc />
+        public int AcceptedCount { get; private set; }
+
         private void Awake()
         {
             if (_medallion != null) _restColor = _medallion.color;
@@ -62,6 +68,7 @@ namespace Constellation.Gameplay
             if (IsFilled || chunk == null || ExpectedChunk == null) return false;
             if (chunk.chunkId != ExpectedChunk.chunkId) return false;
 
+            AcceptedCount++;
             IsFilled = true;
             if (_medallion != null) _medallion.color = _filledColor;
 

@@ -16,6 +16,12 @@ namespace Constellation.Gameplay
         /// <summary>True once a correct chunk has been placed here.</summary>
         bool IsFilled { get; }
 
+        /// <summary>True when the target keeps taking matching chunks after it is first filled.</summary>
+        bool AcceptsRepeats { get; }
+
+        /// <summary>Number of chunks accepted so far, used to tell whether a drop was taken.</summary>
+        int AcceptedCount { get; }
+
         /// <summary>Places a chunk when it matches, returning whether it was accepted.</summary>
         bool TryAccept(PhraseChunk chunk);
 

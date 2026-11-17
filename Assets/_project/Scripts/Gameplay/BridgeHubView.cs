@@ -23,8 +23,8 @@ namespace Constellation.Gameplay
         private Color _restColor = Color.white;
         private Sprite _restSprite;
 
-        /// <summary>Raised when the bridge chunk is placed, with the bridge tag.</summary>
-        public event Action<BridgeHubView> Completed;
+        /// <summary>Raised when a matching bridge chunk is placed, with the hub and the chunk.</summary>
+        public event Action<BridgeHubView, PhraseChunk> Completed;
 
         /// <inheritdoc />
         public string VerseId { get; private set; }
@@ -34,6 +34,12 @@ namespace Constellation.Gameplay
 
         /// <inheritdoc />
         public bool IsFilled { get; private set; }
+
+        /// <inheritdoc />
+        public bool AcceptsRepeats => true;
+
+        /// <inheritdoc />
+        public int AcceptedCount { get; private set; }
 
         /// <summary>The bridge keyword this hub represents.</summary>
         public string BridgeTag { get; private set; }
@@ -65,7 +71,7 @@ namespace Constellation.Gameplay
         /// <inheritdoc />
         public bool TryAccept(PhraseChunk chunk)
         {
-            if (IsFilled || chunk == null || ExpectedChunk == null) return false;
+            if (chunk == null || ExpectedChunk == null) return false;
 
             // Every verse sharing a keyword carries its own bridge chunk, so the hub matches on the
             // keyword rather than on one specific chunk id.
@@ -74,14 +80,21 @@ namespace Constellation.Gameplay
 
             if (!matches) return false;
 
-            IsFilled = true;
-            if (_hub != null)
+            AcceptedCount++;
+
+            // The hub lights up on its first chunk but stays open, so a second verse sharing the
+            // keyword still has somewhere to place its own bridge chunk.
+            if (!IsFilled)
             {
-                if (_completedSprite != null) _hub.sprite = _completedSprite;
-                _hub.color = _restColor;
+                IsFilled = true;
+                if (_hub != null)
+                {
+                    if (_completedSprite != null) _hub.sprite = _completedSprite;
+                    _hub.color = _restColor;
+                }
             }
 
-            Completed?.Invoke(this);
+            Completed?.Invoke(this, chunk);
             return true;
         }
 

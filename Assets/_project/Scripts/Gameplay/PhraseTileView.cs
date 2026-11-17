@@ -128,13 +128,13 @@ namespace Constellation.Gameplay
             if (_background != null) _background.color = _restColor;
 
             IDropTarget target = FindTargetUnderPointer(eventData);
-            bool wasFilled = target != null && target.IsFilled;
+            int acceptedBefore = target != null ? target.AcceptedCount : 0;
 
             Dropped?.Invoke(this, target);
 
-            // Only a target that flipped to filled on this very drop accepted the tile; the
-            // controller destroys accepted tiles, so everything else springs back to the tray.
-            bool accepted = target != null && !wasFilled && target.IsFilled;
+            // The controller destroys accepted tiles. Asking the target how many chunks it has
+            // taken covers both an anchor that fills once and a hub that keeps accepting its keyword.
+            bool accepted = target != null && target.AcceptedCount > acceptedBefore;
             if (!accepted) ReturnToOrigin();
         }
 
