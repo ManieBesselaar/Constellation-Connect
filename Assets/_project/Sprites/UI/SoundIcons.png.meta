@@ -90,12 +90,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -131,7 +131,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SoundIcons_0
+      name: icon_music_on
       rect:
         serializedVersion: 2
         x: 77
@@ -153,7 +153,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SoundIcons_1
+      name: icon_music_volume
       rect:
         serializedVersion: 2
         x: 405
@@ -175,7 +175,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SoundIcons_2
+      name: icon_music_off
       rect:
         serializedVersion: 2
         x: 728
@@ -197,7 +197,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SoundIcons_3
+      name: icon_sfx_volume
       rect:
         serializedVersion: 2
         x: 1062
@@ -219,7 +219,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SoundIcons_4
+      name: icon_audio_stop
       rect:
         serializedVersion: 2
         x: 893
@@ -241,7 +241,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SoundIcons_5
+      name: icon_master_volume
       rect:
         serializedVersion: 2
         x: 213
@@ -263,7 +263,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SoundIcons_6
+      name: icon_audio_play
       rect:
         serializedVersion: 2
         x: 595
@@ -305,6 +305,13 @@ TextureImporter:
       SoundIcons_4: -5061974163412040434
       SoundIcons_5: -4746507176342747074
       SoundIcons_6: -1523303530348535439
+      icon_audio_play: -1523303530348535439
+      icon_audio_stop: -5061974163412040434
+      icon_master_volume: -4746507176342747074
+      icon_music_off: 4697202138330724805
+      icon_music_on: -4006732040358561759
+      icon_music_volume: 8781273466076606038
+      icon_sfx_volume: -7798543380727064125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

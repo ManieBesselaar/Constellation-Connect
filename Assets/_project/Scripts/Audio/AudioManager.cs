@@ -157,9 +157,17 @@ namespace Constellation.Audio
         public void ApplyVolumes()
         {
             float master = SaveService.MasterVolume;
-            _bgmSource.volume = master * SaveService.MusicVolume * _bgmLevel;
+            float music = IsMusicMuted ? 0f : SaveService.MusicVolume;
+
+            _bgmSource.volume = master * music * _bgmLevel;
             _sfxSource.volume = master * SaveService.SfxVolume * _sfxLevel;
         }
+
+        /// <summary>
+        /// True when the player has muted the music channel. Muting leaves the clip playing at zero
+        /// volume, so unmuting resumes at the same point and the saved music level is never lost.
+        /// </summary>
+        public bool IsMusicMuted => SaveService.MusicMuted;
 
         /// <summary>
         /// Stores a new master volume and applies it.
@@ -189,6 +197,26 @@ namespace Constellation.Audio
         {
             SaveService.SfxVolume = Mathf.Clamp01(value);
             ApplyVolumes();
+        }
+
+        /// <summary>
+        /// Mutes or unmutes the music channel, keeping the saved music volume untouched.
+        /// </summary>
+        /// <param name="muted">True to silence the music.</param>
+        public void SetMusicMuted(bool muted)
+        {
+            SaveService.MusicMuted = muted;
+            ApplyVolumes();
+        }
+
+        /// <summary>
+        /// Flips the music mute state.
+        /// </summary>
+        /// <returns>The new mute state.</returns>
+        public bool ToggleMusicMuted()
+        {
+            SetMusicMuted(!SaveService.MusicMuted);
+            return IsMusicMuted;
         }
 
         // ------------------------------------------------------------------ named cues

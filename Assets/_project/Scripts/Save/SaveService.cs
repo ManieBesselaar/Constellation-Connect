@@ -165,5 +165,22 @@ namespace Constellation.Save
                 SaveSystemManager.Save(data);
             }
         }
+
+        /// <summary>
+        /// True when the player has muted the music channel. Kept apart from <see cref="MusicVolume"/>
+        /// so unmuting restores the slider position the player chose.
+        /// </summary>
+        public static bool MusicMuted
+        {
+            get => Data.MusicMuted;
+            set
+            {
+                if (Data.MusicMuted == value) return;
+
+                Data.MusicMuted = value;
+                Debug.Log($"[SaveService] Music muted = {value}.");
+                Save();
+            }
+        }
     }
 }

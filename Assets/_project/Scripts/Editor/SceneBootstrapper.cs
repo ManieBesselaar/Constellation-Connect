@@ -53,6 +53,7 @@ namespace Constellation.EditorTools
         private const string UiSheet = "Assets/_project/Sprites/UI/Constellation UI.png";
         private const string IconSheet = "Assets/_project/Sprites/UI/Constellation UI icons.png";
         private const string ExtraSheet = "Assets/_project/Sprites/UI/Constellation UI additional icons.png";
+        private const string SoundSheet = "Assets/_project/Sprites/UI/SoundIcons.png";
 
         private const string PillButtonPrefab = PrefabFolder + "/PFB_UiPillButton.prefab";
         private const string ThemeCardPrefab = PrefabFolder + "/PFB_UiThemeCard.prefab";
@@ -456,9 +457,9 @@ namespace Constellation.EditorTools
             TextMeshProUGUI timerSummary = Text(content, "TimerSummary", "60 seconds", 24f, Ink);
             timerSummary.rectTransform.sizeDelta = new Vector2(0f, 30f);
 
-            Slider master = SliderRow(content, "MasterVolume", "Master", 54f);
-            Slider music = SliderRow(content, "MusicVolume", "Music", 54f);
-            Slider sfx = SliderRow(content, "SfxVolume", "Sound", 54f);
+            Slider master = SliderRow(content, "MasterVolume", "Master", 54f, LoadSprite(SoundSheet, "icon_master_volume"));
+            Slider music = SliderRow(content, "MusicVolume", "Music", 54f, LoadSprite(SoundSheet, "icon_music_volume"));
+            Slider sfx = SliderRow(content, "SfxVolume", "Sound", 54f, LoadSprite(SoundSheet, "icon_sfx_volume"));
 
             TextMeshProUGUI attribution = Text(content, "Attribution", string.Empty, 16f, DimInk);
             attribution.alignment = TextAlignmentOptions.TopLeft;
@@ -687,6 +688,30 @@ namespace Constellation.EditorTools
                 .Set("_loadSceneRequestChannel", AssetDatabase.LoadAssetAtPath<SceneLoadEventChannelSO>(LoadChannelPath))
                 .Set("_scoreLabel", scoreLabel)
                 .ApplyTo(machine);
+
+            // ---- music mute ------------------------------------------------------------
+            // Built last so it draws over the victory dim: the mute stays reachable in every phase.
+            // The bottom-right corner is the only spot no phase panel uses at this canvas size.
+            RectTransform muteRect = NewRect(
+                "MusicMuteButton", canvas, BottomRight, BottomRight, BottomRight,
+                new Vector2(-44f, 486f), new Vector2(92f, 92f));
+
+            var muteImage = muteRect.gameObject.AddComponent<Image>();
+            muteImage.sprite = LoadSprite(SoundSheet, "icon_music_on");
+            muteImage.preserveAspect = true;
+            muteImage.raycastTarget = true;
+
+            var muteButton = muteRect.gameObject.AddComponent<Button>();
+            muteButton.targetGraphic = muteImage;
+
+            var muteToggle = muteRect.gameObject.AddComponent<MusicMuteToggleView>();
+
+            new Wiring()
+                .Set("_button", muteButton)
+                .Set("_icon", muteImage)
+                .Set("_musicOnSprite", LoadSprite(SoundSheet, "icon_music_on"))
+                .Set("_musicOffSprite", LoadSprite(SoundSheet, "icon_music_off"))
+                .ApplyTo(muteToggle);
         }
 
         private static CountdownBar AttachCountdownBar(GameObject barRoot)
@@ -792,12 +817,21 @@ namespace Constellation.EditorTools
         private static void BuildScene(string path, Action<Scene> populate)
         {
             Scene previousActive = SceneManager.GetActiveScene();
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+            bool alreadyLoaded = SceneManager.GetSceneByPath(path).isLoaded;
+
+            // A scene that is already open in the editor cannot be saved over, so it is reused and
+            // emptied instead of being built a second time beside itself.
+            Scene scene = alreadyLoaded
+                ? SceneManager.GetSceneByPath(path)
+                : EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+
             _scene = scene;
             SceneManager.SetActiveScene(scene);
 
             try
             {
+                if (alreadyLoaded) ClearRoots(scene);
+
                 populate(scene);
 
                 if (!EditorSceneManager.SaveScene(scene, path))
@@ -814,7 +848,19 @@ namespace Constellation.EditorTools
             {
                 _scene = default;
                 SceneManager.SetActiveScene(previousActive);
-                EditorSceneManager.CloseScene(scene, true);
+
+                if (!alreadyLoaded) EditorSceneManager.CloseScene(scene, true);
+            }
+        }
+
+        /// <summary>
+        /// Empties a scene that was already open, so a rebuild never leaves a second copy of the UI behind.
+        /// </summary>
+        private static void ClearRoots(Scene scene)
+        {
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                UnityEngine.Object.DestroyImmediate(root);
             }
         }
 
@@ -940,9 +986,20 @@ namespace Constellation.EditorTools
             EditorUtility.SetDirty(tmp);
         }
 
-        private static Slider SliderRow(Transform parent, string name, string label, float height)
+        private static Slider SliderRow(Transform parent, string name, string label, float height, Sprite icon)
         {
             RectTransform row = Row(parent, name + "Row", height);
+
+            if (icon != null)
+            {
+                Image glyph = NewImage(row, "Icon", icon);
+                ((RectTransform)glyph.transform).sizeDelta = new Vector2(46f, 46f);
+
+                var glyphLayout = glyph.gameObject.AddComponent<LayoutElement>();
+                glyphLayout.minWidth = 46f;
+                glyphLayout.preferredWidth = 46f;
+                glyphLayout.flexibleWidth = 0f;
+            }
 
             TextMeshProUGUI caption = Text(row, "Caption", label, 24f, Ink);
             caption.alignment = TextAlignmentOptions.Left;
@@ -1142,6 +1199,7 @@ namespace Constellation.EditorTools
         private static readonly Vector2 BottomRightSpan = new Vector2(1f, 0f);
         private static readonly Vector2 TopLeft = new Vector2(0f, 1f);
         private static readonly Vector2 TopRight = new Vector2(1f, 1f);
+        private static readonly Vector2 BottomRight = new Vector2(1f, 0f);
 
         // ------------------------------------------------------------------ wiring helper
 

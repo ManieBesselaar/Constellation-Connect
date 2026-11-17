@@ -24,6 +24,9 @@ namespace Constellation.EditorTools
         /// <summary>Extra sheet: star ratings, bridge hubs and card panels.</summary>
         private const string ExtraSheet = "Assets/_project/Sprites/UI/Constellation UI additional icons.png";
 
+        /// <summary>Audio sheet: music on/off, master/music/sfx volume, play and stop glyphs.</summary>
+        private const string SoundSheet = "Assets/_project/Sprites/UI/SoundIcons.png";
+
         private static readonly Dictionary<string, string> MainNames = new Dictionary<string, string>
         {
             { "Constellation UI_0", "medallion_navy_scroll" },
@@ -118,6 +121,21 @@ namespace Constellation.EditorTools
         };
 
         /// <summary>
+        /// Audio sheet. The sheet's own slice order is row-major from the bottom-left of the texture,
+        /// so SoundIcons_4 is the square stop glyph on the bottom right, not the play triangle beside it.
+        /// </summary>
+        private static readonly Dictionary<string, string> SoundNames = new Dictionary<string, string>
+        {
+            { "SoundIcons_0", "icon_music_on" },
+            { "SoundIcons_1", "icon_music_volume" },
+            { "SoundIcons_2", "icon_music_off" },
+            { "SoundIcons_3", "icon_sfx_volume" },
+            { "SoundIcons_4", "icon_audio_stop" },
+            { "SoundIcons_5", "icon_master_volume" },
+            { "SoundIcons_6", "icon_audio_play" }
+        };
+
+        /// <summary>
         /// Reapplies every semantic sub-sprite name, skipping sprites that already carry one.
         /// </summary>
         [MenuItem("Tools/Constellation/Fix Sprite Names")]
@@ -127,6 +145,7 @@ namespace Constellation.EditorTools
             renamed += Apply(UiSheet, MainNames);
             renamed += Apply(IconSheet, IconNames);
             renamed += Apply(ExtraSheet, ExtraNames);
+            renamed += Apply(SoundSheet, SoundNames);
 
             if (renamed == 0)
             {
@@ -136,7 +155,7 @@ namespace Constellation.EditorTools
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[SpriteSheetFixer] Renamed {renamed} sub-sprites across the three art sheets.");
+            Debug.Log($"[SpriteSheetFixer] Renamed {renamed} sub-sprites across the art sheets.");
         }
 
         private static int Apply(string sheetPath, Dictionary<string, string> table)

@@ -37,6 +37,9 @@ namespace Constellation.Save
         /// <summary>True when study mode has no countdown.</summary>
         public bool ZenMode;
 
+        /// <summary>True when the player has muted the music channel without losing its volume setting.</summary>
+        public bool MusicMuted;
+
         /// <summary>One progression record per constellation theme.</summary>
         public List<ThemeProgress> Themes = new List<ThemeProgress>();
     }
