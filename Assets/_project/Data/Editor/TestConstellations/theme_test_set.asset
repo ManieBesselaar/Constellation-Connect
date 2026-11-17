@@ -17,32 +17,177 @@ MonoBehaviour:
   themeTitle: Test Set
   bridgeKeywords: []
   verses:
-  - verseId: TEST_SET
-    reference: Test Set
+  - verseId: TEST_A
+    reference: a
     iconId: icon_star
-    fullText: 1 2 3 4
+    fullText: a1 a2 a3 a4
     chunks:
-    - chunkId: TEST_SET_C1
+    - chunkId: TEST_A_C1
       order: 1
-      localizationKey: TEST_SET_C1
-      text: 1
+      localizationKey: TEST_A_C1
+      text: a1
       isBridge: 0
       bridgeTag: 
-    - chunkId: TEST_SET_C2
+    - chunkId: TEST_A_C2
       order: 2
-      localizationKey: TEST_SET_C2
-      text: 2
+      localizationKey: TEST_A_C2
+      text: a2
       isBridge: 0
       bridgeTag: 
-    - chunkId: TEST_SET_C3
+    - chunkId: TEST_A_C3
       order: 3
-      localizationKey: TEST_SET_C3
-      text: 3
+      localizationKey: TEST_A_C3
+      text: a3
       isBridge: 0
       bridgeTag: 
-    - chunkId: TEST_SET_C4
+    - chunkId: TEST_A_C4
       order: 4
-      localizationKey: TEST_SET_C4
-      text: 4
+      localizationKey: TEST_A_C4
+      text: a4
+      isBridge: 0
+      bridgeTag: 
+  - verseId: TEST_B
+    reference: b
+    iconId: icon_star
+    fullText: b1 b2 b3 b4
+    chunks:
+    - chunkId: TEST_B_C1
+      order: 1
+      localizationKey: TEST_B_C1
+      text: b1
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_B_C2
+      order: 2
+      localizationKey: TEST_B_C2
+      text: b2
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_B_C3
+      order: 3
+      localizationKey: TEST_B_C3
+      text: b3
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_B_C4
+      order: 4
+      localizationKey: TEST_B_C4
+      text: b4
+      isBridge: 0
+      bridgeTag: 
+  - verseId: TEST_C
+    reference: c
+    iconId: icon_star
+    fullText: c1 c2 c3 c4
+    chunks:
+    - chunkId: TEST_C_C1
+      order: 1
+      localizationKey: TEST_C_C1
+      text: c1
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_C_C2
+      order: 2
+      localizationKey: TEST_C_C2
+      text: c2
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_C_C3
+      order: 3
+      localizationKey: TEST_C_C3
+      text: c3
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_C_C4
+      order: 4
+      localizationKey: TEST_C_C4
+      text: c4
+      isBridge: 0
+      bridgeTag: 
+  - verseId: TEST_D
+    reference: d
+    iconId: icon_star
+    fullText: d1 d2 d3 d4
+    chunks:
+    - chunkId: TEST_D_C1
+      order: 1
+      localizationKey: TEST_D_C1
+      text: d1
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_D_C2
+      order: 2
+      localizationKey: TEST_D_C2
+      text: d2
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_D_C3
+      order: 3
+      localizationKey: TEST_D_C3
+      text: d3
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_D_C4
+      order: 4
+      localizationKey: TEST_D_C4
+      text: d4
+      isBridge: 0
+      bridgeTag: 
+  - verseId: TEST_E
+    reference: e
+    iconId: icon_star
+    fullText: e1 e2 e3 e4
+    chunks:
+    - chunkId: TEST_E_C1
+      order: 1
+      localizationKey: TEST_E_C1
+      text: e1
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_E_C2
+      order: 2
+      localizationKey: TEST_E_C2
+      text: e2
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_E_C3
+      order: 3
+      localizationKey: TEST_E_C3
+      text: e3
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_E_C4
+      order: 4
+      localizationKey: TEST_E_C4
+      text: e4
+      isBridge: 0
+      bridgeTag: 
+  - verseId: TEST_F
+    reference: f
+    iconId: icon_star
+    fullText: f1 f2 f3 f4
+    chunks:
+    - chunkId: TEST_F_C1
+      order: 1
+      localizationKey: TEST_F_C1
+      text: f1
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_F_C2
+      order: 2
+      localizationKey: TEST_F_C2
+      text: f2
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_F_C3
+      order: 3
+      localizationKey: TEST_F_C3
+      text: f3
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_F_C4
+      order: 4
+      localizationKey: TEST_F_C4
+      text: f4
       isBridge: 0
       bridgeTag: 
