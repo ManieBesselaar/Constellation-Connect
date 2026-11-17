@@ -72,6 +72,13 @@ namespace Constellation.EditorTools
         private static readonly Color DeepNavy = new Color(0.04f, 0.06f, 0.14f, 1f);
         private static readonly Color CameraClear = new Color(0.016f, 0.024f, 0.055f, 1f);
 
+        /// <summary>Body copy of the how-to-play overlay.</summary>
+        private const string HowToPlayBody =
+            "1.  STUDY: Read the six verse cards and memorise their phrases before the timer ends.\n\n" +
+            "2.  CONNECT: Drag each phrase tile onto the medallion of the verse it belongs to.\n\n" +
+            "3.  BRIDGE: A hub joins two verses. Drop the phrase they share onto the hub.\n\n" +
+            "4.  HINT: Costs 75 points. Finish with no hints to collect all three stars.";
+
         /// <summary>Maps the icon identifiers used by the verse data onto the glyph sheet slices.</summary>
         private static readonly Dictionary<string, string> GlyphBindings = new Dictionary<string, string>
         {
@@ -576,10 +583,12 @@ namespace Constellation.EditorTools
 
             RectTransform tileTray = NewRect("TileTray", connectPanel, BottomLeft, BottomRightSpan, BottomCentre, new Vector2(0f, 30f), new Vector2(-80f, 440f));
             var trayLayout = tileTray.gameObject.AddComponent<GridLayoutGroup>();
-            trayLayout.cellSize = new Vector2(152f, 92f);
+            // 250 x 140 over 7 columns: three rows fit the 440 high tray, and the hex stays close to
+            // square so the 26pt phrase has room inside it.
+            trayLayout.cellSize = new Vector2(250f, 140f);
             trayLayout.spacing = new Vector2(8f, 8f);
             trayLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            trayLayout.constraintCount = 11;
+            trayLayout.constraintCount = 7;
             trayLayout.childAlignment = TextAnchor.UpperCenter;
 
             var anchorPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(AnchorNodePrefab);
@@ -675,6 +684,43 @@ namespace Constellation.EditorTools
                 .SetArray("_stars", starImages.ToArray())
                 .ApplyTo(victory);
 
+            // ---- how to play ---------------------------------------------------------
+            // Its own canvas with a higher sorting order so it covers every phase panel, including
+            // the victory overlay, and blocks clicks to the tiles underneath.
+            RectTransform instructionCanvas = CreateCanvas("InstructionCanvas");
+            instructionCanvas.gameObject.GetComponent<Canvas>().sortingOrder = 50;
+
+            RectTransform instructionPanel = NewRect("InstructionPanel", instructionCanvas, Centre, Centre, Centre, Vector2.zero, Vector2.zero);
+            StretchTo(instructionPanel, 0f, 0f, 0f, 0f);
+
+            Image instructionDim = NewImage(instructionPanel, "Dim", null);
+            StretchTo((RectTransform)instructionDim.transform, 0f, 0f, 0f, 0f);
+            instructionDim.color = new Color(0.01f, 0.02f, 0.05f, 0.9f);
+            instructionDim.raycastTarget = true;
+
+            GameObject howToCard = InstantiatePrefab(ModalPanelPrefab, instructionPanel, "HowToCard");
+            Place((RectTransform)howToCard.transform, Centre, Centre, Centre, Vector2.zero, new Vector2(980f, 660f));
+
+            Transform howToContent = howToCard.transform.Find("Content");
+
+            TextMeshProUGUI howToTitle = Text(howToContent, "Title", "HOW TO PLAY", 42f, Gold);
+            howToTitle.fontStyle = FontStyles.Bold;
+            howToTitle.rectTransform.sizeDelta = new Vector2(0f, 58f);
+
+            TextMeshProUGUI howToBody = Text(howToContent, "Body", HowToPlayBody, 26f, Ink);
+            howToBody.alignment = TextAlignmentOptions.TopLeft;
+            howToBody.rectTransform.sizeDelta = new Vector2(0f, 340f);
+
+            Button gotItButton = NewPillButton(howToContent, "DismissButton", "GOT IT");
+            ((RectTransform)gotItButton.transform).sizeDelta = new Vector2(0f, 78f);
+
+            var howTo = instructionCanvas.gameObject.AddComponent<HowToPlayView>();
+
+            new Wiring()
+                .Set("_panel", instructionPanel.gameObject)
+                .Set("_dismissButton", gotItButton)
+                .ApplyTo(howTo);
+
             // ---- phase machine -------------------------------------------------------
             UnityEngine.Object[] themes = LoadThemes();
 
@@ -687,6 +733,7 @@ namespace Constellation.EditorTools
                 .Set("_gameplayScene", AssetDatabase.LoadAssetAtPath<GameSceneSO>(ScenesDataFolder + "/Scene_GamePlay.asset"))
                 .Set("_loadSceneRequestChannel", AssetDatabase.LoadAssetAtPath<SceneLoadEventChannelSO>(LoadChannelPath))
                 .Set("_scoreLabel", scoreLabel)
+                .Set("_instructions", howTo)
                 .ApplyTo(machine);
 
             // ---- music mute ------------------------------------------------------------

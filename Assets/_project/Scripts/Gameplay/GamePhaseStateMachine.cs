@@ -56,6 +56,10 @@ namespace Constellation.Gameplay
         [Tooltip("Score readout shown during the connect phase.")]
         [SerializeField] private TextMeshProUGUI _scoreLabel;
 
+        [Header("Instructions")]
+        [Tooltip("How-to-play overlay. When assigned, the study phase waits until the player closes it.")]
+        [SerializeField] private HowToPlayView _instructions;
+
         private ConstellationSO _constellation;
         private float _runStartTime;
         private int _score;
@@ -94,6 +98,8 @@ namespace Constellation.Gameplay
                 _victory.ReturnToMenuRequested -= HandleReturnToMenu;
                 _victory.ReplayRequested -= HandleReplay;
             }
+
+            if (_instructions != null) _instructions.Dismissed -= HandleInstructionsDismissed;
         }
 
         private void Start()
@@ -109,6 +115,23 @@ namespace Constellation.Gameplay
             }
 
             Debug.Log($"[GamePhaseStateMachine] Starting run for '{_constellation.constellationId}'.");
+
+            // Hold the run on the how-to overlay: the study countdown must not start while the
+            // player is still reading the controls.
+            if (_instructions != null)
+            {
+                _instructions.Dismissed += HandleInstructionsDismissed;
+                _instructions.Show();
+                Debug.Log("[GamePhaseStateMachine] Waiting for the how-to-play overlay.");
+                return;
+            }
+
+            EnterStudy();
+        }
+
+        private void HandleInstructionsDismissed()
+        {
+            if (_instructions != null) _instructions.Dismissed -= HandleInstructionsDismissed;
             EnterStudy();
         }
 

@@ -153,7 +153,7 @@ namespace Constellation.EditorTools
         private static void BuildHexTile()
         {
             var root = NewRect("PFB_UiHexTile");
-            ((RectTransform)root.transform).sizeDelta = new Vector2(220f, 140f);
+            ((RectTransform)root.transform).sizeDelta = new Vector2(250f, 140f);
 
             var background = root.AddComponent<Image>();
             background.sprite = LoadSprite(UiSheet, "hex_tile_cyan");
@@ -162,8 +162,22 @@ namespace Constellation.EditorTools
 
             var canvasGroup = root.AddComponent<CanvasGroup>();
 
-            var label = NewText(root.transform, "Phrase", "Phrase chunk", 22f);
-            Stretch((RectTransform)label.transform, 26f, 26f, 16f, 16f);
+            var label = NewText(root.transform, "Phrase", "Phrase chunk", 26f);
+            // The hexagon is pointed left and right, so its usable width shrinks towards the top and
+            // bottom lines. Generous side insets keep a wrapped phrase inside the slanted edges.
+            Stretch((RectTransform)label.transform, 40f, 40f, 14f, 14f);
+
+            // The hex tile art is pale cyan, so white text disappears into it. Deep navy ink keeps a
+            // hard contrast on the tile at rest, while held (gold) and placed (gold) tints.
+            label.color = new Color(0.04f, 0.06f, 0.14f, 1f);
+            label.fontStyle = FontStyles.Bold;
+            label.alignment = TextAlignmentOptions.Center;
+
+            // Chunks run from two words to a full sentence; auto sizing keeps the long ones inside
+            // the hex instead of spilling over their neighbours.
+            label.enableAutoSizing = true;
+            label.fontSizeMin = 20f;
+            label.fontSizeMax = 28f;
 
             var tween = root.AddComponent<UIImageTween>();
 
