@@ -1,0 +1,18 @@
+{
+    "name": "Lifestories.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b16b93c156978dd49ad955c1ae65a91f",
+        "GUID:30105d72d1a925e4cb28cc828197d827",
+        "GUID:d203a2731bd62e1469a34e22c4d2c730"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,22 @@
+{
+    "name": "Lifestories.Demo",
+    "rootNamespace": "",
+    "references": [
+        "Lifestories.Core",
+        "Lifestories.Events",
+        "Lifestories.Navigation",
+        "Lifestories.Pause",
+        "Lifestories.SaveSystem",
+        "Lifestories.UI",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

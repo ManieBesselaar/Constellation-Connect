@@ -1,0 +1,691 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ConstellationStrings_en-WEB
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en-WEB
+  m_SharedData: {fileID: 11400000, guid: fd3acffc0d9f2ed438b179c173c3cce4, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 3296686080
+    m_Localized: Constellation Connect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3711922176
+    m_Localized: Scripture quotations taken from the World English Bible (WEB), Public
+      Domain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310784
+    m_Localized: Faith & Strength
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310785
+    m_Localized: Philippians 4:13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310786
+    m_Localized: I can do all things through Christ, who strengthens me.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310787
+    m_Localized: I can do all things
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310788
+    m_Localized: through Christ,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310789
+    m_Localized: who strengthens me.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310790
+    m_Localized: Joshua 1:9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310791
+    m_Localized: Haven't I commanded you? Be strong and courageous. Don't be afraid.
+      Don't be dismayed, for Yahweh your God is with you wherever you go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310792
+    m_Localized: Be strong and courageous.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310793
+    m_Localized: Don't be afraid. Don't be dismayed,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310794
+    m_Localized: for Yahweh your God is with you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310795
+    m_Localized: wherever you go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310796
+    m_Localized: Isaiah 40:31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310797
+    m_Localized: But those who wait for Yahweh will renew their strength. They will
+      mount up with wings like eagles.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310798
+    m_Localized: But those who wait for Yahweh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310799
+    m_Localized: will renew their strength.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310800
+    m_Localized: They will mount up with wings like eagles.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310801
+    m_Localized: Psalm 27:1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310802
+    m_Localized: Yahweh is my light and my salvation. Whom shall I fear? Yahweh is
+      the strength of my life. Of whom shall I be afraid?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310803
+    m_Localized: Yahweh is my light and my salvation.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310804
+    m_Localized: Whom shall I fear?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310805
+    m_Localized: Yahweh is the strength of my life.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310806
+    m_Localized: 2 Timothy 1:7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310807
+    m_Localized: For God didn't give us a spirit of fear, but of power, love, and
+      self-control.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310808
+    m_Localized: For God didn't give us a spirit of fear,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310809
+    m_Localized: but of power, love,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310810
+    m_Localized: and self-control.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310811
+    m_Localized: Psalm 46:1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310812
+    m_Localized: God is our refuge and strength, a very present help in trouble.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310813
+    m_Localized: God is our refuge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310814
+    m_Localized: and strength,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310815
+    m_Localized: a very present help in trouble.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310816
+    m_Localized: Peace & Comfort
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310817
+    m_Localized: Psalm 23:1-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310818
+    m_Localized: Yahweh is my shepherd; I shall lack nothing. He makes me lie down
+      in green pastures.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310819
+    m_Localized: Yahweh is my shepherd;
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310820
+    m_Localized: I shall lack nothing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310821
+    m_Localized: He makes me lie down in green pastures.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310822
+    m_Localized: John 14:27
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310823
+    m_Localized: Peace I leave with you. My peace I give to you; not as the world
+      gives, I give to you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310824
+    m_Localized: Peace I leave with you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310825
+    m_Localized: My peace I give to you;
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310826
+    m_Localized: not as the world gives, I give to you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310827
+    m_Localized: Matthew 11:28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310828
+    m_Localized: Come to me, all you who labor and are heavily burdened, and I will
+      give you rest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310829
+    m_Localized: Come to me,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310830
+    m_Localized: all you who labor and are heavily burdened,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310831
+    m_Localized: and I will give you rest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310832
+    m_Localized: Philippians 4:7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310833
+    m_Localized: And the peace of God, which surpasses all understanding, will guard
+      your hearts and your thoughts in Christ Jesus.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310834
+    m_Localized: And the peace of God,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310835
+    m_Localized: which surpasses all understanding,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310836
+    m_Localized: will guard your hearts and your thoughts in Christ Jesus.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310837
+    m_Localized: Isaiah 26:3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310838
+    m_Localized: You will keep whoever's mind is steadfast in perfect peace, because
+      he trusts in you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310839
+    m_Localized: You will keep whoever's mind is steadfast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310840
+    m_Localized: in perfect peace,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310841
+    m_Localized: because he trusts in you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310842
+    m_Localized: 1 Peter 5:7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310843
+    m_Localized: Casting all your worries on him, because he cares for you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310844
+    m_Localized: Casting all your worries
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310845
+    m_Localized: on him,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310846
+    m_Localized: because he cares for you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310847
+    m_Localized: God's Unfailing Love
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310848
+    m_Localized: John 3:16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310849
+    m_Localized: For God so loved the world, that he gave his only born Son, that
+      whoever believes in him should not perish, but have eternal life.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310850
+    m_Localized: For God so loved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310851
+    m_Localized: the world,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310852
+    m_Localized: that he gave his only born Son,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310853
+    m_Localized: that whoever believes in him should not perish, but have eternal
+      life.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310854
+    m_Localized: Romans 8:38-39
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310855
+    m_Localized: For I am persuaded that neither death, nor life, nor angels, nor
+      principalities, will be able to separate us from God's love.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310856
+    m_Localized: For I am persuaded that neither death, nor life,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310857
+    m_Localized: will be able to separate us
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310858
+    m_Localized: from God's love.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310859
+    m_Localized: 1 John 4:19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310860
+    m_Localized: We love him, because he first loved us.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310861
+    m_Localized: We love him,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310862
+    m_Localized: because he
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310863
+    m_Localized: first loved us.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310864
+    m_Localized: 1 Corinthians 13:4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310865
+    m_Localized: Love is patient and is kind. Love doesn't envy. Love doesn't brag,
+      is not proud.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310866
+    m_Localized: Love is patient and is kind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310867
+    m_Localized: Love doesn't envy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310868
+    m_Localized: Love doesn't brag, is not proud.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310869
+    m_Localized: Romans 5:8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310870
+    m_Localized: But God commends his own love toward us, in that while we were yet
+      sinners, Christ died for us.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310871
+    m_Localized: But God commends his own love toward us,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310872
+    m_Localized: in that while we were yet sinners,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310873
+    m_Localized: Christ died for us.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310874
+    m_Localized: 1 John 3:1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310875
+    m_Localized: See how great a love the Father has given to us, that we should
+      be called children of God!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310876
+    m_Localized: See how great a love
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310877
+    m_Localized: the Father has given to us,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310878
+    m_Localized: that we should be called children of God!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310879
+    m_Localized: Wisdom & Guidance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310880
+    m_Localized: Proverbs 3:5-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310881
+    m_Localized: Trust in Yahweh with all your heart, and don't lean on your own
+      understanding. In all your ways acknowledge him, and he will make your paths
+      straight.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310882
+    m_Localized: Trust in Yahweh with all your heart,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310883
+    m_Localized: and don't lean on your own understanding.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310884
+    m_Localized: In all your ways acknowledge him,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310885
+    m_Localized: and he will make your paths straight.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310886
+    m_Localized: Psalm 119:105
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310887
+    m_Localized: Your word is a lamp to my feet, and a light for my path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310888
+    m_Localized: Your word
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310889
+    m_Localized: is a lamp to my feet,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310890
+    m_Localized: and a light for my path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310891
+    m_Localized: James 1:5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310892
+    m_Localized: But if any of you lacks wisdom, let him ask of God, who gives to
+      all liberally and without reproach, and it will be given to him.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310893
+    m_Localized: But if any of you lacks wisdom,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310894
+    m_Localized: let him ask of God,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310895
+    m_Localized: who gives to all liberally and it will be given to him.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310896
+    m_Localized: Psalm 32:8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310897
+    m_Localized: I will instruct you and teach you in the way which you shall go.
+      I will counsel you with my eye on you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310898
+    m_Localized: I will instruct you and teach you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310899
+    m_Localized: in the way which you shall go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310900
+    m_Localized: I will counsel you with my eye on you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310901
+    m_Localized: Matthew 5:16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310902
+    m_Localized: Even so, let your light shine before men, that they may see your
+      good works and glorify your Father who is in heaven.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310903
+    m_Localized: Even so, let your light shine before men,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310904
+    m_Localized: that they may see your good works
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310905
+    m_Localized: and glorify your Father who is in heaven.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310906
+    m_Localized: Colossians 3:16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310907
+    m_Localized: Let the word of Christ dwell in you richly; in all wisdom teaching
+      and admonishing one another.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310908
+    m_Localized: Let the word of Christ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310909
+    m_Localized: dwell in you richly;
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310910
+    m_Localized: in all wisdom teaching one another.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310911
+    m_Localized: Hope & Purpose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310912
+    m_Localized: Jeremiah 29:11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310913
+    m_Localized: For I know the thoughts that I think toward you, says Yahweh, thoughts
+      of peace, and not of evil, to give you hope and a future.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310914
+    m_Localized: For I know the thoughts that I think toward you,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310915
+    m_Localized: thoughts of peace, and not of evil,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310916
+    m_Localized: to give you hope and a future.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310917
+    m_Localized: Romans 8:28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310918
+    m_Localized: We know that all things work together for good for those who love
+      God, for those who are called according to his purpose.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310919
+    m_Localized: We know that all things
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310920
+    m_Localized: work together for good
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310921
+    m_Localized: for those who are called according to his purpose.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310922
+    m_Localized: Romans 15:13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310923
+    m_Localized: Now may the God of hope fill you with all joy and peace in believing,
+      that you may abound in hope.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310924
+    m_Localized: Now may the God of hope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310925
+    m_Localized: fill you with all joy and peace in believing,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310926
+    m_Localized: that you may abound in hope.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310927
+    m_Localized: Hebrews 11:1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310928
+    m_Localized: Now faith is assurance of things hoped for, proof of things not
+      seen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310929
+    m_Localized: Now faith is assurance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310930
+    m_Localized: of things hoped for,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310931
+    m_Localized: proof of things not seen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310932
+    m_Localized: Ephesians 2:10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310933
+    m_Localized: For we are his workmanship, created in Christ Jesus for good works,
+      which God prepared before that we would walk in them.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310934
+    m_Localized: For we are his workmanship,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310935
+    m_Localized: created in Christ Jesus for good works,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310936
+    m_Localized: which God prepared before that we would walk in them.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310937
+    m_Localized: Lamentations 3:22-23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310938
+    m_Localized: It is because of Yahweh's loving kindnesses that we are not consumed,
+      because his mercies don't fail. They are new every morning.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310939
+    m_Localized: It is because of Yahweh's loving kindnesses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310940
+    m_Localized: that we are not consumed, because his mercies don't fail.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3720310941
+    m_Localized: They are new every morning.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

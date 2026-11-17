@@ -1,0 +1,1070 @@
+fileFormatVersion: 2
+guid: 6913ebea1c9a36a4e91a62966d3ba335
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5008803131239904716
+    second: Constellation UI icons_0
+  - first:
+      213: -5521824294849072034
+    second: Constellation UI icons_1
+  - first:
+      213: 1190125739892046117
+    second: Constellation UI icons_2
+  - first:
+      213: -1641929664602255103
+    second: Constellation UI icons_3
+  - first:
+      213: -6291903272306434822
+    second: Constellation UI icons_4
+  - first:
+      213: -5991119516593928053
+    second: Constellation UI icons_5
+  - first:
+      213: -1444429112223537529
+    second: Constellation UI icons_6
+  - first:
+      213: 1938587508157363994
+    second: Constellation UI icons_7
+  - first:
+      213: -4122053405030812380
+    second: Constellation UI icons_8
+  - first:
+      213: 6283522824635962206
+    second: Constellation UI icons_9
+  - first:
+      213: -4141277922550011674
+    second: Constellation UI icons_10
+  - first:
+      213: -1304430597186783022
+    second: Constellation UI icons_11
+  - first:
+      213: -2785854054514422452
+    second: Constellation UI icons_12
+  - first:
+      213: -4336098455623644792
+    second: Constellation UI icons_13
+  - first:
+      213: 5983676769954923214
+    second: Constellation UI icons_14
+  - first:
+      213: 2461856325190766873
+    second: Constellation UI icons_15
+  - first:
+      213: 8915068951447182123
+    second: Constellation UI icons_16
+  - first:
+      213: 4789932946287140575
+    second: Constellation UI icons_17
+  - first:
+      213: -7630993858534346630
+    second: Constellation UI icons_18
+  - first:
+      213: -5363315070490700693
+    second: Constellation UI icons_19
+  - first:
+      213: -5635484079277927583
+    second: Constellation UI icons_20
+  - first:
+      213: -6633529224944757
+    second: Constellation UI icons_21
+  - first:
+      213: -8796413213576955136
+    second: Constellation UI icons_22
+  - first:
+      213: -4427882389275221868
+    second: Constellation UI icons_23
+  - first:
+      213: -6780232669833331811
+    second: Constellation UI icons_24
+  - first:
+      213: 7097809790595267431
+    second: Constellation UI icons_25
+  - first:
+      213: -1072527246763863229
+    second: Constellation UI icons_26
+  - first:
+      213: 1547016252231446307
+    second: Constellation UI icons_27
+  - first:
+      213: 1728938746227571005
+    second: Constellation UI icons_28
+  - first:
+      213: 6026461721242787123
+    second: Constellation UI icons_29
+  - first:
+      213: -1262387826882900087
+    second: Constellation UI icons_30
+  - first:
+      213: 95630440079286391
+    second: Constellation UI icons_31
+  - first:
+      213: 764660999221229786
+    second: Constellation UI icons_32
+  - first:
+      213: 2235292896354771896
+    second: Constellation UI icons_33
+  - first:
+      213: 4637980681014997162
+    second: Constellation UI icons_34
+  - first:
+      213: -5814871099862364407
+    second: Constellation UI icons_35
+  - first:
+      213: 6094150366150539232
+    second: Constellation UI icons_36
+  - first:
+      213: -2711424723499713486
+    second: Constellation UI icons_37
+  - first:
+      213: 8080560851370761551
+    second: Constellation UI icons_38
+  - first:
+      213: 4652928846272691047
+    second: Constellation UI icons_39
+  - first:
+      213: -2799861163769060202
+    second: Constellation UI icons_40
+  - first:
+      213: -7132276390374590029
+    second: Constellation UI icons_41
+  - first:
+      213: 8813056916848230376
+    second: Constellation UI icons_42
+  - first:
+      213: 7393074710038944033
+    second: Constellation UI icons_43
+  - first:
+      213: 6048189481868055607
+    second: Constellation UI icons_44
+  - first:
+      213: -7661718142828464581
+    second: Constellation UI icons_45
+  - first:
+      213: 5404192917985137306
+    second: Constellation UI icons_46
+  - first:
+      213: 4257274015976770318
+    second: Constellation UI icons_47
+  - first:
+      213: 563038355571499129
+    second: Constellation UI icons_48
+  - first:
+      213: 1851828424262734698
+    second: Constellation UI icons_49
+  - first:
+      213: -4226840475064830190
+    second: Constellation UI icons_50
+  - first:
+      213: 7280028686294832498
+    second: Constellation UI icons_51
+  - first:
+      213: -5851514203554612723
+    second: Constellation UI icons_52
+  - first:
+      213: 1836456710635132329
+    second: Constellation UI icons_53
+  - first:
+      213: -2309623616797084434
+    second: Constellation UI icons_54
+  - first:
+      213: 3800633930409499649
+    second: Constellation UI icons_55
+  - first:
+      213: 2690572566452753946
+    second: Constellation UI icons_56
+  - first:
+      213: -7063318104864071317
+    second: Constellation UI icons_57
+  - first:
+      213: 5404575235692229501
+    second: Constellation UI icons_58
+  - first:
+      213: 5284513973279796
+    second: Constellation UI icons_59
+  - first:
+      213: -6373541970612168623
+    second: Constellation UI icons_60
+  - first:
+      213: -8597123602299058040
+    second: Constellation UI icons_61
+  - first:
+      213: -198781452139826088
+    second: Constellation UI icons_62
+  - first:
+      213: -4031111520557224187
+    second: Constellation UI icons_63
+  - first:
+      213: 2411809658470701881
+    second: Constellation UI icons_64
+  - first:
+      213: 8672521583620226796
+    second: Constellation UI icons_65
+  - first:
+      213: 1377602293460872550
+    second: Constellation UI icons_66
+  - first:
+      213: 833358808685407495
+    second: Constellation UI icons_67
+  - first:
+      213: 4993837125385887650
+    second: Constellation UI icons_68
+  - first:
+      213: 1784598363512813803
+    second: Constellation UI icons_69
+  - first:
+      213: -1513344504941914033
+    second: Constellation UI icons_70
+  - first:
+      213: 582890165402225827
+    second: Constellation UI icons_71
+  - first:
+      213: -2054161229673291035
+    second: Constellation UI icons_72
+  - first:
+      213: 5725335790029201115
+    second: Constellation UI icons_73
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: glyph_dove
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 627
+        width: 102
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43ac49407182d7ab0800000000000000
+      internalID: -5008803131239904716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_shield
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 625
+        width: 105
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5436694f0a8e53b0800000000000000
+      internalID: -5521824294849072034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_anchor
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 618
+        width: 104
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 529705c0e0d248010800000000000000
+      internalID: 1190125739892046117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_heart_cross
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 628
+        width: 98
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 101d43b5ba1b639e0800000000000000
+      internalID: -1641929664602255103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_crown
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 628
+        width: 141
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc9e0d4f4baea8a0800000000000000
+      internalID: -6291903272306434822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_scroll
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 619
+        width: 99
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a17babd411f37ea10800000000000000
+      internalID: 1938587508157363994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_olive_branch
+      rect:
+        serializedVersion: 2
+        x: 1227
+        y: 639
+        width: 110
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e535c7ca7be833750800000000000000
+      internalID: 6283522824635962206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_lamp
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 422
+        width: 136
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83a0fe17de68eff0800000000000000
+      internalID: -6633529224944757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_shepherd
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 419
+        width: 122
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00b7133a9ccdce580800000000000000
+      internalID: -8796413213576955136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_mountain
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 426
+        width: 154
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 490ea084d600d82c0800000000000000
+      internalID: -4427882389275221868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_star
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 420
+        width: 127
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9bf51c5f46c7e1a0800000000000000
+      internalID: -6780232669833331811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_open_bible
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 421
+        width: 181
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b78b3166c708260800000000000000
+      internalID: 7097809790595267431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_scroll_gold
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 423
+        width: 142
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34356bcc62e9d11f0800000000000000
+      internalID: -1072527246763863229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_dove_inactive
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 422
+        width: 162
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32fe200c51b187510800000000000000
+      internalID: 1547016252231446307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_scroll_alt
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 235
+        width: 98
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98f0ed9b5f81b7ee0800000000000000
+      internalID: -1262387826882900087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_dove_alt
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 244
+        width: 101
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 770e3aae06fb35100800000000000000
+      internalID: 95630440079286391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_shield_alt
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 241
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad83d20a02f9c9a00800000000000000
+      internalID: 764660999221229786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_anchor_alt
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 234
+        width: 107
+        height: 133
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b32e20db0b550f10800000000000000
+      internalID: 2235292896354771896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_heart_cross_alt
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 244
+        width: 99
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0f5073bda6d5040800000000000000
+      internalID: 4637980681014997162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_crown_alt
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 244
+        width: 145
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90fc40e0b8d6d4fa0800000000000000
+      internalID: -5814871099862364407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_olive_branch_alt
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 250
+        width: 86
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4dd1eb184be32070800000000000000
+      internalID: 8080560851370761551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_lamp_alt
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 45
+        width: 139
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a16d3d17e75d65520800000000000000
+      internalID: 2690572566452753946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_shepherd_alt
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 39
+        width: 102
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61edff4b9d0afd90800000000000000
+      internalID: -7063318104864071317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_mountain_alt
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 51
+        width: 153
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d73fe4dca88e00b40800000000000000
+      internalID: 5404575235692229501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_star_alt
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 51
+        width: 115
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43c103acc36c21000800000000000000
+      internalID: 5284513973279796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_open_bible_alt
+      rect:
+        serializedVersion: 2
+        x: 821
+        y: 46
+        width: 151
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1585e90a851ac87a0800000000000000
+      internalID: -6373541970612168623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_scroll_gold_alt
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 43
+        width: 123
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88886da12a1e0b880800000000000000
+      internalID: -8597123602299058040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyph_dove_inactive_alt
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 43
+        width: 108
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b90072b18787120800000000000000
+      internalID: 2411809658470701881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a17f75d846319da4eb0b0d8047450cd6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Constellation UI icons_0: -5008803131239904716
+      Constellation UI icons_1: -5521824294849072034
+      Constellation UI icons_10: -4141277922550011674
+      Constellation UI icons_11: -1304430597186783022
+      Constellation UI icons_12: -2785854054514422452
+      Constellation UI icons_13: -4336098455623644792
+      Constellation UI icons_14: 5983676769954923214
+      Constellation UI icons_15: 2461856325190766873
+      Constellation UI icons_16: 8915068951447182123
+      Constellation UI icons_17: 4789932946287140575
+      Constellation UI icons_18: -7630993858534346630
+      Constellation UI icons_19: -5363315070490700693
+      Constellation UI icons_2: 1190125739892046117
+      Constellation UI icons_20: -5635484079277927583
+      Constellation UI icons_21: -6633529224944757
+      Constellation UI icons_22: -8796413213576955136
+      Constellation UI icons_23: -4427882389275221868
+      Constellation UI icons_24: -6780232669833331811
+      Constellation UI icons_25: 7097809790595267431
+      Constellation UI icons_26: -1072527246763863229
+      Constellation UI icons_27: 1547016252231446307
+      Constellation UI icons_28: 1728938746227571005
+      Constellation UI icons_29: 6026461721242787123
+      Constellation UI icons_3: -1641929664602255103
+      Constellation UI icons_30: -1262387826882900087
+      Constellation UI icons_31: 95630440079286391
+      Constellation UI icons_32: 764660999221229786
+      Constellation UI icons_33: 2235292896354771896
+      Constellation UI icons_34: 4637980681014997162
+      Constellation UI icons_35: -5814871099862364407
+      Constellation UI icons_36: 6094150366150539232
+      Constellation UI icons_37: -2711424723499713486
+      Constellation UI icons_38: 8080560851370761551
+      Constellation UI icons_39: 4652928846272691047
+      Constellation UI icons_4: -6291903272306434822
+      Constellation UI icons_40: -2799861163769060202
+      Constellation UI icons_41: -7132276390374590029
+      Constellation UI icons_42: 8813056916848230376
+      Constellation UI icons_43: 7393074710038944033
+      Constellation UI icons_44: 6048189481868055607
+      Constellation UI icons_45: -7661718142828464581
+      Constellation UI icons_46: 5404192917985137306
+      Constellation UI icons_47: 4257274015976770318
+      Constellation UI icons_48: 563038355571499129
+      Constellation UI icons_49: 1851828424262734698
+      Constellation UI icons_5: -5991119516593928053
+      Constellation UI icons_50: -4226840475064830190
+      Constellation UI icons_51: 7280028686294832498
+      Constellation UI icons_52: -5851514203554612723
+      Constellation UI icons_53: 1836456710635132329
+      Constellation UI icons_54: -2309623616797084434
+      Constellation UI icons_55: 3800633930409499649
+      Constellation UI icons_56: 2690572566452753946
+      Constellation UI icons_57: -7063318104864071317
+      Constellation UI icons_58: 5404575235692229501
+      Constellation UI icons_59: 5284513973279796
+      Constellation UI icons_6: -1444429112223537529
+      Constellation UI icons_60: -6373541970612168623
+      Constellation UI icons_61: -8597123602299058040
+      Constellation UI icons_62: -198781452139826088
+      Constellation UI icons_63: -4031111520557224187
+      Constellation UI icons_64: 2411809658470701881
+      Constellation UI icons_65: 8672521583620226796
+      Constellation UI icons_66: 1377602293460872550
+      Constellation UI icons_67: 833358808685407495
+      Constellation UI icons_68: 4993837125385887650
+      Constellation UI icons_69: 1784598363512813803
+      Constellation UI icons_7: 1938587508157363994
+      Constellation UI icons_70: -1513344504941914033
+      Constellation UI icons_71: 582890165402225827
+      Constellation UI icons_72: -2054161229673291035
+      Constellation UI icons_73: 5725335790029201115
+      Constellation UI icons_8: -4122053405030812380
+      Constellation UI icons_9: 6283522824635962206
+      glyph_anchor: 1190125739892046117
+      glyph_anchor_alt: 2235292896354771896
+      glyph_crown: -6291903272306434822
+      glyph_crown_alt: -5814871099862364407
+      glyph_dove: -5008803131239904716
+      glyph_dove_alt: 95630440079286391
+      glyph_dove_inactive: 1547016252231446307
+      glyph_dove_inactive_alt: 2411809658470701881
+      glyph_heart_cross: -1641929664602255103
+      glyph_heart_cross_alt: 4637980681014997162
+      glyph_lamp: -6633529224944757
+      glyph_lamp_alt: 2690572566452753946
+      glyph_mountain: -4427882389275221868
+      glyph_mountain_alt: 5404575235692229501
+      glyph_olive_branch: 6283522824635962206
+      glyph_olive_branch_alt: 8080560851370761551
+      glyph_open_bible: 7097809790595267431
+      glyph_open_bible_alt: -6373541970612168623
+      glyph_scroll: 1938587508157363994
+      glyph_scroll_alt: -1262387826882900087
+      glyph_scroll_gold: -1072527246763863229
+      glyph_scroll_gold_alt: -8597123602299058040
+      glyph_shepherd: -8796413213576955136
+      glyph_shepherd_alt: -7063318104864071317
+      glyph_shield: -5521824294849072034
+      glyph_shield_alt: 764660999221229786
+      glyph_star: -6780232669833331811
+      glyph_star_alt: 5284513973279796
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -6,8 +6,33 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_project/Scenes/00_Bootstrap.unity
+    guid: 25b924b5ee6f51949b312628643b466c
+  - enabled: 1
+    path: Assets/_project/Scenes/01_LoadingScreen.unity
+    guid: 5ff7cfb2a6fae334eb32cf52df078a69
+  - enabled: 1
+    path: Assets/_project/Scenes/02_MainMenu.unity
+    guid: e0edaa1b1c6719f45bdcd5d16eba7add
+  - enabled: 1
+    path: Assets/_project/Scenes/03_Gameplay.unity
+    guid: 72e1b9a917432f249972b7ce3dd7f6b3
+  - enabled: 1
+    path: Assets/_core game Framework/Demo/Scenes/0_Bootstrap_framework_demo.unity
+    guid: 97d0921945c29a84998cf9080ae0708d
+  - enabled: 1
+    path: Assets/_core game Framework/Demo/Scenes/1_LoadingScreen_framework_demo.unity
+    guid: 678598dd36cb6d84ba28ec5231b6ac73
+  - enabled: 1
+    path: Assets/_core game Framework/Demo/Scenes/2_MainMenu_framework_demo.unity
+    guid: 13c21192a916cfb4d96499716d67fe9c
+  - enabled: 1
+    path: Assets/_core game Framework/Demo/Scenes/3_Gameplay_framework_demo.unity
+    guid: 5ad3dfcef5df5654f8f63cf09246b0d8
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 095b9062dc2a1c84d83c4beab63a928e, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

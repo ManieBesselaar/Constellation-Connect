@@ -1,0 +1,392 @@
+import json
+
+verse_data = {
+    "schemaVersion": "1.0",
+    "gameTitle": "Constellation Connect",
+    "translation": {
+        "code": "en-WEB",
+        "name": "World English Bible (WEB)",
+        "license": "Public Domain",
+        "attribution": "Scripture quotations taken from the World English Bible (WEB), Public Domain."
+    },
+    "constellations": [
+        {
+            "constellationId": "theme_faith_strength",
+            "themeKey": "THEME_FAITH_STRENGTH",
+            "themeTitle": "Faith & Strength",
+            "bridgeKeywords": ["STRENGTH", "COURAGE", "LORD"],
+            "verses": [
+                {
+                    "verseId": "PHIL_04_013",
+                    "reference": "Philippians 4:13",
+                    "iconId": "icon_scroll",
+                    "fullText": "I can do all things through Christ, who strengthens me.",
+                    "chunks": [
+                        {"chunkId": "PHIL_04_013_C1", "order": 1, "text": "I can do all things", "isBridge": False},
+                        {"chunkId": "PHIL_04_013_C2", "order": 2, "text": "through Christ,", "isBridge": False},
+                        {"chunkId": "PHIL_04_013_C3", "order": 3, "text": "who strengthens me.", "isBridge": True, "bridgeTag": "STRENGTH"}
+                    ]
+                },
+                {
+                    "verseId": "JOSH_01_009",
+                    "reference": "Joshua 1:9",
+                    "iconId": "icon_shield",
+                    "fullText": "Haven't I commanded you? Be strong and courageous. Don't be afraid. Don't be dismayed, for Yahweh your God is with you wherever you go.",
+                    "chunks": [
+                        {"chunkId": "JOSH_01_009_C1", "order": 1, "text": "Be strong and courageous.", "isBridge": True, "bridgeTag": "COURAGE"},
+                        {"chunkId": "JOSH_01_009_C2", "order": 2, "text": "Don't be afraid. Don't be dismayed,", "isBridge": False},
+                        {"chunkId": "JOSH_01_009_C3", "order": 3, "text": "for Yahweh your God is with you", "isBridge": True, "bridgeTag": "LORD"},
+                        {"chunkId": "JOSH_01_009_C4", "order": 4, "text": "wherever you go.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "ISA_40_031",
+                    "reference": "Isaiah 40:31",
+                    "iconId": "icon_dove",
+                    "fullText": "But those who wait for Yahweh will renew their strength. They will mount up with wings like eagles.",
+                    "chunks": [
+                        {"chunkId": "ISA_40_031_C1", "order": 1, "text": "But those who wait for Yahweh", "isBridge": True, "bridgeTag": "LORD"},
+                        {"chunkId": "ISA_40_031_C2", "order": 2, "text": "will renew their strength.", "isBridge": true, "bridgeTag": "STRENGTH"},
+                        {"chunkId": "ISA_40_031_C3", "order": 3, "text": "They will mount up with wings like eagles.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "PSA_027_001",
+                    "reference": "Psalm 27:1",
+                    "iconId": "icon_lamp",
+                    "fullText": "Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?",
+                    "chunks": [
+                        {"chunkId": "PSA_027_001_C1", "order": 1, "text": "Yahweh is my light and my salvation.", "isBridge": False},
+                        {"chunkId": "PSA_027_001_C2", "order": 2, "text": "Whom shall I fear?", "isBridge": False},
+                        {"chunkId": "PSA_027_001_C3", "order": 3, "text": "Yahweh is the strength of my life.", "isBridge": True, "bridgeTag": "STRENGTH"}
+                    ]
+                },
+                {
+                    "verseId": "2TIM_01_007",
+                    "reference": "2 Timothy 1:7",
+                    "iconId": "icon_heart_cross",
+                    "fullText": "For God didn't give us a spirit of fear, but of power, love, and self-control.",
+                    "chunks": [
+                        {"chunkId": "2TIM_01_007_C1", "order": 1, "text": "For God didn't give us a spirit of fear,", "isBridge": True, "bridgeTag": "COURAGE"},
+                        {"chunkId": "2TIM_01_007_C2", "order": 2, "text": "but of power, love,", "isBridge": False},
+                        {"chunkId": "2TIM_01_007_C3", "order": 3, "text": "and self-control.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "PSA_046_001",
+                    "reference": "Psalm 46:1",
+                    "iconId": "icon_mountain",
+                    "fullText": "God is our refuge and strength, a very present help in trouble.",
+                    "chunks": [
+                        {"chunkId": "PSA_046_001_C1", "order": 1, "text": "God is our refuge", "isBridge": False},
+                        {"chunkId": "PSA_046_001_C2", "order": 2, "text": "and strength,", "isBridge": True, "bridgeTag": "STRENGTH"},
+                        {"chunkId": "PSA_046_001_C3", "order": 3, "text": "a very present help in trouble.", "isBridge": False}
+                    ]
+                }
+            ]
+        },
+        {
+            "constellationId": "theme_peace_comfort",
+            "themeKey": "THEME_PEACE_COMFORT",
+            "themeTitle": "Peace & Comfort",
+            "bridgeKeywords": ["PEACE", "REST", "SHEPHERD"],
+            "verses": [
+                {
+                    "verseId": "PSA_023_001",
+                    "reference": "Psalm 23:1-2",
+                    "iconId": "icon_shepherd",
+                    "fullText": "Yahweh is my shepherd; I shall lack nothing. He makes me lie down in green pastures.",
+                    "chunks": [
+                        {"chunkId": "PSA_023_001_C1", "order": 1, "text": "Yahweh is my shepherd;", "isBridge": True, "bridgeTag": "SHEPHERD"},
+                        {"chunkId": "PSA_023_001_C2", "order": 2, "text": "I shall lack nothing.", "isBridge": False},
+                        {"chunkId": "PSA_023_001_C3", "order": 3, "text": "He makes me lie down in green pastures.", "isBridge": True, "bridgeTag": "REST"}
+                    ]
+                },
+                {
+                    "verseId": "JOHN_14_027",
+                    "reference": "John 14:27",
+                    "iconId": "icon_olive_branch",
+                    "fullText": "Peace I leave with you. My peace I give to you; not as the world gives, I give to you.",
+                    "chunks": [
+                        {"chunkId": "JOHN_14_027_C1", "order": 1, "text": "Peace I leave with you.", "isBridge": True, "bridgeTag": "PEACE"},
+                        {"chunkId": "JOHN_14_027_C2", "order": 2, "text": "My peace I give to you;", "isBridge": True, "bridgeTag": "PEACE"},
+                        {"chunkId": "JOHN_14_027_C3", "order": 3, "text": "not as the world gives, I give to you.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "MATT_11_028",
+                    "reference": "Matthew 11:28",
+                    "iconId": "icon_anchor",
+                    "fullText": "Come to me, all you who labor and are heavily burdened, and I will give you rest.",
+                    "chunks": [
+                        {"chunkId": "MATT_11_028_C1", "order": 1, "text": "Come to me,", "isBridge": False},
+                        {"chunkId": "MATT_11_028_C2", "order": 2, "text": "all you who labor and are heavily burdened,", "isBridge": False},
+                        {"chunkId": "MATT_11_028_C3", "order": 3, "text": "and I will give you rest.", "isBridge": True, "bridgeTag": "REST"}
+                    ]
+                },
+                {
+                    "verseId": "PHIL_04_007",
+                    "reference": "Philippians 4:7",
+                    "iconId": "icon_shield",
+                    "fullText": "And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.",
+                    "chunks": [
+                        {"chunkId": "PHIL_04_007_C1", "order": 1, "text": "And the peace of God,", "isBridge": True, "bridgeTag": "PEACE"},
+                        {"chunkId": "PHIL_04_007_C2", "order": 2, "text": "which surpasses all understanding,", "isBridge": False},
+                        {"chunkId": "PHIL_04_007_C3", "order": 3, "text": "will guard your hearts and your thoughts in Christ Jesus.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "ISA_26_003",
+                    "reference": "Isaiah 26:3",
+                    "iconId": "icon_star",
+                    "fullText": "You will keep whoever's mind is steadfast in perfect peace, because he trusts in you.",
+                    "chunks": [
+                        {"chunkId": "ISA_26_003_C1", "order": 1, "text": "You will keep whoever's mind is steadfast", "isBridge": False},
+                        {"chunkId": "ISA_26_003_C2", "order": 2, "text": "in perfect peace,", "isBridge": True, "bridgeTag": "PEACE"},
+                        {"chunkId": "ISA_26_003_C3", "order": 3, "text": "because he trusts in you.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "1PET_05_007",
+                    "reference": "1 Peter 5:7",
+                    "iconId": "icon_dove",
+                    "fullText": "Casting all your worries on him, because he cares for you.",
+                    "chunks": [
+                        {"chunkId": "1PET_05_007_C1", "order": 1, "text": "Casting all your worries", "isBridge": False},
+                        {"chunkId": "1PET_05_007_C2", "order": 2, "text": "on him,", "isBridge": False},
+                        {"chunkId": "1PET_05_007_C3", "order": 3, "text": "because he cares for you.", "isBridge": True, "bridgeTag": "SHEPHERD"}
+                    ]
+                }
+            ]
+        },
+        {
+            "constellationId": "theme_gods_love",
+            "themeKey": "THEME_GODS_LOVE",
+            "themeTitle": "God's Unfailing Love",
+            "bridgeKeywords": ["LOVE", "WORLD", "HEART"],
+            "verses": [
+                {
+                    "verseId": "JOHN_03_016",
+                    "reference": "John 3:16",
+                    "iconId": "icon_heart_cross",
+                    "fullText": "For God so loved the world, that he gave his only born Son, that whoever believes in him should not perish, but have eternal life.",
+                    "chunks": [
+                        {"chunkId": "JOHN_03_016_C1", "order": 1, "text": "For God so loved", "isBridge": True, "bridgeTag": "LOVE"},
+                        {"chunkId": "JOHN_03_016_C2", "order": 2, "text": "the world,", "isBridge": True, "bridgeTag": "WORLD"},
+                        {"chunkId": "JOHN_03_016_C3", "order": 3, "text": "that he gave his only born Son,", "isBridge": False},
+                        {"chunkId": "JOHN_03_016_C4", "order": 4, "text": "that whoever believes in him should not perish, but have eternal life.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "ROM_08_038",
+                    "reference": "Romans 8:38-39",
+                    "iconId": "icon_anchor",
+                    "fullText": "For I am persuaded that neither death, nor life, nor angels, nor principalities, will be able to separate us from God's love.",
+                    "chunks": [
+                        {"chunkId": "ROM_08_038_C1", "order": 1, "text": "For I am persuaded that neither death, nor life,", "isBridge": False},
+                        {"chunkId": "ROM_08_038_C2", "order": 2, "text": "will be able to separate us", "isBridge": False},
+                        {"chunkId": "ROM_08_038_C3", "order": 3, "text": "from God's love.", "isBridge": True, "bridgeTag": "LOVE"}
+                    ]
+                },
+                {
+                    "verseId": "1JOHN_04_019",
+                    "reference": "1 John 4:19",
+                    "iconId": "icon_heart_cross",
+                    "fullText": "We love him, because he first loved us.",
+                    "chunks": [
+                        {"chunkId": "1JOHN_04_019_C1", "order": 1, "text": "We love him,", "isBridge": True, "bridgeTag": "LOVE"},
+                        {"chunkId": "1JOHN_04_019_C2", "order": 2, "text": "because he", "isBridge": False},
+                        {"chunkId": "1JOHN_04_019_C3", "order": 3, "text": "first loved us.", "isBridge": True, "bridgeTag": "LOVE"}
+                    ]
+                },
+                {
+                    "verseId": "1COR_13_004",
+                    "reference": "1 Corinthians 13:4",
+                    "iconId": "icon_olive_branch",
+                    "fullText": "Love is patient and is kind. Love doesn't envy. Love doesn't brag, is not proud.",
+                    "chunks": [
+                        {"chunkId": "1COR_13_004_C1", "order": 1, "text": "Love is patient and is kind.", "isBridge": True, "bridgeTag": "LOVE"},
+                        {"chunkId": "1COR_13_004_C2", "order": 2, "text": "Love doesn't envy.", "isBridge": False},
+                        {"chunkId": "1COR_13_004_C3", "order": 3, "text": "Love doesn't brag, is not proud.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "ROM_05_008",
+                    "reference": "Romans 5:8",
+                    "iconId": "icon_crown",
+                    "fullText": "But God commends his own love toward us, in that while we were yet sinners, Christ died for us.",
+                    "chunks": [
+                        {"chunkId": "ROM_05_008_C1", "order": 1, "text": "But God commends his own love toward us,", "isBridge": True, "bridgeTag": "LOVE"},
+                        {"chunkId": "ROM_05_008_C2", "order": 2, "text": "in that while we were yet sinners,", "isBridge": False},
+                        {"chunkId": "ROM_05_008_C3", "order": 3, "text": "Christ died for us.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "1JOHN_03_001",
+                    "reference": "1 John 3:1",
+                    "iconId": "icon_star",
+                    "fullText": "See how great a love the Father has given to us, that we should be called children of God!",
+                    "chunks": [
+                        {"chunkId": "1JOHN_03_001_C1", "order": 1, "text": "See how great a love", "isBridge": True, "bridgeTag": "LOVE"},
+                        {"chunkId": "1JOHN_03_001_C2", "order": 2, "text": "the Father has given to us,", "isBridge": False},
+                        {"chunkId": "1JOHN_03_001_C3", "order": 3, "text": "that we should be called children of God!", "isBridge": False}
+                    ]
+                }
+            ]
+        },
+        {
+            "constellationId": "theme_wisdom_guidance",
+            "themeKey": "THEME_WISDOM_GUIDANCE",
+            "themeTitle": "Wisdom & Guidance",
+            "bridgeKeywords": ["WISDOM", "PATH", "WORD"],
+            "verses": [
+                {
+                    "verseId": "PROV_03_005",
+                    "reference": "Proverbs 3:5-6",
+                    "iconId": "icon_lamp",
+                    "fullText": "Trust in Yahweh with all your heart, and don't lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.",
+                    "chunks": [
+                        {"chunkId": "PROV_03_005_C1", "order": 1, "text": "Trust in Yahweh with all your heart,", "isBridge": False},
+                        {"chunkId": "PROV_03_005_C2", "order": 2, "text": "and don't lean on your own understanding.", "isBridge": False},
+                        {"chunkId": "PROV_03_005_C3", "order": 3, "text": "In all your ways acknowledge him,", "isBridge": False},
+                        {"chunkId": "PROV_03_005_C4", "order": 4, "text": "and he will make your paths straight.", "isBridge": True, "bridgeTag": "PATH"}
+                    ]
+                },
+                {
+                    "verseId": "PSA_119_105",
+                    "reference": "Psalm 119:105",
+                    "iconId": "icon_open_bible",
+                    "fullText": "Your word is a lamp to my feet, and a light for my path.",
+                    "chunks": [
+                        {"chunkId": "PSA_119_105_C1", "order": 1, "text": "Your word", "isBridge": True, "bridgeTag": "WORD"},
+                        {"chunkId": "PSA_119_105_C2", "order": 2, "text": "is a lamp to my feet,", "isBridge": False},
+                        {"chunkId": "PSA_119_105_C3", "order": 3, "text": "and a light for my path.", "isBridge": True, "bridgeTag": "PATH"}
+                    ]
+                },
+                {
+                    "verseId": "JAS_01_005",
+                    "reference": "James 1:5",
+                    "iconId": "icon_scroll",
+                    "fullText": "But if any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach, and it will be given to him.",
+                    "chunks": [
+                        {"chunkId": "JAS_01_005_C1", "order": 1, "text": "But if any of you lacks wisdom,", "isBridge": True, "bridgeTag": "WISDOM"},
+                        {"chunkId": "JAS_01_005_C2", "order": 2, "text": "let him ask of God,", "isBridge": False},
+                        {"chunkId": "JAS_01_005_C3", "order": 3, "text": "who gives to all liberally and it will be given to him.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "PSA_032_008",
+                    "reference": "Psalm 32:8",
+                    "iconId": "icon_star",
+                    "fullText": "I will instruct you and teach you in the way which you shall go. I will counsel you with my eye on you.",
+                    "chunks": [
+                        {"chunkId": "PSA_032_008_C1", "order": 1, "text": "I will instruct you and teach you", "isBridge": True, "bridgeTag": "WISDOM"},
+                        {"chunkId": "PSA_032_008_C2", "order": 2, "text": "in the way which you shall go.", "isBridge": True, "bridgeTag": "PATH"},
+                        {"chunkId": "PSA_032_008_C3", "order": 3, "text": "I will counsel you with my eye on you.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "MATT_05_016",
+                    "reference": "Matthew 5:16",
+                    "iconId": "icon_lamp",
+                    "fullText": "Even so, let your light shine before men, that they may see your good works and glorify your Father who is in heaven.",
+                    "chunks": [
+                        {"chunkId": "MATT_05_016_C1", "order": 1, "text": "Even so, let your light shine before men,", "isBridge": False},
+                        {"chunkId": "MATT_05_016_C2", "order": 2, "text": "that they may see your good works", "isBridge": False},
+                        {"chunkId": "MATT_05_016_C3", "order": 3, "text": "and glorify your Father who is in heaven.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "COL_03_016",
+                    "reference": "Colossians 3:16",
+                    "iconId": "icon_open_bible",
+                    "fullText": "Let the word of Christ dwell in you richly; in all wisdom teaching and admonishing one another.",
+                    "chunks": [
+                        {"chunkId": "COL_03_016_C1", "order": 1, "text": "Let the word of Christ", "isBridge": True, "bridgeTag": "WORD"},
+                        {"chunkId": "COL_03_016_C2", "order": 2, "text": "dwell in you richly;", "isBridge": False},
+                        {"chunkId": "COL_03_016_C3", "order": 3, "text": "in all wisdom teaching one another.", "isBridge": True, "bridgeTag": "WISDOM"}
+                    ]
+                }
+            ]
+        },
+        {
+            "constellationId": "theme_hope_purpose",
+            "themeKey": "THEME_HOPE_PURPOSE",
+            "themeTitle": "Hope & Purpose",
+            "bridgeKeywords": ["HOPE", "GOOD", "PLANS"],
+            "verses": [
+                {
+                    "verseId": "JER_29_011",
+                    "reference": "Jeremiah 29:11",
+                    "iconId": "icon_scroll",
+                    "fullText": "For I know the thoughts that I think toward you, says Yahweh, thoughts of peace, and not of evil, to give you hope and a future.",
+                    "chunks": [
+                        {"chunkId": "JER_29_011_C1", "order": 1, "text": "For I know the thoughts that I think toward you,", "isBridge": True, "bridgeTag": "PLANS"},
+                        {"chunkId": "JER_29_011_C2", "order": 2, "text": "thoughts of peace, and not of evil,", "isBridge": False},
+                        {"chunkId": "JER_29_011_C3", "order": 3, "text": "to give you hope and a future.", "isBridge": True, "bridgeTag": "HOPE"}
+                    ]
+                },
+                {
+                    "verseId": "ROM_08_028",
+                    "reference": "Romans 8:28",
+                    "iconId": "icon_anchor",
+                    "fullText": "We know that all things work together for good for those who love God, for those who are called according to his purpose.",
+                    "chunks": [
+                        {"chunkId": "ROM_08_028_C1", "order": 1, "text": "We know that all things", "isBridge": False},
+                        {"chunkId": "ROM_08_028_C2", "order": 2, "text": "work together for good", "isBridge": True, "bridgeTag": "GOOD"},
+                        {"chunkId": "ROM_08_028_C3", "order": 3, "text": "for those who are called according to his purpose.", "isBridge": True, "bridgeTag": "PLANS"}
+                    ]
+                },
+                {
+                    "verseId": "ROM_15_013",
+                    "reference": "Romans 15:13",
+                    "iconId": "icon_dove",
+                    "fullText": "Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope.",
+                    "chunks": [
+                        {"chunkId": "ROM_15_013_C1", "order": 1, "text": "Now may the God of hope", "isBridge": True, "bridgeTag": "HOPE"},
+                        {"chunkId": "ROM_15_013_C2", "order": 2, "text": "fill you with all joy and peace in believing,", "isBridge": False},
+                        {"chunkId": "ROM_15_013_C3", "order": 3, "text": "that you may abound in hope.", "isBridge": True, "bridgeTag": "HOPE"}
+                    ]
+                },
+                {
+                    "verseId": "HEB_11_001",
+                    "reference": "Hebrews 11:1",
+                    "iconId": "icon_star",
+                    "fullText": "Now faith is assurance of things hoped for, proof of things not seen.",
+                    "chunks": [
+                        {"chunkId": "HEB_11_001_C1", "order": 1, "text": "Now faith is assurance", "isBridge": False},
+                        {"chunkId": "HEB_11_001_C2", "order": 2, "text": "of things hoped for,", "isBridge": True, "bridgeTag": "HOPE"},
+                        {"chunkId": "HEB_11_001_C3", "order": 3, "text": "proof of things not seen.", "isBridge": False}
+                    ]
+                },
+                {
+                    "verseId": "EPH_02_010",
+                    "reference": "Ephesians 2:10",
+                    "iconId": "icon_crown",
+                    "fullText": "For we are his workmanship, created in Christ Jesus for good works, which God prepared before that we would walk in them.",
+                    "chunks": [
+                        {"chunkId": "EPH_02_010_C1", "order": 1, "text": "For we are his workmanship,", "isBridge": False},
+                        {"chunkId": "EPH_02_010_C2", "order": 2, "text": "created in Christ Jesus for good works,", "isBridge": True, "bridgeTag": "GOOD"},
+                        {"chunkId": "EPH_02_010_C3", "order": 3, "text": "which God prepared before that we would walk in them.", "isBridge": True, "bridgeTag": "PLANS"}
+                    ]
+                },
+                {
+                    "verseId": "LAM_03_022",
+                    "reference": "Lamentations 3:22-23",
+                    "iconId": "icon_olive_branch",
+                    "fullText": "It is because of Yahweh's loving kindnesses that we are not consumed, because his mercies don't fail. They are new every morning.",
+                    "chunks": [
+                        {"chunkId": "LAM_03_022_C1", "order": 1, "text": "It is because of Yahweh's loving kindnesses", "isBridge": False},
+                        {"chunkId": "LAM_03_022_C2", "order": 2, "text": "that we are not consumed, because his mercies don't fail.", "isBridge": False},
+                        {"chunkId": "LAM_03_022_C3", "order": 3, "text": "They are new every morning.", "isBridge": True, "bridgeTag": "HOPE"}
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+with open("constellation_connect_verses_web.json", "w", encoding="utf-8") as f:
+    json.dump(verse_data, f, indent=2, ensure_ascii=False)
+
+print("Created constellation_connect_verses_web.json")

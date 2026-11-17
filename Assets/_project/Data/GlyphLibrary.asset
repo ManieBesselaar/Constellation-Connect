@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ab6978fd58b51488a7febe67ed47f1, type: 3}
+  m_Name: GlyphLibrary
+  m_EditorClassIdentifier: Constellation.Game::Constellation.Data.GlyphLibrary
+  _entries:
+  - iconId: icon_scroll
+    sprite: {fileID: 1938587508157363994, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_dove
+    sprite: {fileID: -5008803131239904716, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_shield
+    sprite: {fileID: -5521824294849072034, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_anchor
+    sprite: {fileID: 1190125739892046117, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_heart_cross
+    sprite: {fileID: -1641929664602255103, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_crown
+    sprite: {fileID: -6291903272306434822, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_olive_branch
+    sprite: {fileID: 6283522824635962206, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_lamp
+    sprite: {fileID: -6633529224944757, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_shepherd
+    sprite: {fileID: -8796413213576955136, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_mountain
+    sprite: {fileID: -4427882389275221868, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_star
+    sprite: {fileID: -6780232669833331811, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}
+  - iconId: icon_open_bible
+    sprite: {fileID: 7097809790595267431, guid: 6913ebea1c9a36a4e91a62966d3ba335, type: 3}

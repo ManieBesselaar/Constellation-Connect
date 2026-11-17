@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ff9ebca79a61f49abba50ba23861ea, type: 3}
+  m_Name: theme_wisdom_guidance
+  m_EditorClassIdentifier: Assembly-CSharp::Constellation.Data.ConstellationSO
+  constellationId: theme_wisdom_guidance
+  themeKey: THEME_WISDOM_GUIDANCE
+  themeTitle: Wisdom & Guidance
+  bridgeKeywords:
+  - WISDOM
+  - PATH
+  - WORD
+  verses:
+  - verseId: PROV_03_005
+    reference: Proverbs 3:5-6
+    iconId: icon_lamp
+    fullText: Trust in Yahweh with all your heart, and don't lean on your own understanding.
+      In all your ways acknowledge him, and he will make your paths straight.
+    chunks:
+    - chunkId: PROV_03_005_C1
+      order: 1
+      localizationKey: PROV_03_005_C1
+      text: Trust in Yahweh with all your heart,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PROV_03_005_C2
+      order: 2
+      localizationKey: PROV_03_005_C2
+      text: and don't lean on your own understanding.
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PROV_03_005_C3
+      order: 3
+      localizationKey: PROV_03_005_C3
+      text: In all your ways acknowledge him,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PROV_03_005_C4
+      order: 4
+      localizationKey: PROV_03_005_C4
+      text: and he will make your paths straight.
+      isBridge: 1
+      bridgeTag: PATH
+  - verseId: PSA_119_105
+    reference: Psalm 119:105
+    iconId: icon_open_bible
+    fullText: Your word is a lamp to my feet, and a light for my path.
+    chunks:
+    - chunkId: PSA_119_105_C1
+      order: 1
+      localizationKey: PSA_119_105_C1
+      text: Your word
+      isBridge: 1
+      bridgeTag: WORD
+    - chunkId: PSA_119_105_C2
+      order: 2
+      localizationKey: PSA_119_105_C2
+      text: is a lamp to my feet,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PSA_119_105_C3
+      order: 3
+      localizationKey: PSA_119_105_C3
+      text: and a light for my path.
+      isBridge: 1
+      bridgeTag: PATH
+  - verseId: JAS_01_005
+    reference: James 1:5
+    iconId: icon_scroll
+    fullText: But if any of you lacks wisdom, let him ask of God, who gives to all
+      liberally and without reproach, and it will be given to him.
+    chunks:
+    - chunkId: JAS_01_005_C1
+      order: 1
+      localizationKey: JAS_01_005_C1
+      text: But if any of you lacks wisdom,
+      isBridge: 1
+      bridgeTag: WISDOM
+    - chunkId: JAS_01_005_C2
+      order: 2
+      localizationKey: JAS_01_005_C2
+      text: let him ask of God,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: JAS_01_005_C3
+      order: 3
+      localizationKey: JAS_01_005_C3
+      text: who gives to all liberally and it will be given to him.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: PSA_032_008
+    reference: Psalm 32:8
+    iconId: icon_star
+    fullText: I will instruct you and teach you in the way which you shall go. I
+      will counsel you with my eye on you.
+    chunks:
+    - chunkId: PSA_032_008_C1
+      order: 1
+      localizationKey: PSA_032_008_C1
+      text: I will instruct you and teach you
+      isBridge: 1
+      bridgeTag: WISDOM
+    - chunkId: PSA_032_008_C2
+      order: 2
+      localizationKey: PSA_032_008_C2
+      text: in the way which you shall go.
+      isBridge: 1
+      bridgeTag: PATH
+    - chunkId: PSA_032_008_C3
+      order: 3
+      localizationKey: PSA_032_008_C3
+      text: I will counsel you with my eye on you.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: MATT_05_016
+    reference: Matthew 5:16
+    iconId: icon_lamp
+    fullText: Even so, let your light shine before men, that they may see your good
+      works and glorify your Father who is in heaven.
+    chunks:
+    - chunkId: MATT_05_016_C1
+      order: 1
+      localizationKey: MATT_05_016_C1
+      text: Even so, let your light shine before men,
+      isBridge: 1
+      bridgeTag: WORD
+    - chunkId: MATT_05_016_C2
+      order: 2
+      localizationKey: MATT_05_016_C2
+      text: that they may see your good works
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: MATT_05_016_C3
+      order: 3
+      localizationKey: MATT_05_016_C3
+      text: and glorify your Father who is in heaven.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: COL_03_016
+    reference: Colossians 3:16
+    iconId: icon_open_bible
+    fullText: Let the word of Christ dwell in you richly; in all wisdom teaching
+      and admonishing one another.
+    chunks:
+    - chunkId: COL_03_016_C1
+      order: 1
+      localizationKey: COL_03_016_C1
+      text: Let the word of Christ
+      isBridge: 1
+      bridgeTag: WORD
+    - chunkId: COL_03_016_C2
+      order: 2
+      localizationKey: COL_03_016_C2
+      text: dwell in you richly;
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: COL_03_016_C3
+      order: 3
+      localizationKey: COL_03_016_C3
+      text: in all wisdom teaching one another.
+      isBridge: 1
+      bridgeTag: WISDOM

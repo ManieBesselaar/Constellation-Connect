@@ -112,3 +112,8 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Aura in-editor tooling: local settings, logs and scratch folders
+/.Aura/
+/Packages/Aura/
+/[Aa]ssets/__AuraSetup/

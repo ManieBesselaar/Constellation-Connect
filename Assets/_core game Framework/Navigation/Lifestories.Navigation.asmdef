@@ -1,0 +1,16 @@
+{
+    "name": "Lifestories.Navigation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d203a2731bd62e1469a34e22c4d2c730"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

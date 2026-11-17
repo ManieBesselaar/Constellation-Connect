@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ff9ebca79a61f49abba50ba23861ea, type: 3}
+  m_Name: theme_peace_comfort
+  m_EditorClassIdentifier: Assembly-CSharp::Constellation.Data.ConstellationSO
+  constellationId: theme_peace_comfort
+  themeKey: THEME_PEACE_COMFORT
+  themeTitle: Peace & Comfort
+  bridgeKeywords:
+  - PEACE
+  - REST
+  - SHEPHERD
+  verses:
+  - verseId: PSA_023_001
+    reference: Psalm 23:1-2
+    iconId: icon_shepherd
+    fullText: Yahweh is my shepherd; I shall lack nothing. He makes me lie down in
+      green pastures.
+    chunks:
+    - chunkId: PSA_023_001_C1
+      order: 1
+      localizationKey: PSA_023_001_C1
+      text: Yahweh is my shepherd;
+      isBridge: 1
+      bridgeTag: SHEPHERD
+    - chunkId: PSA_023_001_C2
+      order: 2
+      localizationKey: PSA_023_001_C2
+      text: I shall lack nothing.
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PSA_023_001_C3
+      order: 3
+      localizationKey: PSA_023_001_C3
+      text: He makes me lie down in green pastures.
+      isBridge: 1
+      bridgeTag: REST
+  - verseId: JOHN_14_027
+    reference: John 14:27
+    iconId: icon_olive_branch
+    fullText: Peace I leave with you. My peace I give to you; not as the world gives,
+      I give to you.
+    chunks:
+    - chunkId: JOHN_14_027_C1
+      order: 1
+      localizationKey: JOHN_14_027_C1
+      text: Peace I leave with you.
+      isBridge: 1
+      bridgeTag: PEACE
+    - chunkId: JOHN_14_027_C2
+      order: 2
+      localizationKey: JOHN_14_027_C2
+      text: My peace I give to you;
+      isBridge: 1
+      bridgeTag: PEACE
+    - chunkId: JOHN_14_027_C3
+      order: 3
+      localizationKey: JOHN_14_027_C3
+      text: not as the world gives, I give to you.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: MATT_11_028
+    reference: Matthew 11:28
+    iconId: icon_anchor
+    fullText: Come to me, all you who labor and are heavily burdened, and I will
+      give you rest.
+    chunks:
+    - chunkId: MATT_11_028_C1
+      order: 1
+      localizationKey: MATT_11_028_C1
+      text: Come to me,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: MATT_11_028_C2
+      order: 2
+      localizationKey: MATT_11_028_C2
+      text: all you who labor and are heavily burdened,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: MATT_11_028_C3
+      order: 3
+      localizationKey: MATT_11_028_C3
+      text: and I will give you rest.
+      isBridge: 1
+      bridgeTag: REST
+  - verseId: PHIL_04_007
+    reference: Philippians 4:7
+    iconId: icon_shield
+    fullText: And the peace of God, which surpasses all understanding, will guard
+      your hearts and your thoughts in Christ Jesus.
+    chunks:
+    - chunkId: PHIL_04_007_C1
+      order: 1
+      localizationKey: PHIL_04_007_C1
+      text: And the peace of God,
+      isBridge: 1
+      bridgeTag: PEACE
+    - chunkId: PHIL_04_007_C2
+      order: 2
+      localizationKey: PHIL_04_007_C2
+      text: which surpasses all understanding,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PHIL_04_007_C3
+      order: 3
+      localizationKey: PHIL_04_007_C3
+      text: will guard your hearts and your thoughts in Christ Jesus.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: ISA_26_003
+    reference: Isaiah 26:3
+    iconId: icon_star
+    fullText: You will keep whoever's mind is steadfast in perfect peace, because
+      he trusts in you.
+    chunks:
+    - chunkId: ISA_26_003_C1
+      order: 1
+      localizationKey: ISA_26_003_C1
+      text: You will keep whoever's mind is steadfast
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: ISA_26_003_C2
+      order: 2
+      localizationKey: ISA_26_003_C2
+      text: in perfect peace,
+      isBridge: 1
+      bridgeTag: PEACE
+    - chunkId: ISA_26_003_C3
+      order: 3
+      localizationKey: ISA_26_003_C3
+      text: because he trusts in you.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: 1PET_05_007
+    reference: 1 Peter 5:7
+    iconId: icon_dove
+    fullText: Casting all your worries on him, because he cares for you.
+    chunks:
+    - chunkId: 1PET_05_007_C1
+      order: 1
+      localizationKey: 1PET_05_007_C1
+      text: Casting all your worries
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: 1PET_05_007_C2
+      order: 2
+      localizationKey: 1PET_05_007_C2
+      text: on him,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: 1PET_05_007_C3
+      order: 3
+      localizationKey: 1PET_05_007_C3
+      text: because he cares for you.
+      isBridge: 1
+      bridgeTag: SHEPHERD

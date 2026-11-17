@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ff9ebca79a61f49abba50ba23861ea, type: 3}
+  m_Name: theme_faith_strength
+  m_EditorClassIdentifier: Assembly-CSharp::Constellation.Data.ConstellationSO
+  constellationId: theme_faith_strength
+  themeKey: THEME_FAITH_STRENGTH
+  themeTitle: Faith & Strength
+  bridgeKeywords:
+  - STRENGTH
+  - COURAGE
+  - LORD
+  verses:
+  - verseId: PHIL_04_013
+    reference: Philippians 4:13
+    iconId: icon_scroll
+    fullText: I can do all things through Christ, who strengthens me.
+    chunks:
+    - chunkId: PHIL_04_013_C1
+      order: 1
+      localizationKey: PHIL_04_013_C1
+      text: I can do all things
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PHIL_04_013_C2
+      order: 2
+      localizationKey: PHIL_04_013_C2
+      text: through Christ,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PHIL_04_013_C3
+      order: 3
+      localizationKey: PHIL_04_013_C3
+      text: who strengthens me.
+      isBridge: 1
+      bridgeTag: STRENGTH
+  - verseId: JOSH_01_009
+    reference: Joshua 1:9
+    iconId: icon_shield
+    fullText: Haven't I commanded you? Be strong and courageous. Don't be afraid.
+      Don't be dismayed, for Yahweh your God is with you wherever you go.
+    chunks:
+    - chunkId: JOSH_01_009_C1
+      order: 1
+      localizationKey: JOSH_01_009_C1
+      text: Be strong and courageous.
+      isBridge: 1
+      bridgeTag: COURAGE
+    - chunkId: JOSH_01_009_C2
+      order: 2
+      localizationKey: JOSH_01_009_C2
+      text: Don't be afraid. Don't be dismayed,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: JOSH_01_009_C3
+      order: 3
+      localizationKey: JOSH_01_009_C3
+      text: for Yahweh your God is with you
+      isBridge: 1
+      bridgeTag: LORD
+    - chunkId: JOSH_01_009_C4
+      order: 4
+      localizationKey: JOSH_01_009_C4
+      text: wherever you go.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: ISA_40_031
+    reference: Isaiah 40:31
+    iconId: icon_dove
+    fullText: But those who wait for Yahweh will renew their strength. They will
+      mount up with wings like eagles.
+    chunks:
+    - chunkId: ISA_40_031_C1
+      order: 1
+      localizationKey: ISA_40_031_C1
+      text: But those who wait for Yahweh
+      isBridge: 1
+      bridgeTag: LORD
+    - chunkId: ISA_40_031_C2
+      order: 2
+      localizationKey: ISA_40_031_C2
+      text: will renew their strength.
+      isBridge: 1
+      bridgeTag: STRENGTH
+    - chunkId: ISA_40_031_C3
+      order: 3
+      localizationKey: ISA_40_031_C3
+      text: They will mount up with wings like eagles.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: PSA_027_001
+    reference: Psalm 27:1
+    iconId: icon_lamp
+    fullText: Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the
+      strength of my life. Of whom shall I be afraid?
+    chunks:
+    - chunkId: PSA_027_001_C1
+      order: 1
+      localizationKey: PSA_027_001_C1
+      text: Yahweh is my light and my salvation.
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PSA_027_001_C2
+      order: 2
+      localizationKey: PSA_027_001_C2
+      text: Whom shall I fear?
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PSA_027_001_C3
+      order: 3
+      localizationKey: PSA_027_001_C3
+      text: Yahweh is the strength of my life.
+      isBridge: 1
+      bridgeTag: STRENGTH
+  - verseId: 2TIM_01_007
+    reference: 2 Timothy 1:7
+    iconId: icon_heart_cross
+    fullText: For God didn't give us a spirit of fear, but of power, love, and self-control.
+    chunks:
+    - chunkId: 2TIM_01_007_C1
+      order: 1
+      localizationKey: 2TIM_01_007_C1
+      text: For God didn't give us a spirit of fear,
+      isBridge: 1
+      bridgeTag: COURAGE
+    - chunkId: 2TIM_01_007_C2
+      order: 2
+      localizationKey: 2TIM_01_007_C2
+      text: but of power, love,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: 2TIM_01_007_C3
+      order: 3
+      localizationKey: 2TIM_01_007_C3
+      text: and self-control.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: PSA_046_001
+    reference: Psalm 46:1
+    iconId: icon_mountain
+    fullText: God is our refuge and strength, a very present help in trouble.
+    chunks:
+    - chunkId: PSA_046_001_C1
+      order: 1
+      localizationKey: PSA_046_001_C1
+      text: God is our refuge
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: PSA_046_001_C2
+      order: 2
+      localizationKey: PSA_046_001_C2
+      text: and strength,
+      isBridge: 1
+      bridgeTag: STRENGTH
+    - chunkId: PSA_046_001_C3
+      order: 3
+      localizationKey: PSA_046_001_C3
+      text: a very present help in trouble.
+      isBridge: 0
+      bridgeTag: 

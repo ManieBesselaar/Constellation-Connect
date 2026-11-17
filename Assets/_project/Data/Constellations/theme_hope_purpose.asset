@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ff9ebca79a61f49abba50ba23861ea, type: 3}
+  m_Name: theme_hope_purpose
+  m_EditorClassIdentifier: Assembly-CSharp::Constellation.Data.ConstellationSO
+  constellationId: theme_hope_purpose
+  themeKey: THEME_HOPE_PURPOSE
+  themeTitle: Hope & Purpose
+  bridgeKeywords:
+  - HOPE
+  - GOOD
+  - PLANS
+  verses:
+  - verseId: JER_29_011
+    reference: Jeremiah 29:11
+    iconId: icon_scroll
+    fullText: For I know the thoughts that I think toward you, says Yahweh, thoughts
+      of peace, and not of evil, to give you hope and a future.
+    chunks:
+    - chunkId: JER_29_011_C1
+      order: 1
+      localizationKey: JER_29_011_C1
+      text: For I know the thoughts that I think toward you,
+      isBridge: 1
+      bridgeTag: PLANS
+    - chunkId: JER_29_011_C2
+      order: 2
+      localizationKey: JER_29_011_C2
+      text: thoughts of peace, and not of evil,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: JER_29_011_C3
+      order: 3
+      localizationKey: JER_29_011_C3
+      text: to give you hope and a future.
+      isBridge: 1
+      bridgeTag: HOPE
+  - verseId: ROM_08_028
+    reference: Romans 8:28
+    iconId: icon_anchor
+    fullText: We know that all things work together for good for those who love God,
+      for those who are called according to his purpose.
+    chunks:
+    - chunkId: ROM_08_028_C1
+      order: 1
+      localizationKey: ROM_08_028_C1
+      text: We know that all things
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: ROM_08_028_C2
+      order: 2
+      localizationKey: ROM_08_028_C2
+      text: work together for good
+      isBridge: 1
+      bridgeTag: GOOD
+    - chunkId: ROM_08_028_C3
+      order: 3
+      localizationKey: ROM_08_028_C3
+      text: for those who are called according to his purpose.
+      isBridge: 1
+      bridgeTag: PLANS
+  - verseId: ROM_15_013
+    reference: Romans 15:13
+    iconId: icon_dove
+    fullText: Now may the God of hope fill you with all joy and peace in believing,
+      that you may abound in hope.
+    chunks:
+    - chunkId: ROM_15_013_C1
+      order: 1
+      localizationKey: ROM_15_013_C1
+      text: Now may the God of hope
+      isBridge: 1
+      bridgeTag: HOPE
+    - chunkId: ROM_15_013_C2
+      order: 2
+      localizationKey: ROM_15_013_C2
+      text: fill you with all joy and peace in believing,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: ROM_15_013_C3
+      order: 3
+      localizationKey: ROM_15_013_C3
+      text: that you may abound in hope.
+      isBridge: 1
+      bridgeTag: HOPE
+  - verseId: HEB_11_001
+    reference: Hebrews 11:1
+    iconId: icon_star
+    fullText: Now faith is assurance of things hoped for, proof of things not seen.
+    chunks:
+    - chunkId: HEB_11_001_C1
+      order: 1
+      localizationKey: HEB_11_001_C1
+      text: Now faith is assurance
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: HEB_11_001_C2
+      order: 2
+      localizationKey: HEB_11_001_C2
+      text: of things hoped for,
+      isBridge: 1
+      bridgeTag: HOPE
+    - chunkId: HEB_11_001_C3
+      order: 3
+      localizationKey: HEB_11_001_C3
+      text: proof of things not seen.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: EPH_02_010
+    reference: Ephesians 2:10
+    iconId: icon_crown
+    fullText: For we are his workmanship, created in Christ Jesus for good works,
+      which God prepared before that we would walk in them.
+    chunks:
+    - chunkId: EPH_02_010_C1
+      order: 1
+      localizationKey: EPH_02_010_C1
+      text: For we are his workmanship,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: EPH_02_010_C2
+      order: 2
+      localizationKey: EPH_02_010_C2
+      text: created in Christ Jesus for good works,
+      isBridge: 1
+      bridgeTag: GOOD
+    - chunkId: EPH_02_010_C3
+      order: 3
+      localizationKey: EPH_02_010_C3
+      text: which God prepared before that we would walk in them.
+      isBridge: 1
+      bridgeTag: PLANS
+  - verseId: LAM_03_022
+    reference: Lamentations 3:22-23
+    iconId: icon_olive_branch
+    fullText: It is because of Yahweh's loving kindnesses that we are not consumed,
+      because his mercies don't fail. They are new every morning.
+    chunks:
+    - chunkId: LAM_03_022_C1
+      order: 1
+      localizationKey: LAM_03_022_C1
+      text: It is because of Yahweh's loving kindnesses
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: LAM_03_022_C2
+      order: 2
+      localizationKey: LAM_03_022_C2
+      text: that we are not consumed, because his mercies don't fail.
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: LAM_03_022_C3
+      order: 3
+      localizationKey: LAM_03_022_C3
+      text: They are new every morning.
+      isBridge: 1
+      bridgeTag: HOPE

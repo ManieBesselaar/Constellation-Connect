@@ -1,0 +1,456 @@
+fileFormatVersion: 2
+guid: fc85db92223d69f40b66e58767aa099e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1518173732708520035
+    second: Constellation UI additional icons_0
+  - first:
+      213: -644051063135182925
+    second: Constellation UI additional icons_1
+  - first:
+      213: -3953969300228829992
+    second: Constellation UI additional icons_2
+  - first:
+      213: 2406479398718088323
+    second: Constellation UI additional icons_3
+  - first:
+      213: -6804975422379417520
+    second: Constellation UI additional icons_4
+  - first:
+      213: 6890043265720388601
+    second: Constellation UI additional icons_5
+  - first:
+      213: 5159188130482624567
+    second: Constellation UI additional icons_6
+  - first:
+      213: 3923367198507551771
+    second: Constellation UI additional icons_7
+  - first:
+      213: 6878391600206762422
+    second: Constellation UI additional icons_8
+  - first:
+      213: -8721142200699371655
+    second: Constellation UI additional icons_9
+  - first:
+      213: 9003145773907817510
+    second: Constellation UI additional icons_10
+  - first:
+      213: -6005721060076514035
+    second: Constellation UI additional icons_11
+  - first:
+      213: -7027291583535754284
+    second: Constellation UI additional icons_12
+  - first:
+      213: 5983021906647667677
+    second: Constellation UI additional icons_13
+  - first:
+      213: -2753003472496408843
+    second: Constellation UI additional icons_14
+  - first:
+      213: -2961394934724055848
+    second: Constellation UI additional icons_15
+  - first:
+      213: 3819917242075230673
+    second: Constellation UI additional icons_16
+  - first:
+      213: -3705483887773554381
+    second: Constellation UI additional icons_17
+  - first:
+      213: 6035134060310838434
+    second: Constellation UI additional icons_18
+  - first:
+      213: -8030307891967588420
+    second: Constellation UI additional icons_19
+  - first:
+      213: -5424036598250015764
+    second: Constellation UI additional icons_20
+  - first:
+      213: -1954205564914273953
+    second: Constellation UI additional icons_21
+  - first:
+      213: -3803756787734628847
+    second: Constellation UI additional icons_22
+  - first:
+      213: 4488692313833427396
+    second: Constellation UI additional icons_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: star_empty
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 582
+        width: 142
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3609b6d57f2a11510800000000000000
+      internalID: 1518173732708520035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: star_bronze
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 582
+        width: 141
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bf5d9c68fedf07f0800000000000000
+      internalID: -644051063135182925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: star_silver
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 580
+        width: 142
+        height: 136
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dc8f07dedda029c0800000000000000
+      internalID: -3953969300228829992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: star_gold
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 580
+        width: 142
+        height: 136
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38423e75348856120800000000000000
+      internalID: 2406479398718088323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_hub_inactive
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 329
+        width: 170
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d35246798b0a7e90800000000000000
+      internalID: -7027291583535754284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_hub_active
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 328
+        width: 180
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd35d1589b6f70350800000000000000
+      internalID: 5983021906647667677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_hub_completed
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 329
+        width: 174
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f64f648ded5bc9d0800000000000000
+      internalID: -2753003472496408843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: card_panel_study
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 76
+        width: 289
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 22, y: 27, z: 25, w: 27}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ac30bcc37a11c350800000000000000
+      internalID: 6035134060310838434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: card_panel_active
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 73
+        width: 296
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 26, y: 28, z: 27, w: 27}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb78146c48d9e8090800000000000000
+      internalID: -8030307891967588420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: card_panel_complete
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 77
+        width: 288
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 21, y: 24, z: 24, w: 21}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3f690a373f9b4b0800000000000000
+      internalID: -5424036598250015764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c11a6d48a0a2bcd43b4d9424bad925be
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Constellation UI additional icons_0: 1518173732708520035
+      Constellation UI additional icons_1: -644051063135182925
+      Constellation UI additional icons_10: 9003145773907817510
+      Constellation UI additional icons_11: -6005721060076514035
+      Constellation UI additional icons_12: -7027291583535754284
+      Constellation UI additional icons_13: 5983021906647667677
+      Constellation UI additional icons_14: -2753003472496408843
+      Constellation UI additional icons_15: -2961394934724055848
+      Constellation UI additional icons_16: 3819917242075230673
+      Constellation UI additional icons_17: -3705483887773554381
+      Constellation UI additional icons_18: 6035134060310838434
+      Constellation UI additional icons_19: -8030307891967588420
+      Constellation UI additional icons_2: -3953969300228829992
+      Constellation UI additional icons_20: -5424036598250015764
+      Constellation UI additional icons_21: -1954205564914273953
+      Constellation UI additional icons_22: -3803756787734628847
+      Constellation UI additional icons_23: 4488692313833427396
+      Constellation UI additional icons_3: 2406479398718088323
+      Constellation UI additional icons_4: -6804975422379417520
+      Constellation UI additional icons_5: 6890043265720388601
+      Constellation UI additional icons_6: 5159188130482624567
+      Constellation UI additional icons_7: 3923367198507551771
+      Constellation UI additional icons_8: 6878391600206762422
+      Constellation UI additional icons_9: -8721142200699371655
+      bridge_hub_active: 5983021906647667677
+      bridge_hub_completed: -2753003472496408843
+      bridge_hub_inactive: -7027291583535754284
+      card_panel_active: -8030307891967588420
+      card_panel_complete: -5424036598250015764
+      card_panel_study: 6035134060310838434
+      star_bronze: -644051063135182925
+      star_empty: 1518173732708520035
+      star_gold: 2406479398718088323
+      star_silver: -3953969300228829992
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

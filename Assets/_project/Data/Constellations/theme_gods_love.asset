@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ff9ebca79a61f49abba50ba23861ea, type: 3}
+  m_Name: theme_gods_love
+  m_EditorClassIdentifier: Assembly-CSharp::Constellation.Data.ConstellationSO
+  constellationId: theme_gods_love
+  themeKey: THEME_GODS_LOVE
+  themeTitle: God's Unfailing Love
+  bridgeKeywords:
+  - LOVE
+  - WORLD
+  - HEART
+  verses:
+  - verseId: JOHN_03_016
+    reference: John 3:16
+    iconId: icon_heart_cross
+    fullText: For God so loved the world, that he gave his only born Son, that whoever
+      believes in him should not perish, but have eternal life.
+    chunks:
+    - chunkId: JOHN_03_016_C1
+      order: 1
+      localizationKey: JOHN_03_016_C1
+      text: For God so loved
+      isBridge: 1
+      bridgeTag: LOVE
+    - chunkId: JOHN_03_016_C2
+      order: 2
+      localizationKey: JOHN_03_016_C2
+      text: the world,
+      isBridge: 1
+      bridgeTag: WORLD
+    - chunkId: JOHN_03_016_C3
+      order: 3
+      localizationKey: JOHN_03_016_C3
+      text: that he gave his only born Son,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: JOHN_03_016_C4
+      order: 4
+      localizationKey: JOHN_03_016_C4
+      text: that whoever believes in him should not perish, but have eternal life.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: ROM_08_038
+    reference: Romans 8:38-39
+    iconId: icon_anchor
+    fullText: For I am persuaded that neither death, nor life, nor angels, nor principalities,
+      will be able to separate us from God's love.
+    chunks:
+    - chunkId: ROM_08_038_C1
+      order: 1
+      localizationKey: ROM_08_038_C1
+      text: For I am persuaded that neither death, nor life,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: ROM_08_038_C2
+      order: 2
+      localizationKey: ROM_08_038_C2
+      text: will be able to separate us
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: ROM_08_038_C3
+      order: 3
+      localizationKey: ROM_08_038_C3
+      text: from God's love.
+      isBridge: 1
+      bridgeTag: LOVE
+  - verseId: 1JOHN_04_019
+    reference: 1 John 4:19
+    iconId: icon_heart_cross
+    fullText: We love him, because he first loved us.
+    chunks:
+    - chunkId: 1JOHN_04_019_C1
+      order: 1
+      localizationKey: 1JOHN_04_019_C1
+      text: We love him,
+      isBridge: 1
+      bridgeTag: LOVE
+    - chunkId: 1JOHN_04_019_C2
+      order: 2
+      localizationKey: 1JOHN_04_019_C2
+      text: because he
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: 1JOHN_04_019_C3
+      order: 3
+      localizationKey: 1JOHN_04_019_C3
+      text: first loved us.
+      isBridge: 1
+      bridgeTag: LOVE
+  - verseId: 1COR_13_004
+    reference: 1 Corinthians 13:4
+    iconId: icon_olive_branch
+    fullText: Love is patient and is kind. Love doesn't envy. Love doesn't brag,
+      is not proud.
+    chunks:
+    - chunkId: 1COR_13_004_C1
+      order: 1
+      localizationKey: 1COR_13_004_C1
+      text: Love is patient and is kind.
+      isBridge: 1
+      bridgeTag: LOVE
+    - chunkId: 1COR_13_004_C2
+      order: 2
+      localizationKey: 1COR_13_004_C2
+      text: Love doesn't envy.
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: 1COR_13_004_C3
+      order: 3
+      localizationKey: 1COR_13_004_C3
+      text: Love doesn't brag, is not proud.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: ROM_05_008
+    reference: Romans 5:8
+    iconId: icon_crown
+    fullText: But God commends his own love toward us, in that while we were yet
+      sinners, Christ died for us.
+    chunks:
+    - chunkId: ROM_05_008_C1
+      order: 1
+      localizationKey: ROM_05_008_C1
+      text: But God commends his own love toward us,
+      isBridge: 1
+      bridgeTag: LOVE
+    - chunkId: ROM_05_008_C2
+      order: 2
+      localizationKey: ROM_05_008_C2
+      text: in that while we were yet sinners,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: ROM_05_008_C3
+      order: 3
+      localizationKey: ROM_05_008_C3
+      text: Christ died for us.
+      isBridge: 0
+      bridgeTag: 
+  - verseId: 1JOHN_03_001
+    reference: 1 John 3:1
+    iconId: icon_star
+    fullText: See how great a love the Father has given to us, that we should be
+      called children of God!
+    chunks:
+    - chunkId: 1JOHN_03_001_C1
+      order: 1
+      localizationKey: 1JOHN_03_001_C1
+      text: See how great a love
+      isBridge: 1
+      bridgeTag: LOVE
+    - chunkId: 1JOHN_03_001_C2
+      order: 2
+      localizationKey: 1JOHN_03_001_C2
+      text: the Father has given to us,
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: 1JOHN_03_001_C3
+      order: 3
+      localizationKey: 1JOHN_03_001_C3
+      text: that we should be called children of God!
+      isBridge: 0
+      bridgeTag: 

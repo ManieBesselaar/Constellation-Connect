@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 1e4f5dbb0b8f700478a41acf5cfe9baf
+  m_SerializeEntries:
+  - m_GUID: fd3acffc0d9f2ed438b179c173c3cce4
+    m_Address: Assets/_project/Localization/ConstellationStrings Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: f879acf71fb51574fa854a928b27ea39, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 28774c1e245b1d34a9865c59a42b085a, type: 2}
+    - {fileID: 11400000, guid: 95c8acaf86d973646bd16886a0f317db, type: 2}
+    - {fileID: 11400000, guid: 52db87c5c3afd7849b5623ce1c28db4f, type: 2}
