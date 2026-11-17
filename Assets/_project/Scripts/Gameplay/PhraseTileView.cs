@@ -84,7 +84,17 @@ namespace Constellation.Gameplay
             _origin = _rect.anchoredPosition;
             _originParent = transform.parent;
 
-            if (_canvas != null) transform.SetParent(_canvas.transform, true);
+            if (_canvas != null)
+            {
+                transform.SetParent(_canvas.transform, true);
+
+                // GridLayoutGroup pins a child's anchors to the tray's top-left corner (0,1), so
+                // anchoredPosition would be measured from that corner once we are on the canvas.
+                // Centre the anchors here so OnDrag's canvas-space local point maps 1:1.
+                _rect.anchorMin = new Vector2(0.5f, 0.5f);
+                _rect.anchorMax = new Vector2(0.5f, 0.5f);
+            }
+
             transform.SetAsLastSibling();
             _canvasGroup.blocksRaycasts = false;
 
