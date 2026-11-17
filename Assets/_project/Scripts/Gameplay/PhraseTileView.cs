@@ -128,9 +128,14 @@ namespace Constellation.Gameplay
             if (_background != null) _background.color = _restColor;
 
             IDropTarget target = FindTargetUnderPointer(eventData);
+            bool wasFilled = target != null && target.IsFilled;
+
             Dropped?.Invoke(this, target);
 
-            if (target == null || !target.IsFilled) ReturnToOrigin();
+            // Only a target that flipped to filled on this very drop accepted the tile; the
+            // controller destroys accepted tiles, so everything else springs back to the tray.
+            bool accepted = target != null && !wasFilled && target.IsFilled;
+            if (!accepted) ReturnToOrigin();
         }
 
         /// <inheritdoc />
@@ -150,7 +155,9 @@ namespace Constellation.Gameplay
                 if (result.gameObject == null) continue;
 
                 var target = result.gameObject.GetComponentInParent<IDropTarget>();
-                if (target != null && target != (IDropTarget)this) return target;
+                // ReferenceEquals, not a cast: PhraseTileView is an IDraggableTile and does not
+                // implement IDropTarget, so casting this would throw InvalidCastException.
+                if (target != null && !ReferenceEquals(target, this)) return target;
             }
 
             return null;
