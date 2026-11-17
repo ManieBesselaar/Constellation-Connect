@@ -395,10 +395,10 @@ namespace Constellation.Gameplay
                 string text = LocalizedText.Get(chunk.localizationKey, chunk.text);
 
                 // Bridge chunks go to the keyword hub rather than the verse anchor, so the tile
-                // names the hub it belongs to.
+                // names the hub it belongs to, in deep red.
                 if (chunk.isBridge && !string.IsNullOrEmpty(chunk.bridgeTag))
                 {
-                    text += "\n<size=70%><color=#FFD470>[ " + chunk.bridgeTag + " ]</color></size>";
+                    text += "\n<size=70%><color=#8B0000>[ " + chunk.bridgeTag + " ]</color></size>";
                 }
 
                 tile.Bind(chunk);
