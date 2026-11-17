@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ff9ebca79a61f49abba50ba23861ea, type: 3}
+  m_Name: theme_test_set
+  m_EditorClassIdentifier: Constellation.Game::Constellation.Data.ConstellationSO
+  constellationId: theme_test_set
+  themeKey: THEME_TEST_SET
+  themeTitle: Test Set
+  bridgeKeywords: []
+  verses:
+  - verseId: TEST_SET
+    reference: Test Set
+    iconId: icon_star
+    fullText: 1 2 3 4
+    chunks:
+    - chunkId: TEST_SET_C1
+      order: 1
+      localizationKey: TEST_SET_C1
+      text: 1
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_SET_C2
+      order: 2
+      localizationKey: TEST_SET_C2
+      text: 2
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_SET_C3
+      order: 3
+      localizationKey: TEST_SET_C3
+      text: 3
+      isBridge: 0
+      bridgeTag: 
+    - chunkId: TEST_SET_C4
+      order: 4
+      localizationKey: TEST_SET_C4
+      text: 4
+      isBridge: 0
+      bridgeTag: 

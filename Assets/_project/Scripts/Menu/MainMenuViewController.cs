@@ -81,6 +81,10 @@ namespace Constellation.Menu
                 return;
             }
 
+#if UNITY_EDITOR
+            AppendEditorTestConstellation();
+#endif
+
             foreach (ConstellationSO constellation in _constellations)
             {
                 if (constellation == null) continue;
@@ -126,5 +130,31 @@ namespace Constellation.Menu
             Debug.Log($"[MainMenuViewController] Loading gameplay for '{constellation.constellationId}'.");
             _loadSceneRequestChannel.RaiseEvent(_gameplayScene);
         }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Editor-only test set. It lives under an Editor folder so Unity never includes it in a
+        /// build, and this whole block is stripped from the player, so the card only exists while
+        /// playing inside the Unity Editor. Nothing is written back to the scene: the list is only
+        /// touched in memory at runtime.
+        /// </summary>
+        private const string EditorTestConstellationPath =
+            "Assets/_project/Data/Editor/TestConstellations/theme_test_set.asset";
+
+        private void AppendEditorTestConstellation()
+        {
+            ConstellationSO testSet = UnityEditor.AssetDatabase.LoadAssetAtPath<ConstellationSO>(EditorTestConstellationPath);
+            if (testSet == null)
+            {
+                Debug.LogWarning("[MainMenuViewController] Editor test set not found at " + EditorTestConstellationPath);
+                return;
+            }
+
+            if (_constellations.Contains(testSet)) return;
+
+            _constellations.Add(testSet);
+            Debug.Log($"[MainMenuViewController] Editor-only test set '{testSet.themeTitle}' added as card {_constellations.Count}.");
+        }
+#endif
     }
 }
