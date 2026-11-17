@@ -11,9 +11,9 @@ namespace Constellation.Gameplay
     using UnityEngine.UI;
 
     /// <summary>
-    /// Phase 2 of the loop: six anchor nodes and a tray of phrase tiles. Dragging a chunk onto the
-    /// anchor whose verse is waiting for it draws a star link; bridge chunks instead feed the gold
-    /// junction hubs that connect every verse sharing a keyword.
+    /// Phase 2 of the loop: six anchor nodes, their bridge hubs and a tray of phrase tiles. Every
+    /// node shows one empty hex outline per chunk it owes, in order; dropping a chunk on its outline
+    /// fills it and draws a star link, while bridge chunks feed the keyword hubs.
     /// </summary>
     public class ConnectPhaseController : MonoBehaviour
     {
@@ -52,6 +52,9 @@ namespace Constellation.Gameplay
         [Tooltip("Draggable phrase tile prefab.")]
         [SerializeField] private PhraseTileView _tilePrefab;
 
+        [Tooltip("Empty target outline placed under each anchor and hub.")]
+        [SerializeField] private ChunkSlotView _slotPrefab;
+
         [Tooltip("Optional stardust burst spawned on a correct snap.")]
         [SerializeField] private GameObject _stardustPrefab;
 
@@ -79,14 +82,32 @@ namespace Constellation.Gameplay
         [SerializeField] private HintService _hintService;
 
         [Header("Layout")]
-        [Tooltip("Horizontal and vertical radius of the anchor ring.")]
-        [SerializeField] private Vector2 _anchorRadius = new Vector2(330f, 175f);
+        [Tooltip("Horizontal distance between anchor columns.")]
+        [SerializeField] private float _anchorSpacing = 480f;
 
-        [Tooltip("Radius of the bridge hub ring, measured from the board centre.")]
-        [SerializeField] private float _hubRadius = 455f;
+        [Tooltip("Vertical offset of the first anchor band, in canvas units.")]
+        [SerializeField] private float _anchorTopY = 280f;
 
-        [Tooltip("Vertical offset of the whole constellation, in canvas units.")]
-        [SerializeField] private float _boardYOffset = 95f;
+        [Tooltip("Vertical distance between anchor bands.")]
+        [SerializeField] private float _anchorBandGap = 270f;
+
+        [Tooltip("Vertical offset of the bridge band, in canvas units.")]
+        [SerializeField] private float _hubYOffset = -245f;
+
+        [Tooltip("Horizontal distance between bridge hubs.")]
+        [SerializeField] private float _hubSpacing = 480f;
+
+        [Tooltip("Size of one empty target slot, matching the hex tile's shape.")]
+        [SerializeField] private Vector2 _slotSize = new Vector2(104f, 60f);
+
+        [Tooltip("Horizontal gap between target slots.")]
+        [SerializeField] private float _slotGap = 6f;
+
+        [Tooltip("Vertical offset of an anchor's slot row, measured from the medallion centre.")]
+        [SerializeField] private float _anchorSlotY = -145f;
+
+        [Tooltip("Vertical offset of a hub's slot row, measured from the gem centre.")]
+        [SerializeField] private float _hubSlotY = -100f;
 
         /// <summary>One verse plus the runtime state of its anchor node.</summary>
         private class VerseRuntime
@@ -95,7 +116,8 @@ namespace Constellation.Gameplay
             public AnchorNodeView Node;
             public readonly List<PhraseChunk> Queue = new List<PhraseChunk>();
             public readonly List<PhraseChunk> PendingBridges = new List<PhraseChunk>();
-            public int Placed;
+            public readonly List<ChunkSlotView> Slots = new List<ChunkSlotView>();
+            public int AnchorsFilled;
             public bool AnchorDone;
             public bool Complete;
         }
@@ -105,7 +127,10 @@ namespace Constellation.Gameplay
         {
             public BridgeHubView Hub;
             public string Tag;
+            public readonly List<PhraseChunk> Chunks = new List<PhraseChunk>();
+            public readonly List<ChunkSlotView> Slots = new List<ChunkSlotView>();
             public readonly List<VerseRuntime> Participants = new List<VerseRuntime>();
+            public int Filled;
             public bool Complete;
         }
 
@@ -113,6 +138,8 @@ namespace Constellation.Gameplay
         private readonly List<BridgeRuntime> _bridges = new List<BridgeRuntime>();
         private readonly List<PhraseTileView> _tiles = new List<PhraseTileView>();
         private readonly List<AnchorNodeView> _completionOrder = new List<AnchorNodeView>();
+        private readonly Dictionary<ChunkSlotView, VerseRuntime> _verseSlots = new Dictionary<ChunkSlotView, VerseRuntime>();
+        private readonly Dictionary<ChunkSlotView, BridgeRuntime> _bridgeSlots = new Dictionary<ChunkSlotView, BridgeRuntime>();
 
         private ConstellationSO _constellation;
         private StarLinkRenderer _linkRenderer;
@@ -175,7 +202,7 @@ namespace Constellation.Gameplay
             if (_panel != null) _panel.SetActive(true);
 
             BuildVerses(constellation);
-            BuildBridges(constellation);
+            BuildBridges();
             BuildTiles(constellation);
 
             _linkRenderer.ClearLinks();
@@ -201,11 +228,21 @@ namespace Constellation.Gameplay
             foreach (VerseRuntime verse in _verses)
             {
                 if (verse.Node != null) verse.Node.SetFillColor(VictoryGold);
+
+                foreach (ChunkSlotView slot in verse.Slots)
+                {
+                    if (slot != null) slot.SetVictory(VictoryGold);
+                }
             }
 
             foreach (BridgeRuntime bridge in _bridges)
             {
                 if (bridge.Hub != null) bridge.Hub.SetFillColor(VictoryGold);
+
+                foreach (ChunkSlotView slot in bridge.Slots)
+                {
+                    if (slot != null) slot.SetVictory(VictoryGold);
+                }
             }
         }
 
@@ -232,29 +269,34 @@ namespace Constellation.Gameplay
 
             if (target == null) return;
 
-            PhraseChunk expected;
-            IDropTarget destination;
+            // The next chunk is the verse's first empty outline, or its first empty hub outline once
+            // every phrase chunk has been placed.
+            ChunkSlotView slot = null;
 
-            if (target.Placed < target.Queue.Count)
+            foreach (ChunkSlotView candidate in target.Slots)
             {
-                expected = target.Queue[target.Placed];
-                destination = target.Node;
-            }
-            else
-            {
-                // Every phrase chunk is placed; the verse is waiting on a bridge chunk at its hub.
-                expected = target.PendingBridges.Count > 0 ? target.PendingBridges[0] : null;
-                destination = expected != null ? FindHubFor(expected.bridgeTag) : null;
+                if (candidate != null && !candidate.IsFilled)
+                {
+                    slot = candidate;
+                    break;
+                }
             }
 
-            if (expected == null) return;
+            if (slot == null && target.PendingBridges.Count > 0)
+            {
+                slot = FindSlotForChunk(target.PendingBridges[0]);
+            }
+
+            if (slot == null || slot.ExpectedChunk == null) return;
+
+            PhraseChunk expected = slot.ExpectedChunk;
 
             _hintsUsed++;
             _score -= HintPenalty;
             ScoreChanged?.Invoke(_score);
             RefreshLabels();
 
-            if (destination != null) destination.Pulse();
+            slot.Pulse();
             AudioManager.PlayHintPulse();
 
             foreach (PhraseTileView tile in _tiles)
@@ -313,56 +355,82 @@ namespace Constellation.Gameplay
                 Sprite glyph = _glyphs != null ? _glyphs.Get(definition.iconId) : null;
                 string reference = LocalizedText.Get(definition.verseId + "_REF", definition.reference);
 
-                // A verse carrying only bridge chunks has nothing for its anchor to take: it is
-                // bound with no expectation and completes through its hubs alone.
-                bool onlyBridges = runtime.Queue.Count == 0;
-                if (onlyBridges)
+                node.Bind(definition.verseId, reference, glyph);
+
+                runtime.Node = node;
+                runtime.AnchorDone = runtime.Queue.Count == 0;
+
+                // One empty outline per phrase chunk, in verse order, so the player can see how many
+                // pieces the verse needs and which one is still missing.
+                runtime.Slots.AddRange(CreateSlotRow(node.transform, definition.verseId, runtime.Queue, _anchorSlotY));
+
+                foreach (ChunkSlotView slot in runtime.Slots)
                 {
-                    runtime.AnchorDone = true;
+                    _verseSlots[slot] = runtime;
+                }
+
+                if (runtime.AnchorDone)
+                {
                     Debug.Log($"[ConnectPhaseController] Verse '{definition.verseId}' has only bridge " +
                               "chunks; it completes through its hubs.");
                 }
 
-                node.Bind(definition.verseId, reference, onlyBridges ? null : runtime.Queue[0], glyph);
-                node.Filled += HandleAnchorFilled;
-
-                runtime.Node = node;
                 _verses.Add(runtime);
                 index++;
             }
         }
 
-        private void BuildBridges(ConstellationSO constellation)
+        private void BuildBridges()
         {
-            var byTag = new Dictionary<string, BridgeRuntime>();
+            // Collect the keywords first so the hubs can be spread evenly across the bridge band.
+            var tags = new List<string>();
 
             foreach (VerseRuntime verse in _verses)
             {
                 foreach (PhraseChunk chunk in verse.Definition.chunks)
                 {
                     if (chunk == null || !chunk.isBridge || string.IsNullOrEmpty(chunk.bridgeTag)) continue;
-
-                    BridgeRuntime bridge;
-                    if (!byTag.TryGetValue(chunk.bridgeTag, out bridge))
-                    {
-                        BridgeHubView hub = Instantiate(_hubPrefab, _boardRoot);
-                        hub.name = "Bridge_" + chunk.bridgeTag;
-
-                        var rect = (RectTransform)hub.transform;
-                        rect.anchorMin = new Vector2(0.5f, 0.5f);
-                        rect.anchorMax = new Vector2(0.5f, 0.5f);
-                        rect.anchoredPosition = HubPosition(byTag.Count);
-
-                        hub.Bind(chunk.chunkId, chunk);
-                        hub.Completed += HandleBridgeCompleted;
-
-                        bridge = new BridgeRuntime { Hub = hub, Tag = chunk.bridgeTag };
-                        byTag.Add(chunk.bridgeTag, bridge);
-                        _bridges.Add(bridge);
-                    }
-
-                    bridge.Participants.Add(verse);
+                    if (!tags.Contains(chunk.bridgeTag)) tags.Add(chunk.bridgeTag);
                 }
+            }
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                string tag = tags[i];
+
+                BridgeHubView hub = Instantiate(_hubPrefab, _boardRoot);
+                hub.name = "Bridge_" + tag;
+
+                var rect = (RectTransform)hub.transform;
+                rect.anchorMin = new Vector2(0.5f, 0.5f);
+                rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.anchoredPosition = HubPosition(i, tags.Count);
+
+                hub.Bind(tag);
+
+                var bridge = new BridgeRuntime { Hub = hub, Tag = tag };
+
+                // Walking the verses in order means a hub's slots run from the earliest verse's
+                // bridge chunk to the latest, which is the order the player reads them in.
+                foreach (VerseRuntime verse in _verses)
+                {
+                    foreach (PhraseChunk chunk in verse.Definition.chunks)
+                    {
+                        if (chunk == null || !chunk.isBridge || chunk.bridgeTag != tag) continue;
+
+                        bridge.Chunks.Add(chunk);
+                        if (!bridge.Participants.Contains(verse)) bridge.Participants.Add(verse);
+                    }
+                }
+
+                bridge.Slots.AddRange(CreateSlotRow(hub.transform, tag, bridge.Chunks, _hubSlotY));
+
+                foreach (ChunkSlotView slot in bridge.Slots)
+                {
+                    _bridgeSlots[slot] = bridge;
+                }
+
+                _bridges.Add(bridge);
             }
         }
 
@@ -411,17 +479,61 @@ namespace Constellation.Gameplay
 
         private Vector2 AnchorPosition(int index, int total)
         {
-            float angle = Mathf.PI * 0.5f + (Mathf.PI * 2f * index / Mathf.Max(1, total));
+            // The anchors fill two bands rather than a ring: a node needs room underneath for its
+            // row of chunk outlines, and a ring puts two of them a medallion apart.
+            int perBand = Mathf.Max(1, Mathf.CeilToInt(total / 2f));
+            int band = index / perBand;
+            int column = index % perBand;
+            int inBand = Mathf.Min(perBand, total - band * perBand);
+
             return new Vector2(
-                Mathf.Cos(angle) * _anchorRadius.x,
-                Mathf.Sin(angle) * _anchorRadius.y + _boardYOffset);
+                (column - (inBand - 1) * 0.5f) * _anchorSpacing,
+                _anchorTopY - band * _anchorBandGap);
         }
 
-        private Vector2 HubPosition(int index)
+        private Vector2 HubPosition(int index, int total)
         {
-            // Hubs sit between anchors, so offset by half a slot.
-            float angle = Mathf.PI * 0.5f + Mathf.PI / 6f + (Mathf.PI * 2f * index / 3f);
-            return new Vector2(Mathf.Cos(angle) * _hubRadius, Mathf.Sin(angle) * _hubRadius * 0.55f + _boardYOffset);
+            // The hubs share one band beneath the anchors, so a hub's slot row never crosses a
+            // medallion on its way outwards.
+            float x = total <= 1 ? 0f : (index - (total - 1) * 0.5f) * _hubSpacing;
+            return new Vector2(x, _hubYOffset);
+        }
+
+        /// <summary>
+        /// Builds one empty hex outline per chunk under a node, reading left to right.
+        /// </summary>
+        /// <param name="parent">Node the slots belong to.</param>
+        /// <param name="ownerId">Verse id, or bridge keyword for hub rows.</param>
+        /// <param name="chunks">Chunks the node owes, already ordered.</param>
+        /// <param name="yOffset">Vertical offset of the row from the node's centre.</param>
+        /// <returns>The slots that were created.</returns>
+        private List<ChunkSlotView> CreateSlotRow(Transform parent, string ownerId, List<PhraseChunk> chunks, float yOffset)
+        {
+            var slots = new List<ChunkSlotView>();
+
+            if (_slotPrefab == null || chunks == null || chunks.Count == 0) return slots;
+
+            float step = _slotSize.x + _slotGap;
+
+            for (int i = 0; i < chunks.Count; i++)
+            {
+                ChunkSlotView slot = Instantiate(_slotPrefab, parent);
+                slot.name = "Slot_" + chunks[i].chunkId;
+
+                var rect = (RectTransform)slot.transform;
+                rect.anchorMin = new Vector2(0.5f, 0.5f);
+                rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.pivot = new Vector2(0.5f, 0.5f);
+                rect.sizeDelta = _slotSize;
+                rect.anchoredPosition = new Vector2((i - (chunks.Count - 1) * 0.5f) * step, yOffset);
+
+                slot.Bind(ownerId, chunks[i], i);
+                slot.Filled += HandleSlotFilled;
+
+                slots.Add(slot);
+            }
+
+            return slots;
         }
 
         // ------------------------------------------------------------------ interaction
@@ -451,29 +563,42 @@ namespace Constellation.Gameplay
             Destroy(tile.gameObject);
         }
 
-        private void HandleAnchorFilled(AnchorNodeView node)
+        private void HandleSlotFilled(ChunkSlotView slot)
         {
-            VerseRuntime verse = FindVerse(node);
-            if (verse == null) return;
+            if (!_isRunning || slot == null) return;
 
-            verse.Placed++;
-            AddScore(CorrectSnapScore);
-            SpawnStardust(node);
+            SpawnStardust(slot);
             AudioManager.PlayTileSnapCorrect();
 
-            if (verse.Placed < verse.Queue.Count)
+            VerseRuntime verse;
+            if (_verseSlots.TryGetValue(slot, out verse))
             {
-                // More chunks to place: rebinding resets IsFilled so the node accepts the next one.
-                PhraseChunk next = verse.Queue[verse.Placed];
-                string reference = LocalizedText.Get(verse.Definition.verseId + "_REF", verse.Definition.reference);
-                Sprite glyph = _glyphs != null ? _glyphs.Get(verse.Definition.iconId) : null;
-                node.Bind(verse.Definition.verseId, reference, next, glyph);
+                HandleVerseSlot(verse);
+                return;
+            }
 
-                Debug.Log($"[ConnectPhaseController] Verse '{verse.Definition.verseId}' awaiting chunk {verse.Placed + 1}/{verse.Queue.Count}.");
+            BridgeRuntime bridge;
+            if (_bridgeSlots.TryGetValue(slot, out bridge))
+            {
+                HandleBridgeSlot(slot, bridge);
+            }
+        }
+
+        private void HandleVerseSlot(VerseRuntime verse)
+        {
+            AddScore(CorrectSnapScore);
+
+            verse.AnchorsFilled++;
+
+            if (verse.AnchorsFilled < verse.Queue.Count)
+            {
+                Debug.Log($"[ConnectPhaseController] Verse '{verse.Definition.verseId}' awaiting chunk " +
+                          $"{verse.AnchorsFilled + 1}/{verse.Queue.Count}.");
                 return;
             }
 
             verse.AnchorDone = true;
+            if (verse.Node != null) verse.Node.SetLit(true);
 
             if (verse.PendingBridges.Count > 0)
             {
@@ -481,7 +606,7 @@ namespace Constellation.Gameplay
                 // keyword hubs before the verse counts as connected.
                 Debug.Log($"[ConnectPhaseController] Verse '{verse.Definition.verseId}' still needs " +
                           $"{verse.PendingBridges.Count} bridge chunk(s).");
-                node.Pulse();
+                if (verse.Node != null) verse.Node.Pulse();
                 return;
             }
 
@@ -521,52 +646,45 @@ namespace Constellation.Gameplay
             }
         }
 
-        private void HandleBridgeCompleted(BridgeHubView hub, PhraseChunk chunk)
+        private void HandleBridgeSlot(ChunkSlotView slot, BridgeRuntime bridge)
         {
-            BridgeRuntime bridge = null;
-            foreach (BridgeRuntime candidate in _bridges)
-            {
-                if (candidate.Hub == hub)
-                {
-                    bridge = candidate;
-                    break;
-                }
-            }
-
-            if (bridge == null) return;
-
-            AudioManager.PlayTileSnapCorrect();
+            bridge.Filled++;
 
             if (!bridge.Complete)
             {
                 bridge.Complete = true;
                 AddScore(BridgeScore);
 
-                var hubRect = (RectTransform)hub.transform;
-
-                foreach (VerseRuntime verse in bridge.Participants)
+                if (bridge.Hub != null)
                 {
-                    if (verse.Node == null) continue;
+                    bridge.Hub.SetCompleteVisual();
 
-                    _linkRenderer.DrawLink(
-                        hubRect.anchoredPosition,
-                        ((RectTransform)verse.Node.transform).anchoredPosition,
-                        true);
+                    var hubRect = (RectTransform)bridge.Hub.transform;
+
+                    foreach (VerseRuntime verse in bridge.Participants)
+                    {
+                        if (verse.Node == null) continue;
+
+                        _linkRenderer.DrawLink(
+                            hubRect.anchoredPosition,
+                            ((RectTransform)verse.Node.transform).anchoredPosition,
+                            true);
+                    }
                 }
 
                 Debug.Log($"[ConnectPhaseController] Bridge '{bridge.Tag}' completed, linking {bridge.Participants.Count} verses.");
             }
             else
             {
-                // The hub stays open so every verse sharing the keyword can place its own chunk.
+                // The hub keeps its remaining slots open for the other verses sharing the keyword.
                 AddScore(CorrectSnapScore);
-                Debug.Log($"[ConnectPhaseController] Bridge chunk '{chunk.chunkId}' placed on '{bridge.Tag}'.");
+                Debug.Log($"[ConnectPhaseController] Bridge chunk '{slot.ExpectedChunk.chunkId}' placed on '{bridge.Tag}'.");
             }
 
-            VerseRuntime owner = FindVerseByBridgeChunk(chunk);
+            VerseRuntime owner = FindVerseByBridgeChunk(slot.ExpectedChunk);
             if (owner == null) return;
 
-            owner.PendingBridges.RemoveAll(pending => pending != null && pending.chunkId == chunk.chunkId);
+            owner.PendingBridges.RemoveAll(pending => pending != null && pending.chunkId == slot.ExpectedChunk.chunkId);
 
             if (owner.PendingBridges.Count == 0 && owner.AnchorDone)
             {
@@ -586,11 +704,15 @@ namespace Constellation.Gameplay
 
         // ------------------------------------------------------------------ helpers
 
-        private VerseRuntime FindVerse(AnchorNodeView node)
+        private ChunkSlotView FindSlotForChunk(PhraseChunk chunk)
         {
-            foreach (VerseRuntime verse in _verses)
+            if (chunk == null) return null;
+
+            foreach (KeyValuePair<ChunkSlotView, BridgeRuntime> pair in _bridgeSlots)
             {
-                if (verse.Node == node) return verse;
+                ChunkSlotView slot = pair.Key;
+                if (slot == null || slot.IsFilled || slot.ExpectedChunk == null) continue;
+                if (slot.ExpectedChunk.chunkId == chunk.chunkId) return slot;
             }
 
             return null;
@@ -606,18 +728,6 @@ namespace Constellation.Gameplay
                 {
                     if (pending != null && pending.chunkId == chunk.chunkId) return verse;
                 }
-            }
-
-            return null;
-        }
-
-        private BridgeHubView FindHubFor(string tag)
-        {
-            if (string.IsNullOrEmpty(tag)) return null;
-
-            foreach (BridgeRuntime bridge in _bridges)
-            {
-                if (bridge.Tag == tag && bridge.Hub != null) return bridge.Hub;
             }
 
             return null;
@@ -656,15 +766,27 @@ namespace Constellation.Gameplay
         {
             foreach (VerseRuntime verse in _verses)
             {
+                foreach (ChunkSlotView slot in verse.Slots)
+                {
+                    if (slot == null) continue;
+                    slot.Filled -= HandleSlotFilled;
+                }
+
                 if (verse.Node == null) continue;
-                verse.Node.Filled -= HandleAnchorFilled;
+
+                // The slot row is parented to the node, so destroying the node clears it too.
                 Destroy(verse.Node.gameObject);
             }
 
             foreach (BridgeRuntime bridge in _bridges)
             {
+                foreach (ChunkSlotView slot in bridge.Slots)
+                {
+                    if (slot == null) continue;
+                    slot.Filled -= HandleSlotFilled;
+                }
+
                 if (bridge.Hub == null) continue;
-                bridge.Hub.Completed -= HandleBridgeCompleted;
                 Destroy(bridge.Hub.gameObject);
             }
 
@@ -679,6 +801,8 @@ namespace Constellation.Gameplay
             _bridges.Clear();
             _tiles.Clear();
             _completionOrder.Clear();
+            _verseSlots.Clear();
+            _bridgeSlots.Clear();
 
             if (_linkRenderer != null) _linkRenderer.ClearLinks();
             if (_hintService != null) _hintService.SetInteractable(true);
