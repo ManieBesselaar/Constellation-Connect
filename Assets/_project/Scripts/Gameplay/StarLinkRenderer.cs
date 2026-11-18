@@ -73,6 +73,8 @@ namespace Constellation.Gameplay
 
         private Sprite _glowSprite;
 
+        private GameObject _preview;
+
         /// <summary>
         /// Draws a link between two anchored UI positions.
         /// </summary>
@@ -143,11 +145,66 @@ namespace Constellation.Gameplay
             Vector2 start = _linkRoot.InverseTransformPoint(from.TransformPoint(from.rect.center));
             Vector2 end = _linkRoot.InverseTransformPoint(to.TransformPoint(to.rect.center));
 
+            CollectCurveObstacles(avoid, from, to);
+
+            GameObject link = DrawCurvedLink(start, end);
+            if (link != null) _segments.Add(link);
+        }
+
+        /// <summary>
+        /// Draws one throwaway link clear across the board, from its left edge to its right edge, so
+        /// the line settings can be tuned without starting a game. Invoke it again after changing a
+        /// setting: the previous preview is replaced.
+        /// </summary>
+        [ContextMenu("Preview Link")]
+        public void PreviewLink()
+        {
+            if (_linkRoot == null)
+            {
+                Debug.LogWarning("[StarLinkRenderer] No link root assigned.");
+                return;
+            }
+
+            ClearPreview();
+
+            // Nothing is placed outside play mode, so the preview shows the character curve alone.
+            _curveObstacles.Clear();
+
+            Rect area = _linkRoot.rect;
+            float inset = Mathf.Min(60f, area.width * 0.1f);
+
+            _preview = DrawCurvedLink(
+                new Vector2(area.xMin + inset, area.center.y),
+                new Vector2(area.xMax - inset, area.center.y));
+
+            if (_preview != null) HideFromScene(_preview);
+        }
+
+        /// <summary>
+        /// Removes the link drawn by Preview Link.
+        /// </summary>
+        [ContextMenu("Clear Preview")]
+        public void ClearPreview()
+        {
+            if (_preview == null) return;
+
+            if (Application.isPlaying) Destroy(_preview);
+            else DestroyImmediate(_preview);
+
+            _preview = null;
+        }
+
+        /// <summary>
+        /// Draws one curved bridge link between two points in link root space.
+        /// </summary>
+        /// <param name="start">Start point in link root space.</param>
+        /// <param name="end">End point in link root space.</param>
+        /// <returns>The root that holds the ribbons and the pulse, or null when the points coincide.</returns>
+        private GameObject DrawCurvedLink(Vector2 start, Vector2 end)
+        {
             Vector2 delta = end - start;
             float length = delta.magnitude;
-            if (length < 1f) return;
-
-            CollectCurveObstacles(avoid, from, to);
+            if (length < 1f) return null;
 
             // The curve is a quadratic whose midpoint sits `bend` off the straight line.
             Vector2 normal = new Vector2(-delta.y, delta.x) / length;
@@ -175,7 +232,21 @@ namespace Constellation.Gameplay
 
             CreatePulse(rect, points);
 
-            _segments.Add(go);
+            return go;
+        }
+
+        /// <summary>
+        /// Flags an object and its direct children so the scene never serialises them.
+        /// </summary>
+        /// <param name="root">Object to hide and keep out of the scene file.</param>
+        private static void HideFromScene(GameObject root)
+        {
+            root.hideFlags = HideFlags.HideAndDontSave;
+
+            foreach (Transform child in root.transform)
+            {
+                child.gameObject.hideFlags = HideFlags.HideAndDontSave;
+            }
         }
 
         /// <summary>
@@ -189,6 +260,7 @@ namespace Constellation.Gameplay
             }
 
             _segments.Clear();
+            ClearPreview();
         }
 
         /// <summary>
