@@ -3044,6 +3044,12 @@ MonoBehaviour:
   _pulseLengthRadiusScale: 5
   _pulseWidthScale: 2
   _pulseCycleSeconds: 10
+  _curveAmount: 0.12
+  _curveGrowth: 0.6
+  _curveMaxBend: 0.32
+  _curveClearance: 16
+  _curveAttempts: 10
+  _curveSegments: 16
 --- !u!114 &1172847348
 MonoBehaviour:
   m_ObjectHideFlags: 0

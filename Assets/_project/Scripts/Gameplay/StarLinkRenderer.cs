@@ -48,9 +48,28 @@ namespace Constellation.Gameplay
         [Tooltip("Seconds a pulse takes to travel from the start of its link to the end.")]
         [SerializeField] private float _pulseCycleSeconds = 10f;
 
+        [Tooltip("Random bow given to every anchor-to-bridge link, as a fraction of its length.")]
+        [SerializeField] private float _curveAmount = 0.12f;
+
+        [Tooltip("Step by which the bow deepens while a link hunts for a path around a node.")]
+        [SerializeField] private float _curveGrowth = 0.6f;
+
+        [Tooltip("Deepest bow a link may take, as a fraction of its length.")]
+        [SerializeField] private float _curveMaxBend = 0.32f;
+
+        [Tooltip("How far a link keeps from the nodes it steers around, in board units.")]
+        [SerializeField] private float _curveClearance = 16f;
+
+        [Tooltip("Bows tried on each side before a link settles for its first guess.")]
+        [SerializeField] private int _curveAttempts = 10;
+
+        [Tooltip("Points a curved link is drawn from.")]
+        [SerializeField] private int _curveSegments = 16;
+
         private const int GlowSpriteSize = 128;
 
         private readonly List<GameObject> _segments = new List<GameObject>();
+        private readonly List<Rect> _curveObstacles = new List<Rect>();
 
         private Sprite _glowSprite;
 
@@ -110,12 +129,14 @@ namespace Constellation.Gameplay
         }
 
         /// <summary>
-        /// Draws the glowing link between an anchor chunk outline and its bridge chunk outline, with a
-        /// pulse that runs from the start point to the end point and then starts over.
+        /// Draws the glowing link between an anchor chunk outline and its bridge chunk outline, bowed
+        /// into a gentle random curve that steers around the nodes passed in, with a pulse that runs
+        /// from the start point to the end point along the curve and then starts over.
         /// </summary>
         /// <param name="from">Outline the pulse leaves, i.e. the chunk that comes first in the verse.</param>
         /// <param name="to">Outline the pulse reaches, i.e. the chunk that comes next.</param>
-        public void DrawBridgeLink(RectTransform from, RectTransform to)
+        /// <param name="avoid">Node visuals the curve has to keep clear of. The two outlines are skipped.</param>
+        public void DrawBridgeLink(RectTransform from, RectTransform to, IList<RectTransform> avoid = null)
         {
             if (_linkRoot == null || from == null || to == null) return;
 
@@ -126,25 +147,33 @@ namespace Constellation.Gameplay
             float length = delta.magnitude;
             if (length < 1f) return;
 
+            CollectCurveObstacles(avoid, from, to);
+
+            // The curve is a quadratic whose midpoint sits `bend` off the straight line.
+            Vector2 normal = new Vector2(-delta.y, delta.x) / length;
+            float bend = PickBend(start, end, normal, length);
+            Vector2 control = (start + end) * 0.5f + normal * bend * 2f;
+
+            List<Vector2> points = SampleCurve(start, control, end);
+
             var go = new GameObject("BridgeLink", typeof(RectTransform));
             go.transform.SetParent(_linkRoot, false);
 
             var rect = (RectTransform)go.transform;
             rect.anchorMin = new Vector2(0.5f, 0.5f);
             rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.pivot = new Vector2(0f, 0.5f);
-            rect.anchoredPosition = start;
-            rect.sizeDelta = new Vector2(length, _thickness);
-            rect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = Vector2.zero;
 
             // Bloom halo first so it sits behind the crisp core.
             Color halo = _goldTint;
             halo.a = _glowAlpha * _goldTint.a;
-            CreateBar(rect, "Bloom", length, _thickness * _glowThicknessScale, halo);
+            CreateRibbon(rect, "Bloom", points, _thickness * _glowThicknessScale, halo);
 
-            CreateBar(rect, "Core", length, _thickness, _goldTint);
+            CreateRibbon(rect, "Core", points, _thickness, _goldTint);
 
-            CreatePulse(rect, length);
+            CreatePulse(rect, points);
 
             _segments.Add(go);
         }
@@ -163,46 +192,227 @@ namespace Constellation.Gameplay
         }
 
         /// <summary>
-        /// Adds one horizontal emissive bar of a link, starting at the link's start point.
+        /// Bounds of a rect, expressed in the link root's own coordinates.
         /// </summary>
-        /// <param name="parent">Link rect the bar belongs to.</param>
-        /// <param name="name">Name given to the bar object.</param>
-        /// <param name="length">Bar length, matching the link.</param>
-        /// <param name="height">Bar thickness.</param>
-        /// <param name="color">Tint applied to the bar.</param>
-        private void CreateBar(RectTransform parent, string name, float length, float height, Color color)
+        /// <param name="rect">Rect to measure.</param>
+        /// <returns>The rect's world bounds, converted into the link root's space.</returns>
+        public Rect BoundsInLinkSpace(RectTransform rect)
+        {
+            if (_linkRoot == null || rect == null) return new Rect();
+
+            var corners = new Vector3[4];
+            rect.GetWorldCorners(corners);
+
+            Vector3 min = _linkRoot.InverseTransformPoint(corners[0]);
+            Vector3 max = min;
+
+            for (int i = 1; i < corners.Length; i++)
+            {
+                Vector3 local = _linkRoot.InverseTransformPoint(corners[i]);
+                min = Vector3.Min(min, local);
+                max = Vector3.Max(max, local);
+            }
+
+            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        }
+
+        /// <summary>
+        /// Collects the node visuals a curve has to steer around, in link root space, once per link.
+        /// </summary>
+        /// <param name="avoid">Node visuals to keep clear of.</param>
+        /// <param name="from">Outline the link starts at.</param>
+        /// <param name="to">Outline the link ends at.</param>
+        private void CollectCurveObstacles(IList<RectTransform> avoid, RectTransform from, RectTransform to)
+        {
+            _curveObstacles.Clear();
+            if (avoid == null) return;
+
+            Transform fromNode = NodeOf(from);
+            Transform toNode = NodeOf(to);
+
+            foreach (RectTransform obstacle in avoid)
+            {
+                if (obstacle == null || obstacle == _linkRoot) continue;
+
+                // The two nodes the link joins are never obstacles: the line has to reach their outlines.
+                if (IsInside(obstacle, fromNode) || IsInside(obstacle, toNode)) continue;
+
+                Rect bounds = BoundsInLinkSpace(obstacle);
+                if (bounds.width < 1f || bounds.height < 1f) continue;
+
+                _curveObstacles.Add(bounds);
+            }
+        }
+
+        /// <summary>Walks up from a chunk outline to the anchor or hub node that owns it.</summary>
+        /// <param name="rect">Rect to trace, usually a chunk outline.</param>
+        /// <returns>The Anchor_ or Bridge_ node above it, or the rect itself when there is none.</returns>
+        private static Transform NodeOf(RectTransform rect)
+        {
+            if (rect == null) return null;
+
+            Transform node = rect;
+
+            while (node.parent != null && !IsNodeName(node.name))
+            {
+                node = node.parent;
+            }
+
+            return node;
+        }
+
+        private static bool IsNodeName(string name)
+        {
+            return name.StartsWith("Anchor_") || name.StartsWith("Bridge_");
+        }
+
+        /// <summary>True when a transform is that node or sits underneath it.</summary>
+        private static bool IsInside(Transform candidate, Transform node)
+        {
+            return node != null && (candidate == node || candidate.IsChildOf(node));
+        }
+
+        /// <summary>
+        /// Picks how far the link bows out: a slight random bow for character, deepened on whichever
+        /// side is clear when that first bow would cross a node. When no bow gets past everything, the
+        /// one that crosses the least is used.
+        /// </summary>
+        /// <param name="start">Start point in link root space.</param>
+        /// <param name="end">End point in link root space.</param>
+        /// <param name="normal">Unit vector across the straight line.</param>
+        /// <param name="length">Distance between the two points.</param>
+        /// <returns>Signed offset of the curve's midpoint from the straight line.</returns>
+        private float PickBend(Vector2 start, Vector2 end, Vector2 normal, float length)
+        {
+            // A slight bow either way gives every link its own character before anything gets in the way.
+            float character = UnityEngine.Random.Range(_curveAmount * 0.35f, _curveAmount) * length;
+            if (UnityEngine.Random.value < 0.5f) character = -character;
+
+            int bestCrossings = CurveCrossings(start, end, normal, character);
+            float bestBend = character;
+            if (bestCrossings == 0) return character;
+
+            // Lean harder to either side until the curve slips past whatever it was crossing, keeping
+            // the least crowded bow in hand in case nothing is fully clear.
+            for (int step = 1; step <= _curveAttempts; step++)
+            {
+                float magnitude = Mathf.Min(
+                    _curveAmount * length * (1f + _curveGrowth * step),
+                    length * _curveMaxBend);
+
+                bool positiveFirst = UnityEngine.Random.value < 0.5f;
+                float first = positiveFirst ? magnitude : -magnitude;
+                float second = -first;
+
+                int firstCrossings = CurveCrossings(start, end, normal, first);
+                if (firstCrossings == 0) return first;
+                if (firstCrossings < bestCrossings) { bestCrossings = firstCrossings; bestBend = first; }
+
+                int secondCrossings = CurveCrossings(start, end, normal, second);
+                if (secondCrossings == 0) return second;
+                if (secondCrossings < bestCrossings) { bestCrossings = secondCrossings; bestBend = second; }
+            }
+
+            return bestBend;
+        }
+
+        /// <summary>
+        /// Counts the samples along a curve that land on a node the link has to keep clear of.
+        /// </summary>
+        /// <param name="start">Start point in link root space.</param>
+        /// <param name="end">End point in link root space.</param>
+        /// <param name="normal">Unit vector across the straight line.</param>
+        /// <param name="bend">Signed offset of the curve's midpoint from the straight line.</param>
+        /// <returns>Number of samples that fall inside a node, zero when the whole curve is clear.</returns>
+        private int CurveCrossings(Vector2 start, Vector2 end, Vector2 normal, float bend)
+        {
+            if (_curveObstacles.Count == 0) return 0;
+
+            Vector2 control = (start + end) * 0.5f + normal * bend * 2f;
+            int samples = Mathf.Max(6, _curveSegments);
+            int crossings = 0;
+
+            for (int i = 1; i < samples; i++)
+            {
+                float t = i / (float)samples;
+                float u = 1f - t;
+                Vector2 point = u * u * start + 2f * u * t * control + t * t * end;
+
+                foreach (Rect bounds in _curveObstacles)
+                {
+                    if (point.x < bounds.xMin - _curveClearance) continue;
+                    if (point.x > bounds.xMax + _curveClearance) continue;
+                    if (point.y < bounds.yMin - _curveClearance) continue;
+                    if (point.y > bounds.yMax + _curveClearance) continue;
+
+                    crossings++;
+                    break;
+                }
+            }
+
+            return crossings;
+        }
+
+        /// <summary>Samples a quadratic curve into the points the ribbon follows.</summary>
+        /// <param name="start">Start point in link root space.</param>
+        /// <param name="control">Control point that sets the bow.</param>
+        /// <param name="end">End point in link root space.</param>
+        /// <returns>Points from start to end, one per drawn segment plus the last point.</returns>
+        private List<Vector2> SampleCurve(Vector2 start, Vector2 control, Vector2 end)
+        {
+            int segments = Mathf.Max(2, _curveSegments);
+            var points = new List<Vector2>(segments + 1);
+
+            for (int i = 0; i <= segments; i++)
+            {
+                float t = i / (float)segments;
+                float u = 1f - t;
+                points.Add(u * u * start + 2f * u * t * control + t * t * end);
+            }
+
+            return points;
+        }
+
+        /// <summary>
+        /// Adds one soft ribbon that follows the curve of a link.
+        /// </summary>
+        /// <param name="parent">Link root the ribbon belongs to.</param>
+        /// <param name="name">Name given to the ribbon object.</param>
+        /// <param name="points">Curve the ribbon follows, in link root space.</param>
+        /// <param name="width">Ribbon width across the curve.</param>
+        /// <param name="color">Tint applied to the ribbon.</param>
+        private void CreateRibbon(RectTransform parent, string name, List<Vector2> points, float width, Color color)
         {
             var go = new GameObject(name, typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
             var rect = (RectTransform)go.transform;
-            rect.anchorMin = new Vector2(0f, 0.5f);
-            rect.anchorMax = new Vector2(0f, 0.5f);
-            rect.pivot = new Vector2(0f, 0.5f);
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = Vector2.zero;
-            rect.sizeDelta = new Vector2(length, height);
+            rect.sizeDelta = Vector2.zero;
 
-            var image = go.AddComponent<Image>();
-            image.sprite = _goldLinkSprite;
-            image.color = color;
-            image.raycastTarget = false;
-            if (_glowMaterial != null) image.material = _glowMaterial;
-            if (image.sprite != null) image.type = Image.Type.Sliced;
+            var ribbon = go.AddComponent<LinkRibbonGraphic>();
+            ribbon.raycastTarget = false;
+            ribbon.color = color;
+            if (_glowMaterial != null) ribbon.material = _glowMaterial;
+            ribbon.SetPath(points, width);
         }
 
         /// <summary>
-        /// Adds the glowing orb that travels along a bridge link.
+        /// Adds the glowing orb that travels along a bridge link, following its curve.
         /// </summary>
-        /// <param name="parent">Link rect the pulse belongs to.</param>
-        /// <param name="length">Link length the pulse travels.</param>
-        private void CreatePulse(RectTransform parent, float length)
+        /// <param name="parent">Link root the pulse belongs to.</param>
+        /// <param name="points">Curve the pulse walks, in link root space.</param>
+        private void CreatePulse(RectTransform parent, List<Vector2> points)
         {
             var go = new GameObject("Pulse", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
             var rect = (RectTransform)go.transform;
-            rect.anchorMin = new Vector2(0f, 0.5f);
-            rect.anchorMax = new Vector2(0f, 0.5f);
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
             rect.pivot = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = Vector2.zero;
 
@@ -218,7 +428,7 @@ namespace Constellation.Gameplay
             if (_glowMaterial != null) image.material = _glowMaterial;
 
             var pulse = go.AddComponent<LinkPulseView>();
-            pulse.Configure(length, _pulseCycleSeconds);
+            pulse.Configure(points.ToArray(), _pulseCycleSeconds);
         }
 
         /// <summary>

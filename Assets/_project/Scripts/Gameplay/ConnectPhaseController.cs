@@ -110,6 +110,7 @@ namespace Constellation.Gameplay
         private readonly List<Vector2> _freeCells = new List<Vector2>();
         private readonly List<Rect> _placedBoxes = new List<Rect>();
         private readonly List<Rect> _obstacleRects = new List<Rect>();
+        private readonly List<RectTransform> _linkObstacles = new List<RectTransform>();
         private Vector2 _cellSize = new Vector2(400f, 380f);
 
         /// <summary>How far a node's cluster reaches from its origin, in board units.</summary>
@@ -224,6 +225,8 @@ namespace Constellation.Gameplay
             BuildVerses(constellation);
             BuildBridges();
             BuildTiles(constellation);
+
+            CollectLinkObstacles();
 
             _linkRenderer.ClearLinks();
             RefreshLabels();
@@ -1024,7 +1027,28 @@ namespace Constellation.Gameplay
 
             _linkRenderer.DrawBridgeLink(
                 (RectTransform)(anchorFirst ? anchorSlot : bridgeSlot).transform,
-                (RectTransform)(anchorFirst ? bridgeSlot : anchorSlot).transform);
+                (RectTransform)(anchorFirst ? bridgeSlot : anchorSlot).transform,
+                _linkObstacles);
+        }
+
+        /// <summary>
+        /// Collects the node visuals an anchor-to-bridge link has to steer around: every medallion,
+        /// outline and label of every anchor and hub on the board.
+        /// </summary>
+        private void CollectLinkObstacles()
+        {
+            _linkObstacles.Clear();
+            if (_boardRoot == null) return;
+
+            foreach (Transform node in _boardRoot)
+            {
+                if (!node.name.StartsWith("Anchor_") && !node.name.StartsWith("Bridge_")) continue;
+
+                foreach (RectTransform part in node.GetComponentsInChildren<RectTransform>(true))
+                {
+                    _linkObstacles.Add(part);
+                }
+            }
         }
 
         /// <summary>
