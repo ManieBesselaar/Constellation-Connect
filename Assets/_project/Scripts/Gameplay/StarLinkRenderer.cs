@@ -51,6 +51,12 @@ namespace Constellation.Gameplay
         [Tooltip("Random bow given to every anchor-to-bridge link, as a fraction of its length.")]
         [SerializeField] private float _curveAmount = 0.12f;
 
+        [Tooltip("Fewest waves a link may swing through.")]
+        [SerializeField] private int _curveMinWaves = 1;
+
+        [Tooltip("Most waves a link may swing through.")]
+        [SerializeField] private int _curveMaxWaves = 4;
+
         [Tooltip("Step by which the bow deepens while a link hunts for a path around a node.")]
         [SerializeField] private float _curveGrowth = 0.6f;
 
@@ -63,10 +69,14 @@ namespace Constellation.Gameplay
         [Tooltip("Bows tried on each side before a link settles for its first guess.")]
         [SerializeField] private int _curveAttempts = 10;
 
-        [Tooltip("Points a curved link is drawn from.")]
+        [Tooltip("Fewest points a curved link is drawn from; wider waves add more of their own.")]
         [SerializeField] private int _curveSegments = 16;
 
         private const int GlowSpriteSize = 128;
+
+        private const int MaxCurveSegments = 96;
+
+        private const string PreviewName = "PreviewLink";
 
         private readonly List<GameObject> _segments = new List<GameObject>();
         private readonly List<Rect> _curveObstacles = new List<Rect>();
@@ -177,7 +187,14 @@ namespace Constellation.Gameplay
                 new Vector2(area.xMin + inset, area.center.y),
                 new Vector2(area.xMax - inset, area.center.y));
 
-            if (_preview != null) HideFromScene(_preview);
+            if (_preview == null) return;
+
+            _preview.name = PreviewName;
+            HideFromScene(_preview);
+
+            // The canvas only rebuilds a dirty graphic when something renders it, so push the new
+            // mesh through now: the preview is on screen the moment the menu item is picked.
+            Canvas.ForceUpdateCanvases();
         }
 
         /// <summary>
@@ -186,12 +203,26 @@ namespace Constellation.Gameplay
         [ContextMenu("Clear Preview")]
         public void ClearPreview()
         {
-            if (_preview == null) return;
-
-            if (Application.isPlaying) Destroy(_preview);
-            else DestroyImmediate(_preview);
-
+            if (_preview != null) DestroyPreview(_preview);
             _preview = null;
+
+            // A preview is never serialised, so a script reload drops the reference to one that is
+            // still standing in the scene: sweep the link root rather than trust the field alone.
+            if (_linkRoot == null) return;
+
+            for (int i = _linkRoot.childCount - 1; i >= 0; i--)
+            {
+                Transform child = _linkRoot.GetChild(i);
+                if (child != null && child.name == PreviewName) DestroyPreview(child.gameObject);
+            }
+        }
+
+        private static void DestroyPreview(GameObject preview)
+        {
+            if (preview == null) return;
+
+            if (Application.isPlaying) Destroy(preview);
+            else DestroyImmediate(preview);
         }
 
         /// <summary>
@@ -206,12 +237,8 @@ namespace Constellation.Gameplay
             float length = delta.magnitude;
             if (length < 1f) return null;
 
-            // The curve is a quadratic whose midpoint sits `bend` off the straight line.
             Vector2 normal = new Vector2(-delta.y, delta.x) / length;
-            float bend = PickBend(start, end, normal, length);
-            Vector2 control = (start + end) * 0.5f + normal * bend * 2f;
-
-            List<Vector2> points = SampleCurve(start, control, end);
+            List<Vector2> points = PickCurve(start, end, normal, length);
 
             var go = new GameObject("BridgeLink", typeof(RectTransform));
             go.transform.SetParent(_linkRoot, false);
@@ -345,70 +372,102 @@ namespace Constellation.Gameplay
         }
 
         /// <summary>
-        /// Picks how far the link bows out: a slight random bow for character, deepened on whichever
-        /// side is clear when that first bow would cross a node. When no bow gets past everything, the
-        /// one that crosses the least is used.
+        /// Picks the shape a link takes: a random wave count between the configured bounds, then the
+        /// wave and bow that keep clear of every node. When no shape is fully clear, the one that
+        /// crosses the least is used.
         /// </summary>
         /// <param name="start">Start point in link root space.</param>
         /// <param name="end">End point in link root space.</param>
         /// <param name="normal">Unit vector across the straight line.</param>
         /// <param name="length">Distance between the two points.</param>
-        /// <returns>Signed offset of the curve's midpoint from the straight line.</returns>
-        private float PickBend(Vector2 start, Vector2 end, Vector2 normal, float length)
+        /// <returns>The points the ribbon and the pulse follow.</returns>
+        private List<Vector2> PickCurve(Vector2 start, Vector2 end, Vector2 normal, float length)
         {
-            // A slight bow either way gives every link its own character before anything gets in the way.
-            float character = UnityEngine.Random.Range(_curveAmount * 0.35f, _curveAmount) * length;
-            if (UnityEngine.Random.value < 0.5f) character = -character;
+            int fewest = Mathf.Max(1, _curveMinWaves);
+            int most = Mathf.Max(fewest, _curveMaxWaves);
+            int waves = UnityEngine.Random.Range(fewest, most + 1);
 
-            int bestCrossings = CurveCrossings(start, end, normal, character);
-            float bestBend = character;
-            if (bestCrossings == 0) return character;
+            // More waves share the same character between them, so a busy line ripples instead of
+            // swinging wildly.
+            float amplitude = UnityEngine.Random.Range(_curveAmount * 0.35f, _curveAmount) * length / Mathf.Sqrt(waves);
 
-            // Lean harder to either side until the curve slips past whatever it was crossing, keeping
-            // the least crowded bow in hand in case nothing is fully clear.
+            // A second, slower wave leans the whole link to one side. It stays smaller than the ripples
+            // so the waves still read as waves, and the search below deepens it when a node sits square
+            // on the straight line.
+            float bow = waves > 1 ? UnityEngine.Random.Range(-0.6f, 0.6f) * amplitude : 0f;
+
+            List<Vector2> best = BuildCurve(start, end, normal, waves, amplitude, bow);
+            int bestCrossings = CountCrossings(best);
+            if (bestCrossings == 0) return best;
+
+            // Deepen either wave, and flip either one, until the path slips past everything in its way.
+            float cap = length * _curveMaxBend;
+
             for (int step = 1; step <= _curveAttempts; step++)
             {
-                float magnitude = Mathf.Min(
-                    _curveAmount * length * (1f + _curveGrowth * step),
-                    length * _curveMaxBend);
+                float scale = 1f + _curveGrowth * step;
+                float wider = Mathf.Min(amplitude * scale, cap);
+                float swung = Mathf.Clamp(bow * scale, -cap, cap);
 
-                bool positiveFirst = UnityEngine.Random.value < 0.5f;
-                float first = positiveFirst ? magnitude : -magnitude;
-                float second = -first;
+                for (int side = 0; side < 4; side++)
+                {
+                    float waveSign = (side & 1) == 0 ? 1f : -1f;
+                    float bowSign = (side & 2) == 0 ? 1f : -1f;
 
-                int firstCrossings = CurveCrossings(start, end, normal, first);
-                if (firstCrossings == 0) return first;
-                if (firstCrossings < bestCrossings) { bestCrossings = firstCrossings; bestBend = first; }
+                    List<Vector2> candidate = BuildCurve(start, end, normal, waves, wider * waveSign, swung * bowSign);
+                    int crossings = CountCrossings(candidate);
 
-                int secondCrossings = CurveCrossings(start, end, normal, second);
-                if (secondCrossings == 0) return second;
-                if (secondCrossings < bestCrossings) { bestCrossings = secondCrossings; bestBend = second; }
+                    if (crossings == 0) return candidate;
+                    if (crossings < bestCrossings) { bestCrossings = crossings; best = candidate; }
+                }
             }
 
-            return bestBend;
+            return best;
         }
 
         /// <summary>
-        /// Counts the samples along a curve that land on a node the link has to keep clear of.
+        /// Builds a link's path: the straight chord plus two sine waves, one fast and one slow. Both
+        /// vanish at the two ends, so the curve still leaves and reaches its chunks exactly.
         /// </summary>
         /// <param name="start">Start point in link root space.</param>
         /// <param name="end">End point in link root space.</param>
         /// <param name="normal">Unit vector across the straight line.</param>
-        /// <param name="bend">Signed offset of the curve's midpoint from the straight line.</param>
-        /// <returns>Number of samples that fall inside a node, zero when the whole curve is clear.</returns>
-        private int CurveCrossings(Vector2 start, Vector2 end, Vector2 normal, float bend)
+        /// <param name="waves">How many times the path swings across the straight line.</param>
+        /// <param name="amplitude">Peak offset of the fast wave from the straight line.</param>
+        /// <param name="bow">Peak offset of the slow wave, which leans the whole path to one side.</param>
+        /// <returns>Points from start to end.</returns>
+        private List<Vector2> BuildCurve(Vector2 start, Vector2 end, Vector2 normal, int waves, float amplitude, float bow)
+        {
+            // Every wave needs enough samples of its own to stay smooth.
+            int segments = Mathf.Clamp(Mathf.Max(_curveSegments, waves * 8), 4, MaxCurveSegments);
+            Vector2 chord = end - start;
+            var points = new List<Vector2>(segments + 1);
+
+            for (int i = 0; i <= segments; i++)
+            {
+                float t = i / (float)segments;
+                float offset = amplitude * Mathf.Sin(Mathf.PI * waves * t) + bow * Mathf.Sin(Mathf.PI * t);
+                points.Add(start + chord * t + normal * offset);
+            }
+
+            return points;
+        }
+
+        /// <summary>
+        /// Counts the points of a path that land on a node the link has to keep clear of.
+        /// </summary>
+        /// <param name="points">Path to test, in link root space.</param>
+        /// <returns>Number of points inside a node, zero when the whole path is clear.</returns>
+        private int CountCrossings(List<Vector2> points)
         {
             if (_curveObstacles.Count == 0) return 0;
 
-            Vector2 control = (start + end) * 0.5f + normal * bend * 2f;
-            int samples = Mathf.Max(6, _curveSegments);
             int crossings = 0;
 
-            for (int i = 1; i < samples; i++)
+            // The two ends sit on the chunks themselves, so only the path between them is judged.
+            for (int i = 1; i < points.Count - 1; i++)
             {
-                float t = i / (float)samples;
-                float u = 1f - t;
-                Vector2 point = u * u * start + 2f * u * t * control + t * t * end;
+                Vector2 point = points[i];
 
                 foreach (Rect bounds in _curveObstacles)
                 {
@@ -423,26 +482,6 @@ namespace Constellation.Gameplay
             }
 
             return crossings;
-        }
-
-        /// <summary>Samples a quadratic curve into the points the ribbon follows.</summary>
-        /// <param name="start">Start point in link root space.</param>
-        /// <param name="control">Control point that sets the bow.</param>
-        /// <param name="end">End point in link root space.</param>
-        /// <returns>Points from start to end, one per drawn segment plus the last point.</returns>
-        private List<Vector2> SampleCurve(Vector2 start, Vector2 control, Vector2 end)
-        {
-            int segments = Mathf.Max(2, _curveSegments);
-            var points = new List<Vector2>(segments + 1);
-
-            for (int i = 0; i <= segments; i++)
-            {
-                float t = i / (float)segments;
-                float u = 1f - t;
-                points.Add(u * u * start + 2f * u * t * control + t * t * end);
-            }
-
-            return points;
         }
 
         /// <summary>

@@ -3035,14 +3035,14 @@ MonoBehaviour:
   _linkRoot: {fileID: 691819506}
   _cyanLinkSprite: {fileID: 5526691396627528957, guid: bcdf4e9c07dd5274cb594da4896574df, type: 3}
   _goldLinkSprite: {fileID: 6005836811017294485, guid: bcdf4e9c07dd5274cb594da4896574df, type: 3}
-  _thickness: 14
+  _thickness: 1.11
   _cyanTint: {r: 0.35, g: 0.95, b: 1, a: 1}
-  _goldTint: {r: 1, g: 0.84, b: 0.44, a: 1}
+  _goldTint: {r: 1, g: 0.84, b: 0.44, a: 0.59607846}
   _glowMaterial: {fileID: 2100000, guid: 375b6631c2049884aa605285dccdf8bf, type: 2}
-  _glowThicknessScale: 3.5
-  _glowAlpha: 0.45
-  _pulseLengthRadiusScale: 5
-  _pulseWidthScale: 2
+  _glowThicknessScale: 22.8
+  _glowAlpha: 0.056
+  _pulseLengthRadiusScale: 117.8
+  _pulseWidthScale: 10.63
   _pulseCycleSeconds: 10
   _curveAmount: 0.12
   _curveGrowth: 0.6
