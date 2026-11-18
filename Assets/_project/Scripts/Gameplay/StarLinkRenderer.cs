@@ -383,7 +383,9 @@ namespace Constellation.Gameplay
         /// <param name="color">Tint applied to the ribbon.</param>
         private void CreateRibbon(RectTransform parent, string name, List<Vector2> points, float width, Color color)
         {
-            var go = new GameObject(name, typeof(RectTransform));
+            // The CanvasRenderer is added up front: Unity only honours RequireComponent declared on the
+            // concrete type, so a MaskableGraphic subclass gets none and would never reach the canvas.
+            var go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer));
             go.transform.SetParent(parent, false);
 
             var rect = (RectTransform)go.transform;
