@@ -620,6 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Constellation.Game::Constellation.Gameplay.GamePhaseStateMachine
   _fallbackConstellation: {fileID: 11400000, guid: 9615f5a3f8ec81146b0dc7867ca064f5, type: 2}
+  _versesPerRun: 3
   _study: {fileID: 146951110}
   _connect: {fileID: 1172847348}
   _victory: {fileID: 653161787}
@@ -3068,6 +3069,7 @@ MonoBehaviour:
   _anchorSpacing: 480
   _anchorTopY: 280
   _anchorBandGap: 270
+  _anchorsPerBand: 3
   _hubYOffset: -232
   _hubSpacing: 480
   _slotSize: {x: 104, y: 60}

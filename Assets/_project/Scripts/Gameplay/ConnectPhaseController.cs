@@ -91,6 +91,9 @@ namespace Constellation.Gameplay
         [Tooltip("Vertical distance between anchor bands.")]
         [SerializeField] private float _anchorBandGap = 270f;
 
+        [Tooltip("Most verse anchors placed in one row. Three verses play as a single band, six split into two.")]
+        [SerializeField] private int _anchorsPerBand = 3;
+
         [Tooltip("Vertical offset of the bridge band, in canvas units.")]
         [SerializeField] private float _hubYOffset = -232f;
 
@@ -404,7 +407,7 @@ namespace Constellation.Gameplay
                 var rect = (RectTransform)hub.transform;
                 rect.anchorMin = new Vector2(0.5f, 0.5f);
                 rect.anchorMax = new Vector2(0.5f, 0.5f);
-                rect.anchoredPosition = HubPosition(i, tags.Count);
+                rect.anchoredPosition = HubPosition(i, tags.Count, AnchorBandCount(_verses.Count));
 
                 hub.Bind(tag);
 
@@ -479,9 +482,9 @@ namespace Constellation.Gameplay
 
         private Vector2 AnchorPosition(int index, int total)
         {
-            // The anchors fill two bands rather than a ring: a node needs room underneath for its
-            // row of chunk outlines, and a ring puts two of them a medallion apart.
-            int perBand = Mathf.Max(1, Mathf.CeilToInt(total / 2f));
+            // The anchors fill as many bands as the run needs rather than a ring: a node needs room
+            // underneath for its row of chunk outlines, and a ring puts two of them a medallion apart.
+            int perBand = AnchorsPerBand(total);
             int band = index / perBand;
             int column = index % perBand;
             int inBand = Mathf.Min(perBand, total - band * perBand);
@@ -491,12 +494,27 @@ namespace Constellation.Gameplay
                 _anchorTopY - band * _anchorBandGap);
         }
 
-        private Vector2 HubPosition(int index, int total)
+        private int AnchorsPerBand(int verseCount)
+        {
+            return Mathf.Clamp(_anchorsPerBand, 1, Mathf.Max(1, verseCount));
+        }
+
+        private int AnchorBandCount(int verseCount)
+        {
+            return Mathf.Max(1, Mathf.CeilToInt(verseCount / (float)AnchorsPerBand(verseCount)));
+        }
+
+        private Vector2 HubPosition(int index, int total, int bandCount)
         {
             // The hubs share one band beneath the anchors, so a hub's slot row never crosses a
-            // medallion on its way outwards.
+            // medallion on its way outwards. The band hangs the same drop below the last anchor band
+            // as the six-verse board was tuned on, so a shorter run loses the empty band instead of
+            // leaving a hole in the middle of the constellation.
+            float bandDrop = (_anchorTopY - _anchorBandGap) - _hubYOffset;
+            float lastBandY = _anchorTopY - (bandCount - 1) * _anchorBandGap;
+
             float x = total <= 1 ? 0f : (index - (total - 1) * 0.5f) * _hubSpacing;
-            return new Vector2(x, _hubYOffset);
+            return new Vector2(x, lastBandY - bandDrop);
         }
 
         /// <summary>
