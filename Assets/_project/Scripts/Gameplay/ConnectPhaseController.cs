@@ -82,35 +82,50 @@ namespace Constellation.Gameplay
         [SerializeField] private HintService _hintService;
 
         [Header("Layout")]
-        [Tooltip("Horizontal distance between anchor columns.")]
-        [SerializeField] private float _anchorSpacing = 480f;
-
-        [Tooltip("Vertical offset of the first anchor band, in canvas units.")]
-        [SerializeField] private float _anchorTopY = 280f;
-
-        [Tooltip("Vertical distance between anchor bands.")]
-        [SerializeField] private float _anchorBandGap = 270f;
-
-        [Tooltip("Most verse anchors placed in one row. Three verses play as a single band, six split into two.")]
-        [SerializeField] private int _anchorsPerBand = 3;
-
-        [Tooltip("Vertical offset of the bridge band, in canvas units.")]
-        [SerializeField] private float _hubYOffset = -232f;
-
-        [Tooltip("Horizontal distance between bridge hubs.")]
-        [SerializeField] private float _hubSpacing = 480f;
-
         [Tooltip("Size of one empty target slot, matching the hex tile's shape.")]
         [SerializeField] private Vector2 _slotSize = new Vector2(104f, 60f);
 
-        [Tooltip("Horizontal gap between target slots.")]
+        [Tooltip("Horizontal gap between the outlines of one anchor's row.")]
         [SerializeField] private float _slotGap = 6f;
 
         [Tooltip("Vertical offset of an anchor's slot row, measured from the medallion centre.")]
         [SerializeField] private float _anchorSlotY = -145f;
 
-        [Tooltip("Vertical offset of a hub's slot row, measured from the gem centre.")]
-        [SerializeField] private float _hubSlotY = -93f;
+        [Tooltip("Radius of the circle a hub's outlines sit on, measured from the gem centre.")]
+        [SerializeField] private float _hubSlotRadius = 112f;
+
+        [Header("Scatter")]
+        [Tooltip("Room one anchor or hub needs, used to cut the free board space into placement cells.")]
+        [SerializeField] private Vector2 _clusterPitch = new Vector2(400f, 380f);
+
+        [Tooltip("Clearance kept between a node and the HUD, the board edge or another node.")]
+        [SerializeField] private float _clusterGap = 20f;
+
+        [Tooltip("Clearance kept from the board's own edges.")]
+        [SerializeField] private Vector2 _layoutPadding = new Vector2(24f, 14f);
+
+        [Tooltip("Random placements tried per node before its cell centre is used instead.")]
+        [SerializeField] private int _placementAttempts = 32;
+
+        private readonly List<Vector2> _freeCells = new List<Vector2>();
+        private readonly List<Rect> _placedBoxes = new List<Rect>();
+        private readonly List<Rect> _obstacleRects = new List<Rect>();
+        private Vector2 _cellSize = new Vector2(400f, 380f);
+
+        /// <summary>How far a node's cluster reaches from its origin, in board units.</summary>
+        private struct ClusterFootprint
+        {
+            public Vector2 Min;
+            public Vector2 Max;
+
+            public ClusterFootprint(float left, float bottom, float right, float top)
+            {
+                Min = new Vector2(left, bottom);
+                Max = new Vector2(right, top);
+            }
+
+            public Vector2 Size => Max - Min;
+        }
 
         /// <summary>One verse plus the runtime state of its anchor node.</summary>
         private class VerseRuntime
@@ -203,6 +218,8 @@ namespace Constellation.Gameplay
             _isRunning = true;
 
             if (_panel != null) _panel.SetActive(true);
+
+            ResetLayout(CountClusters(constellation));
 
             BuildVerses(constellation);
             BuildBridges();
@@ -320,9 +337,6 @@ namespace Constellation.Gameplay
 
         private void BuildVerses(ConstellationSO constellation)
         {
-            int index = 0;
-            int verseCount = constellation.verses.Count;
-
             foreach (VerseDefinition definition in constellation.verses)
             {
                 var runtime = new VerseRuntime { Definition = definition };
@@ -353,7 +367,7 @@ namespace Constellation.Gameplay
                 var rect = (RectTransform)node.transform;
                 rect.anchorMin = new Vector2(0.5f, 0.5f);
                 rect.anchorMax = new Vector2(0.5f, 0.5f);
-                rect.anchoredPosition = AnchorPosition(index, verseCount);
+                rect.anchoredPosition = TakeClusterCentre(VerseFootprint(runtime.Queue.Count));
 
                 Sprite glyph = _glyphs != null ? _glyphs.Get(definition.iconId) : null;
                 string reference = LocalizedText.Get(definition.verseId + "_REF", definition.reference);
@@ -379,13 +393,12 @@ namespace Constellation.Gameplay
                 }
 
                 _verses.Add(runtime);
-                index++;
             }
         }
 
         private void BuildBridges()
         {
-            // Collect the keywords first so the hubs can be spread evenly across the bridge band.
+            // Collect the keywords first so each hub can claim its own free cell on the board.
             var tags = new List<string>();
 
             foreach (VerseRuntime verse in _verses)
@@ -400,18 +413,7 @@ namespace Constellation.Gameplay
             for (int i = 0; i < tags.Count; i++)
             {
                 string tag = tags[i];
-
-                BridgeHubView hub = Instantiate(_hubPrefab, _boardRoot);
-                hub.name = "Bridge_" + tag;
-
-                var rect = (RectTransform)hub.transform;
-                rect.anchorMin = new Vector2(0.5f, 0.5f);
-                rect.anchorMax = new Vector2(0.5f, 0.5f);
-                rect.anchoredPosition = HubPosition(i, tags.Count, AnchorBandCount(_verses.Count));
-
-                hub.Bind(tag);
-
-                var bridge = new BridgeRuntime { Hub = hub, Tag = tag };
+                var bridge = new BridgeRuntime { Tag = tag };
 
                 // Walking the verses in order means a hub's slots run from the earliest verse's
                 // bridge chunk to the latest, which is the order the player reads them in.
@@ -426,7 +428,18 @@ namespace Constellation.Gameplay
                     }
                 }
 
-                bridge.Slots.AddRange(CreateSlotRow(hub.transform, tag, bridge.Chunks, _hubSlotY));
+                BridgeHubView hub = Instantiate(_hubPrefab, _boardRoot);
+                hub.name = "Bridge_" + tag;
+
+                var rect = (RectTransform)hub.transform;
+                rect.anchorMin = new Vector2(0.5f, 0.5f);
+                rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.anchoredPosition = TakeClusterCentre(HubFootprint(bridge.Chunks.Count));
+
+                hub.Bind(tag);
+                bridge.Hub = hub;
+
+                bridge.Slots.AddRange(CreateSlotRing(hub.transform, tag, bridge.Chunks, _hubSlotRadius));
 
                 foreach (ChunkSlotView slot in bridge.Slots)
                 {
@@ -449,14 +462,8 @@ namespace Constellation.Gameplay
                 }
             }
 
-            // Deterministic-looking shuffle so every run of a theme differs but stays reproducible per play.
-            for (int i = shuffled.Count - 1; i > 0; i--)
-            {
-                int j = UnityEngine.Random.Range(0, i + 1);
-                PhraseChunk temp = shuffled[i];
-                shuffled[i] = shuffled[j];
-                shuffled[j] = temp;
-            }
+            // Shuffled so every run of a theme deals the tray differently.
+            Shuffle(shuffled);
 
             foreach (PhraseChunk chunk in shuffled)
             {
@@ -480,41 +487,258 @@ namespace Constellation.Gameplay
             }
         }
 
-        private Vector2 AnchorPosition(int index, int total)
-        {
-            // The anchors fill as many bands as the run needs rather than a ring: a node needs room
-            // underneath for its row of chunk outlines, and a ring puts two of them a medallion apart.
-            int perBand = AnchorsPerBand(total);
-            int band = index / perBand;
-            int column = index % perBand;
-            int inBand = Mathf.Min(perBand, total - band * perBand);
+        // ------------------------------------------------------------------ scatter
 
-            return new Vector2(
-                (column - (inBand - 1) * 0.5f) * _anchorSpacing,
-                _anchorTopY - band * _anchorBandGap);
+        /// <summary>
+        /// Counts the nodes about to be built, so the board can be cut into enough cells for them.
+        /// </summary>
+        private int CountClusters(ConstellationSO constellation)
+        {
+            int clusters = 0;
+            var tags = new List<string>();
+
+            foreach (VerseDefinition definition in constellation.verses)
+            {
+                if (definition == null || definition.chunks == null) continue;
+
+                bool hasChunks = false;
+
+                foreach (PhraseChunk chunk in definition.chunks)
+                {
+                    if (chunk == null) continue;
+
+                    hasChunks = true;
+
+                    if (!chunk.isBridge || string.IsNullOrEmpty(chunk.bridgeTag)) continue;
+                    if (!tags.Contains(chunk.bridgeTag)) tags.Add(chunk.bridgeTag);
+                }
+
+                if (hasChunks) clusters++;
+            }
+
+            return clusters + tags.Count;
         }
 
-        private int AnchorsPerBand(int verseCount)
+        /// <summary>
+        /// Clears the placement state and cuts the board's free space into shuffled cells, one per
+        /// anchor or hub, so the constellation is scattered differently on every load.
+        /// </summary>
+        /// <param name="clusterCount">Anchors plus hubs about to be built.</param>
+        private void ResetLayout(int clusterCount)
         {
-            return Mathf.Clamp(_anchorsPerBand, 1, Mathf.Max(1, verseCount));
+            _freeCells.Clear();
+            _placedBoxes.Clear();
+            _obstacleRects.Clear();
+
+            CollectObstacles();
+
+            Rect area = PlayArea();
+
+            // Fill the width with as many columns as the board allows, then stack the rest in rows of
+            // that width, so a short run spreads down the board instead of sitting in one line.
+            int cols = Mathf.Max(1, Mathf.Min(clusterCount, Mathf.FloorToInt(area.width / _clusterPitch.x)));
+            int rows = Mathf.Max(1, Mathf.CeilToInt(clusterCount / (float)cols));
+
+            _cellSize = new Vector2(area.width / cols, area.height / rows);
+
+            for (int row = 0; row < rows; row++)
+            {
+                for (int col = 0; col < cols; col++)
+                {
+                    _freeCells.Add(new Vector2(
+                        area.xMin + (col + 0.5f) * _cellSize.x,
+                        area.yMax - (row + 0.5f) * _cellSize.y));
+                }
+            }
+
+            Shuffle(_freeCells);
         }
 
-        private int AnchorBandCount(int verseCount)
+        /// <summary>
+        /// Claims the next free cell for one anchor or hub, jogging it inside the cell until it clears
+        /// the HUD and every node already placed.
+        /// </summary>
+        /// <param name="footprint">How far the node's cluster reaches from its origin.</param>
+        /// <returns>The board-local position to place the node at.</returns>
+        private Vector2 TakeClusterCentre(ClusterFootprint footprint)
         {
-            return Mathf.Max(1, Mathf.CeilToInt(verseCount / (float)AnchorsPerBand(verseCount)));
+            Rect area = PlayArea();
+
+            // Where the node origin may sit so its cluster still fits inside the room.
+            float minX = area.xMin - footprint.Min.x;
+            float maxX = Mathf.Max(minX, area.xMax - footprint.Max.x);
+            float minY = area.yMin - footprint.Min.y;
+            float maxY = Mathf.Max(minY, area.yMax - footprint.Max.y);
+
+            // Jitter only into the slack of the cluster's own cell, so neighbours never crowd it.
+            float slackX = Mathf.Max(0f, (_cellSize.x - footprint.Size.x) * 0.5f) * 0.8f;
+            float slackY = Mathf.Max(0f, (_cellSize.y - footprint.Size.y) * 0.5f) * 0.8f;
+
+            for (int i = 0; i < _freeCells.Count; i++)
+            {
+                Vector2 cell = _freeCells[i];
+
+                for (int attempt = 0; attempt < _placementAttempts; attempt++)
+                {
+                    // The jitter is what turns the grid into a scatter rather than a table.
+                    var candidate = new Vector2(
+                        cell.x + UnityEngine.Random.Range(-slackX, slackX),
+                        cell.y + UnityEngine.Random.Range(-slackY, slackY));
+
+                    candidate.x = Mathf.Clamp(candidate.x, minX, maxX);
+                    candidate.y = Mathf.Clamp(candidate.y, minY, maxY);
+
+                    if (Blocked(candidate, footprint)) continue;
+
+                    _freeCells.RemoveAt(i);
+                    _placedBoxes.Add(Box(candidate, footprint));
+                    return candidate;
+                }
+            }
+
+            // Nothing clear was left: take the next free cell rather than dropping the node at the
+            // origin on top of everything else.
+            Vector2 fallback = _freeCells.Count > 0 ? _freeCells[0] : Vector2.zero;
+            if (_freeCells.Count > 0) _freeCells.RemoveAt(0);
+
+            fallback.x = Mathf.Clamp(fallback.x, minX, maxX);
+            fallback.y = Mathf.Clamp(fallback.y, minY, maxY);
+
+            _placedBoxes.Add(Box(fallback, footprint));
+            return fallback;
         }
 
-        private Vector2 HubPosition(int index, int total, int bandCount)
+        /// <summary>Board rectangle the scatter may use: the board, less its padding and the HUD.</summary>
+        private Rect PlayArea()
         {
-            // The hubs share one band beneath the anchors, so a hub's slot row never crosses a
-            // medallion on its way outwards. The band hangs the same drop below the last anchor band
-            // as the six-verse board was tuned on, so a shorter run loses the empty band instead of
-            // leaving a hole in the middle of the constellation.
-            float bandDrop = (_anchorTopY - _anchorBandGap) - _hubYOffset;
-            float lastBandY = _anchorTopY - (bandCount - 1) * _anchorBandGap;
+            Rect board = _boardRoot.rect;
 
-            float x = total <= 1 ? 0f : (index - (total - 1) * 0.5f) * _hubSpacing;
-            return new Vector2(x, lastBandY - bandDrop);
+            float xMin = board.xMin + _layoutPadding.x;
+            float xMax = board.xMax - _layoutPadding.x;
+            float yMin = board.yMin + _layoutPadding.y;
+            float yMax = board.yMax - _layoutPadding.y;
+
+            // The tile tray reaches up into the board on short screens; keep clear of its top edge.
+            if (_tileTray != null)
+            {
+                yMin = Mathf.Max(yMin, BoundsInBoard(_tileTray).yMax + _layoutPadding.y);
+            }
+
+            return Rect.MinMaxRect(xMin, yMin, xMax, yMax);
+        }
+
+        /// <summary>
+        /// Records the HUD rects a node must never sit under. The score, progress and hint widgets
+        /// are siblings of the board inside the panel, so they are taken from there.
+        /// </summary>
+        private void CollectObstacles()
+        {
+            if (_boardRoot == null || _boardRoot.parent == null) return;
+
+            Rect board = _boardRoot.rect;
+            float boardArea = board.width * board.height;
+
+            foreach (Transform sibling in _boardRoot.parent)
+            {
+                if (sibling == _boardRoot || sibling == _linkRoot) continue;
+
+                var rect = sibling as RectTransform;
+                if (rect == null || !rect.gameObject.activeInHierarchy) continue;
+
+                Rect bounds = BoundsInBoard(rect);
+
+                // Skip a backdrop, or a widget that never reaches the board.
+                if (bounds.width * bounds.height >= boardArea * 0.5f) continue;
+                if (!bounds.Overlaps(board)) continue;
+
+                _obstacleRects.Add(bounds);
+            }
+        }
+
+        /// <summary>Bounds of a rect, expressed in the board's own coordinates.</summary>
+        private Rect BoundsInBoard(RectTransform rect)
+        {
+            var corners = new Vector3[4];
+            rect.GetWorldCorners(corners);
+
+            Vector3 min = _boardRoot.InverseTransformPoint(corners[0]);
+            Vector3 max = min;
+
+            for (int i = 1; i < corners.Length; i++)
+            {
+                Vector3 local = _boardRoot.InverseTransformPoint(corners[i]);
+                min = Vector3.Min(min, local);
+                max = Vector3.Max(max, local);
+            }
+
+            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        }
+
+        /// <summary>Footprint of a verse cluster: its medallion above the origin, its row below.</summary>
+        private ClusterFootprint VerseFootprint(int slotCount)
+        {
+            float row = slotCount <= 0 ? 0f : slotCount * (_slotSize.x + _slotGap) - _slotGap;
+            float halfWidth = Mathf.Max(_slotSize.x * 0.5f, row * 0.5f);
+
+            // The medallion is the only thing above the origin; the outline row hangs below it.
+            return new ClusterFootprint(
+                -halfWidth,
+                _anchorSlotY - _slotSize.y * 0.5f,
+                halfWidth,
+                Mathf.Max(_slotSize.y, 72f));
+        }
+
+        /// <summary>Footprint of a hub cluster: the circle its outlines sit on.</summary>
+        private ClusterFootprint HubFootprint(int slotCount)
+        {
+            if (slotCount <= 0)
+            {
+                float halfSlotX = _slotSize.x * 0.5f;
+                float halfSlotY = _slotSize.y * 0.5f;
+                return new ClusterFootprint(-halfSlotX, -halfSlotY, halfSlotX, halfSlotY);
+            }
+
+            float reach = _hubSlotRadius + _slotSize.magnitude * 0.5f;
+            return new ClusterFootprint(-reach, -reach, reach, reach);
+        }
+
+        /// <summary>Box a cluster occupies, padded by the gap every placement has to keep.</summary>
+        private Rect Box(Vector2 centre, ClusterFootprint footprint)
+        {
+            return new Rect(
+                centre.x + footprint.Min.x - _clusterGap * 0.5f,
+                centre.y + footprint.Min.y - _clusterGap * 0.5f,
+                footprint.Size.x + _clusterGap,
+                footprint.Size.y + _clusterGap);
+        }
+
+        /// <summary>True when a cluster at that spot would sit under the HUD or on another node.</summary>
+        private bool Blocked(Vector2 centre, ClusterFootprint footprint)
+        {
+            Rect box = Box(centre, footprint);
+
+            foreach (Rect obstacle in _obstacleRects)
+            {
+                if (obstacle.Overlaps(box)) return true;
+            }
+
+            foreach (Rect placed in _placedBoxes)
+            {
+                if (placed.Overlaps(box)) return true;
+            }
+
+            return false;
+        }
+
+        private static void Shuffle<T>(List<T> list)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int j = UnityEngine.Random.Range(0, i + 1);
+                T temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
         }
 
         /// <summary>
@@ -544,6 +768,47 @@ namespace Constellation.Gameplay
                 rect.pivot = new Vector2(0.5f, 0.5f);
                 rect.sizeDelta = _slotSize;
                 rect.anchoredPosition = new Vector2((i - (chunks.Count - 1) * 0.5f) * step, yOffset);
+
+                slot.Bind(ownerId, chunks[i], i);
+                slot.Filled += HandleSlotFilled;
+
+                slots.Add(slot);
+            }
+
+            return slots;
+        }
+
+        /// <summary>
+        /// Builds one empty hex outline per chunk around a hub, spaced evenly on a circle so every
+        /// target owns its own side of the gem and the links fan out in reading order.
+        /// </summary>
+        /// <param name="parent">Hub the slots belong to.</param>
+        /// <param name="ownerId">Bridge keyword.</param>
+        /// <param name="chunks">Chunks the hub owes, already ordered.</param>
+        /// <param name="radius">Distance of each outline from the gem centre.</param>
+        /// <returns>The slots that were created.</returns>
+        private List<ChunkSlotView> CreateSlotRing(Transform parent, string ownerId, List<PhraseChunk> chunks, float radius)
+        {
+            var slots = new List<ChunkSlotView>();
+
+            if (_slotPrefab == null || chunks == null || chunks.Count == 0) return slots;
+
+            float step = 360f / chunks.Count;
+            float startAngle = -90f;
+
+            for (int i = 0; i < chunks.Count; i++)
+            {
+                ChunkSlotView slot = Instantiate(_slotPrefab, parent);
+                slot.name = "Slot_" + chunks[i].chunkId;
+
+                var rect = (RectTransform)slot.transform;
+                rect.anchorMin = new Vector2(0.5f, 0.5f);
+                rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.pivot = new Vector2(0.5f, 0.5f);
+                rect.sizeDelta = _slotSize;
+
+                float angle = (startAngle + i * step) * Mathf.Deg2Rad;
+                rect.anchoredPosition = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
 
                 slot.Bind(ownerId, chunks[i], i);
                 slot.Filled += HandleSlotFilled;

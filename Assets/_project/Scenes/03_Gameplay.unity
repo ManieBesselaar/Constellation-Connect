@@ -3072,16 +3072,14 @@ MonoBehaviour:
   _scoreLabel: {fileID: 523758187}
   _progressLabel: {fileID: 1349381518}
   _hintService: {fileID: 1172847346}
-  _anchorSpacing: 480
-  _anchorTopY: 280
-  _anchorBandGap: 270
-  _anchorsPerBand: 3
-  _hubYOffset: -232
-  _hubSpacing: 480
   _slotSize: {x: 104, y: 60}
   _slotGap: 6
   _anchorSlotY: -145
-  _hubSlotY: -93
+  _hubSlotRadius: 112
+  _clusterPitch: {x: 400, y: 380}
+  _clusterGap: 20
+  _layoutPadding: {x: 24, y: 14}
+  _placementAttempts: 32
 --- !u!1001 &1185359178
 PrefabInstance:
   m_ObjectHideFlags: 0
