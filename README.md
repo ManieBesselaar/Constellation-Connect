@@ -708,7 +708,8 @@ Being honest about the state of an experiment:
 
 ## Licence
 
-Released under the **MIT Licence** — see [LICENSE](LICENSE).
+Released under the **MIT Licence** — see [LICENSE](LICENSE). Attribution notes and asset provenance
+are in [NOTICE.md](NOTICE.md).
 
 In short: use it, learn from it, fork it, ship something better with it. If you do build on it, please
 keep the copyright notice and link back to this repository:
