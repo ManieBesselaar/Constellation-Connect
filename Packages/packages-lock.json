@@ -27,6 +27,15 @@
       },
       "hash": "f7786a8ecbff7d7d427d84e36bb0235e1432d529"
     },
+    "com.ramenvr.autopilot": {
+      "version": "https://github.com/ramenvr/autopilot.git?path=/plugin/unity/com.ramenvr.autopilot#9e0fbb0f2a5ae18d68d1f1f5d6ec17aceb15a1d5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.mono-cecil": "1.11.6"
+      },
+      "hash": "9e0fbb0f2a5ae18d68d1f1f5d6ec17aceb15a1d5"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.6",
       "depth": 0,
@@ -245,7 +254,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
