@@ -4,6 +4,10 @@ A small scripture-memorisation puzzle built in Unity 6 (URP 2D). You study a han
 verses, then rebuild each one by dragging its phrase fragments onto the constellation of nodes on
 screen — and every verse is tied to the next one through a shared keyword.
 
+> **Built in about a day.** From an empty Unity project to the playable game and this repository took
+> roughly **24 hours** of wall-clock time: 25 commits between **17 Nov 2026, 14:51** and
+> **18 Nov 2026, 14:30** (UTC+4), with a human directing and reviewing every step alongside AI tools.
+
 ![Constellation map](docs/screenshots/cc-main-menu.png)
 
 ---
