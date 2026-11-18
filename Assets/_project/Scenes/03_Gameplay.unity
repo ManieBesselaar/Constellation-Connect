@@ -3045,6 +3045,8 @@ MonoBehaviour:
   _pulseWidthScale: 10.63
   _pulseCycleSeconds: 10
   _curveAmount: 0.12
+  _curveMinWaves: 1
+  _curveMaxWaves: 4
   _curveGrowth: 0.6
   _curveMaxBend: 0.32
   _curveClearance: 16
@@ -3078,10 +3080,10 @@ MonoBehaviour:
   _scoreLabel: {fileID: 523758187}
   _progressLabel: {fileID: 1349381518}
   _hintService: {fileID: 1172847346}
-  _slotSize: {x: 104, y: 60}
-  _slotGap: 6
-  _anchorSlotY: -145
-  _hubSlotRadius: 112
+  _slotSize: {x: 200, y: 96}
+  _slotGap: 8
+  _anchorSlotY: -163
+  _hubSlotRadius: 130
   _clusterPitch: {x: 400, y: 380}
   _clusterGap: 20
   _layoutPadding: {x: 24, y: 14}
