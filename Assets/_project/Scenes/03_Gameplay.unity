@@ -3038,6 +3038,11 @@ MonoBehaviour:
   _thickness: 14
   _cyanTint: {r: 0.35, g: 0.95, b: 1, a: 1}
   _goldTint: {r: 1, g: 0.84, b: 0.44, a: 1}
+  _glowMaterial: {fileID: 2100000, guid: 375b6631c2049884aa605285dccdf8bf, type: 2}
+  _glowThicknessScale: 3.5
+  _glowAlpha: 0.45
+  _pulseDiameterScale: 5
+  _pulseCycleSeconds: 1
 --- !u!114 &1172847348
 MonoBehaviour:
   m_ObjectHideFlags: 0

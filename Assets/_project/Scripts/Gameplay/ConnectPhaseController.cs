@@ -742,8 +742,9 @@ namespace Constellation.Gameplay
         }
 
         /// <summary>
-        /// Draws the gold star link for a placed bridge chunk: from the anchor outline of the verse
-        /// chunk beside it to the hub outline that took the bridge chunk.
+        /// Draws the glowing star link for a placed bridge chunk between the anchor outline of the verse
+        /// chunk beside it and the hub outline that took the bridge chunk. The pulse runs in reading
+        /// order, so it leaves whichever of the two chunks comes first.
         /// </summary>
         /// <param name="verse">Verse the bridge chunk belongs to.</param>
         /// <param name="bridgeSlot">Hub outline the bridge chunk was placed in.</param>
@@ -752,12 +753,13 @@ namespace Constellation.Gameplay
             if (_linkRenderer == null || verse == null || bridgeSlot == null) return;
 
             ChunkSlotView anchorSlot = FindNeighbourAnchorSlot(verse, bridgeSlot.ExpectedChunk);
-            if (anchorSlot == null) return;
+            if (anchorSlot == null || anchorSlot.ExpectedChunk == null) return;
 
-            _linkRenderer.DrawLinkBetween(
-                (RectTransform)anchorSlot.transform,
-                (RectTransform)bridgeSlot.transform,
-                true);
+            bool anchorFirst = anchorSlot.ExpectedChunk.order <= bridgeSlot.ExpectedChunk.order;
+
+            _linkRenderer.DrawBridgeLink(
+                (RectTransform)(anchorFirst ? anchorSlot : bridgeSlot).transform,
+                (RectTransform)(anchorFirst ? bridgeSlot : anchorSlot).transform);
         }
 
         /// <summary>
