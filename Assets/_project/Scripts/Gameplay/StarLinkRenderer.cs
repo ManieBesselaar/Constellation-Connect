@@ -69,6 +69,23 @@ namespace Constellation.Gameplay
         }
 
         /// <summary>
+        /// Draws a link between two rects, converting their centres into the link root's local space so
+        /// callers can pass chunk outlines wherever they sit in the hierarchy.
+        /// </summary>
+        /// <param name="from">Rect the link starts at, usually the anchor's chunk outline.</param>
+        /// <param name="to">Rect the link ends at, usually the hub outline taking a bridge chunk.</param>
+        /// <param name="isBridge">True to render the gold bridge style.</param>
+        public void DrawLinkBetween(RectTransform from, RectTransform to, bool isBridge)
+        {
+            if (_linkRoot == null || from == null || to == null) return;
+
+            DrawLink(
+                _linkRoot.InverseTransformPoint(from.TransformPoint(from.rect.center)),
+                _linkRoot.InverseTransformPoint(to.TransformPoint(to.rect.center)),
+                isBridge);
+        }
+
+        /// <summary>
         /// Removes every drawn link.
         /// </summary>
         public void ClearLinks()

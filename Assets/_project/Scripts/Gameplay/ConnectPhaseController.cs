@@ -645,11 +645,10 @@ namespace Constellation.Gameplay
 
                 if (_completionOrder.Count > 1)
                 {
+                    // Draw between the medallions themselves: the board root and the link root do not
+                    // share an origin, so board-local positions would land the segment off the nodes.
                     RectTransform previous = (RectTransform)_completionOrder[_completionOrder.Count - 2].transform;
-                    _linkRenderer.DrawLink(
-                        ((RectTransform)node.transform).anchoredPosition,
-                        previous.anchoredPosition,
-                        false);
+                    _linkRenderer.DrawLinkBetween((RectTransform)node.transform, previous, false);
                 }
             }
 
@@ -676,18 +675,6 @@ namespace Constellation.Gameplay
                 if (bridge.Hub != null)
                 {
                     bridge.Hub.SetCompleteVisual();
-
-                    var hubRect = (RectTransform)bridge.Hub.transform;
-
-                    foreach (VerseRuntime verse in bridge.Participants)
-                    {
-                        if (verse.Node == null) continue;
-
-                        _linkRenderer.DrawLink(
-                            hubRect.anchoredPosition,
-                            ((RectTransform)verse.Node.transform).anchoredPosition,
-                            true);
-                    }
                 }
 
                 Debug.Log($"[ConnectPhaseController] Bridge '{bridge.Tag}' completed, linking {bridge.Participants.Count} verses.");
@@ -701,6 +688,9 @@ namespace Constellation.Gameplay
 
             VerseRuntime owner = FindVerseByBridgeChunk(slot.ExpectedChunk);
             if (owner == null) return;
+
+            // A bridge chunk joins the verse at the chunk outline beside it, not at the hub medallion.
+            LinkBridgeToVerse(owner, slot);
 
             owner.PendingBridges.RemoveAll(pending => pending != null && pending.chunkId == slot.ExpectedChunk.chunkId);
 
@@ -746,6 +736,86 @@ namespace Constellation.Gameplay
                 {
                     if (pending != null && pending.chunkId == chunk.chunkId) return verse;
                 }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Draws the gold star link for a placed bridge chunk: from the anchor outline of the verse
+        /// chunk beside it to the hub outline that took the bridge chunk.
+        /// </summary>
+        /// <param name="verse">Verse the bridge chunk belongs to.</param>
+        /// <param name="bridgeSlot">Hub outline the bridge chunk was placed in.</param>
+        private void LinkBridgeToVerse(VerseRuntime verse, ChunkSlotView bridgeSlot)
+        {
+            if (_linkRenderer == null || verse == null || bridgeSlot == null) return;
+
+            ChunkSlotView anchorSlot = FindNeighbourAnchorSlot(verse, bridgeSlot.ExpectedChunk);
+            if (anchorSlot == null) return;
+
+            _linkRenderer.DrawLinkBetween(
+                (RectTransform)anchorSlot.transform,
+                (RectTransform)bridgeSlot.transform,
+                true);
+        }
+
+        /// <summary>
+        /// Finds the verse's anchor outline that sits next to a bridge chunk: the nearest phrase chunk
+        /// before it in the verse, or the nearest one after it when the bridge chunk opens the verse.
+        /// </summary>
+        /// <param name="verse">Verse the bridge chunk belongs to.</param>
+        /// <param name="bridgeChunk">Bridge chunk that was placed.</param>
+        /// <returns>The neighbouring anchor outline, or null when the verse has no anchor slots.</returns>
+        private ChunkSlotView FindNeighbourAnchorSlot(VerseRuntime verse, PhraseChunk bridgeChunk)
+        {
+            if (verse == null || verse.Definition == null || bridgeChunk == null) return null;
+
+            List<PhraseChunk> chunks = verse.Definition.chunks;
+            if (chunks == null || chunks.Count == 0) return null;
+
+            for (int i = 0; i < chunks.Count; i++)
+            {
+                if (chunks[i] == null || chunks[i].chunkId != bridgeChunk.chunkId) continue;
+
+                // Step outwards from the bridge chunk, trying the chunk that precedes it first.
+                for (int step = 1; step < chunks.Count; step++)
+                {
+                    int before = i - step;
+                    if (before >= 0)
+                    {
+                        ChunkSlotView slot = FindAnchorSlotFor(verse, chunks[before]);
+                        if (slot != null) return slot;
+                    }
+
+                    int after = i + step;
+                    if (after < chunks.Count)
+                    {
+                        ChunkSlotView slot = FindAnchorSlotFor(verse, chunks[after]);
+                        if (slot != null) return slot;
+                    }
+                }
+
+                return null;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the verse's anchor outline bound to a chunk, or null when the chunk has none there
+        /// (bridge chunks sit on a hub, not on the verse).
+        /// </summary>
+        /// <param name="verse">Verse whose outlines are searched.</param>
+        /// <param name="chunk">Chunk the outline must expect.</param>
+        private ChunkSlotView FindAnchorSlotFor(VerseRuntime verse, PhraseChunk chunk)
+        {
+            if (verse == null || chunk == null) return null;
+
+            foreach (ChunkSlotView slot in verse.Slots)
+            {
+                if (slot == null || slot.ExpectedChunk == null) continue;
+                if (slot.ExpectedChunk.chunkId == chunk.chunkId) return slot;
             }
 
             return null;
