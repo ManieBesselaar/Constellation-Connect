@@ -176,8 +176,8 @@ All of these choices are written straight into the save file and re-applied to t
 - **Unity 6.3** — editor `6000.3.25f1` (`ProjectSettings/ProjectVersion.txt`).
 - **URP 2D** (`com.unity.render-pipelines.universal` 17.3.0), **uGUI 2.0**, **TextMeshPro**,
   **Unity Localization 1.5.14**, **Input System 1.20.0**.
-- `GameSettings` is not required; the game reads and writes its own payload through the framework's
-  save system.
+- Nothing outside `Packages/manifest.json` is required; the game reads and writes its own payload
+  through the framework's save system.
 
 Open `Assets/_project/Scenes/00_Bootstrap.unity` and press **Play**.
 
