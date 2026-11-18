@@ -92,7 +92,7 @@ namespace Constellation.Gameplay
         [SerializeField] private float _anchorBandGap = 270f;
 
         [Tooltip("Vertical offset of the bridge band, in canvas units.")]
-        [SerializeField] private float _hubYOffset = -245f;
+        [SerializeField] private float _hubYOffset = -232f;
 
         [Tooltip("Horizontal distance between bridge hubs.")]
         [SerializeField] private float _hubSpacing = 480f;
@@ -107,7 +107,7 @@ namespace Constellation.Gameplay
         [SerializeField] private float _anchorSlotY = -145f;
 
         [Tooltip("Vertical offset of a hub's slot row, measured from the gem centre.")]
-        [SerializeField] private float _hubSlotY = -100f;
+        [SerializeField] private float _hubSlotY = -93f;
 
         /// <summary>One verse plus the runtime state of its anchor node.</summary>
         private class VerseRuntime

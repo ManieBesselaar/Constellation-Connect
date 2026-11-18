@@ -127,7 +127,7 @@ namespace Constellation.Gameplay
             _canvasGroup.blocksRaycasts = true;
             if (_background != null) _background.color = _restColor;
 
-            IDropTarget target = FindTargetUnderPointer(eventData);
+            IDropTarget target = FindTargetUnderTile();
             int acceptedBefore = target != null ? target.AcceptedCount : 0;
 
             Dropped?.Invoke(this, target);
@@ -145,10 +145,26 @@ namespace Constellation.Gameplay
             _rect.anchoredPosition = _origin;
         }
 
-        private IDropTarget FindTargetUnderPointer(PointerEventData eventData)
+        /// <summary>
+        /// Resolves the drop from where the tile is drawn rather than from the pointer. The tile is held
+        /// half of <see cref="TouchYOffset"/> above the pointer, so a player who lines the tile up with a
+        /// target outline would otherwise release the pointer below it and miss.
+        /// </summary>
+        /// <returns>The drop target under the tile's centre, or null.</returns>
+        private IDropTarget FindTargetUnderTile()
         {
+            if (EventSystem.current == null) return null;
+
+            Camera camera = _canvas != null && _canvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? _canvas.worldCamera
+                : null;
+
+            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(
+                camera, _rect.TransformPoint(_rect.rect.center));
+
+            var probe = new PointerEventData(EventSystem.current) { position = screenPoint };
             var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
+            EventSystem.current.RaycastAll(probe, results);
 
             foreach (RaycastResult result in results)
             {

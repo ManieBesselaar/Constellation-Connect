@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 679419360}
   m_HandleRect: {fileID: 679419359}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3068,12 +3068,12 @@ MonoBehaviour:
   _anchorSpacing: 480
   _anchorTopY: 280
   _anchorBandGap: 270
-  _hubYOffset: -245
+  _hubYOffset: -232
   _hubSpacing: 480
   _slotSize: {x: 104, y: 60}
   _slotGap: 6
   _anchorSlotY: -145
-  _hubSlotY: -100
+  _hubSlotY: -93
 --- !u!1001 &1185359178
 PrefabInstance:
   m_ObjectHideFlags: 0
