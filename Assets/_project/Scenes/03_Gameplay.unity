@@ -3041,8 +3041,9 @@ MonoBehaviour:
   _glowMaterial: {fileID: 2100000, guid: 375b6631c2049884aa605285dccdf8bf, type: 2}
   _glowThicknessScale: 3.5
   _glowAlpha: 0.45
-  _pulseDiameterScale: 5
-  _pulseCycleSeconds: 1
+  _pulseLengthRadiusScale: 5
+  _pulseWidthScale: 2
+  _pulseCycleSeconds: 10
 --- !u!114 &1172847348
 MonoBehaviour:
   m_ObjectHideFlags: 0

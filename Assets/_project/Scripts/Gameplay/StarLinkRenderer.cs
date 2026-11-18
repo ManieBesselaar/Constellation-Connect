@@ -39,11 +39,14 @@ namespace Constellation.Gameplay
         [Range(0f, 1f)]
         [SerializeField] private float _glowAlpha = 0.45f;
 
-        [Tooltip("Pulse diameter as a multiple of the link thickness.")]
-        [SerializeField] private float _pulseDiameterScale = 5f;
+        [Tooltip("Pulse length along the link, as a multiple of the line's radius.")]
+        [SerializeField] private float _pulseLengthRadiusScale = 5f;
+
+        [Tooltip("Pulse width across the link, as a multiple of the line width.")]
+        [SerializeField] private float _pulseWidthScale = 2f;
 
         [Tooltip("Seconds a pulse takes to travel from the start of its link to the end.")]
-        [SerializeField] private float _pulseCycleSeconds = 1f;
+        [SerializeField] private float _pulseCycleSeconds = 10f;
 
         private const int GlowSpriteSize = 128;
 
@@ -203,8 +206,10 @@ namespace Constellation.Gameplay
             rect.pivot = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = Vector2.zero;
 
-            float diameter = _thickness * _pulseDiameterScale;
-            rect.sizeDelta = new Vector2(diameter, diameter);
+            // Longer along the line than across it, so the orb reads as travelling in one direction.
+            float pulseLength = _thickness * 0.5f * _pulseLengthRadiusScale;
+            float pulseWidth = _thickness * _pulseWidthScale;
+            rect.sizeDelta = new Vector2(pulseLength, pulseWidth);
 
             var image = go.AddComponent<Image>();
             image.sprite = GetGlowSprite();
